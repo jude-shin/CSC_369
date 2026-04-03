@@ -9,7 +9,12 @@ class Phone {
 	
 	@Override
 	public String toString(){
-		// TODO: 
-		return "";
+		String s = String.format("%010d", number);
+
+		return String.format("%s %s %s", 
+				s.substring(0, 3),
+				s.substring(3, 6),
+				s.substring(6, 10)
+				);
 	}
 }
