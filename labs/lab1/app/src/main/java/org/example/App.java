@@ -13,134 +13,56 @@ import java.util.Scanner;
 
 /*
 	 Note that the files are stored in app/output directory
-*/
+	 */
 
 public class App {
-	public static void main(String[] args) {
+	private static HashSet<Customer> customers;
+	private static HashSet<Store> stores;
+	private static HashSet<Product> products;
+	private static HashSet<Sale> sales;
+	private static HashSet<LineItem> lineItems;
 
+	public static void main(String[] args) {
 		Random rand = new Random();
 
-
-class VendorCollection {
-    private HashSet<Customer> customers;
-    private HashSet<Store> stores;
-    private HashSet<Product> products;
-    private HashSet<Sale> sales;
-    private HashSet<LineItem> lineItems;
+		/* POPULATE THE HASHSETS */
 
 
+		/* WRITE FROM THE HASHSETS */
+		// For every elemet in a set, write them to a file on a new line
 		try {
-			// 1000 iterations
-			for (int i = 0; i < 1; i++) {
+			// Customers set
+			for (Customer c : customers) {
 				Files.writeString(Path.of("output/customer"), 
-						String.format("%d, %s, %d/%d/%d, %d %s %s, %s, %d, %s, %d %d %d",
-							i,											// ID 
-																			// name
-																			// birthdate year 
-																			// birthdate month 
-																			// birthdate month 
-																			// address Number
-																			// address Name 
-																			// city
-																			// ZIP
-																			// state
-																			// phoneNumber
-							)
-						);
-				// "12, John Sam, 1989/11/11, 123 Main St, SLO, 93401, CA, 805 555 5555"
+						String.format("%s\n",  c.toString()));
 			}
+
+			// Store set
+			for (Store c : stores) {
+				Files.writeString(Path.of("output/stores"), 
+						String.format("%s\n",  c.toString()));
+			}
+
+			// Products set
+			for (Product c : products) {
+				Files.writeString(Path.of("output/products"), 
+						String.format("%s\n",  c.toString()));
+			}
+
+			// Sales set
+			for (Sale c : sales) {
+				Files.writeString(Path.of("output/sales"), 
+						String.format("%s\n",  c.toString()));
+			}
+
+			// LineItems set
+			for (LineItem c : lineItems) {
+				Files.writeString(Path.of("output/lineItems"), 
+						String.format("%s\n",  c.toString()));
+			}
+
 		} catch (IOException e) { 
 			e.printStackTrace(); 
 		}
-
-		// =========================================================================
-
-		// public static String randomString(int length) {
-		// 	return new Random().ints(length, 'a', 'z' + 1)
-		// 		.mapToObj(i -> String.valueOf((char) i))
-		// 		.collect(Collectors.joining());
-		// }
-
-
-		// 	// 1000 iterations
-		// 	for (int i = 0; i < 1; i++) {
-		// 		Files.writeString(Path.of("output/customer"), 
-		// 				String.format("%d, %s, %d/%d/%d, %d %s %s, %s, %d, %s, %d %d %d",
-		// 					i,											// ID 
-		// 					// name
-		// 					// birthdate year 
-		// 					// birthdate month 
-		// 					// birthdate month 
-		// 					// address Number
-		// 					// address Name 
-		// 					// city
-		// 					// ZIP
-		// 					// state
-		// 					// phoneNumber
-		// 					)
-		// 				);
-		// 				// "12, John Sam, 1989/11/11, 123 Main St, SLO, 93401, CA, 805 555 5555"
-		// 	}
-
-		// 	// 100 iterations
-		// 	for (int i = 0; i < 1; i++) {
-		// 		Files.writeString(Path.of("output/store"), 
-		// 				String.format("%d, %s, %d %s, %s, %d, %s, %d %d %d", 
-		// 					i,										// ID 
-		// 					// storeName 
-		// 					// address Number
-		// 					// address Name 
-		// 					// city
-		// 					// ZIP
-		// 					// state
-		// 					// phoneNumber
-		// 					)
-		// 				);
-		// 				// "12, Best Buy, 123 Main St, SLO, 93401, CA, 805 555 5555"
-		// 	}
-
-
-		// 	// 2000 iterations
-		// 	for (int i = 0; i < 1; i++) {
-		// 		Files.writeString(Path.of("output/sales"), 
-		// 				String.format("%d, %d/%d/%d, %d:%d:%d, %d, %d",
-		// 					i,											// ID 
-		// 					// birthdate year 
-		// 					// birthdate month 
-		// 					// birthdate month 
-		// 					// date hour 
-		// 					// date minute
-		// 					// date second
-
-		// 					// storeID
-		// 					// customerID
-		// 					)
-		// 				);
-		// 				// "13, 2017/01/01, 13:23:11, 23, 56"
-		// 	}
-	
-		// 	// 100 iterations
-		// 	for (int i = 0; i < 1; i++) {
-		// 		Files.writeString(Path.of("output/product"), 
-		// 				String.format("%d, %s, %.2f",
-		// 					i,											// ID 
-		// 					// description
-		// 					// price
-		// 					)
-		// 				);
-		// 				// "122, XBox 360, 230.23"
-		// 	}
-
-		// 	// 4000 iterations
-		// 	for (int i = 0; i < 1; i++) {
-		// 		Files.writeString(Path.of("output/lineItem"), 
-		// 				String.format("%d, %d, %d, %d", 
-		// 					i,											// ID 
-
-		// 					)
-		// 				);
-		// 				// "11, 13, 122, 8"
-		// 	}
-
 	}
 }
