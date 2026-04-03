@@ -15,7 +15,11 @@ class Address {
 	
 	@Override
 	public String toString(){
-		// TODO: 
-		return "";
+		return String.format("%s, %s, %05d, %s",
+				address, 
+				city,
+				zip,
+				state
+				);
 	}
 }
