@@ -26,6 +26,7 @@ public class App {
 		Random rand = new Random();
 
 		/* POPULATE THE HASHSETS */
+		// Customers set
 
 
 		/* WRITE FROM THE HASHSETS */

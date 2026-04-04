@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 class Customer {
 	public static int unique_id = 0;
@@ -19,7 +20,31 @@ class Customer {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
+
+	public HashSet<Customer> fakeData(int quantity) {
+		HashSet<Customer> customers = new HashSet<>();
+
+		// TODO: query quantity number of fake data from the endpoint
+
+		for (int i=0; i < quantity; i++) {
+			// The item to add 
+			Customer c;
+
+			// Populate that item
+			// TODO:
+
+			while (!customers.contains(c)) {
+				// c = [new customer]
+				// TODO:
+			}
+		
+			// Add it to the set
+			customers.add(c);
+		}
 	
+		return customers;
+	}
+
 	@Override
 	public String toString(){
 		return String.format(
