@@ -16,7 +16,10 @@ class Product {
 	
 	@Override
 	public String toString(){
-		// TODO: 
-		return "";
+		return String.format(
+				"%d, %s, %0.2f",
+				id, 
+				description, 
+				price);
 	}
 }
