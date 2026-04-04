@@ -2,6 +2,7 @@ package org.example;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 class Sale {
 	public static int unique_id = 0;
@@ -23,7 +24,12 @@ class Sale {
 	
 	@Override
 	public String toString(){
-		// TODO: 
-		return "";
+		return String.format(
+				"%d, %s, %s, %d, %d",
+				id,
+				date.toString().replaceAll("-", "/"),
+				time.format(DateTimeFormatter.ofPattern("HH:mm:ss")),
+				storeId, 
+				customerId);
 	}
 }
