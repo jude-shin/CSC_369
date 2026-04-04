@@ -18,7 +18,11 @@ class Store {
 	
 	@Override
 	public String toString(){
-		// TODO: 
-		return "";
+		return String.format(
+				"%d, %s, %s, %s",
+				id, 
+				name, 
+				address.toString(), 
+				phoneNumber.toString());
 	}
 }
