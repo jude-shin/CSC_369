@@ -18,7 +18,11 @@ class LineItem {
 
 	@Override
 	public String toString(){
-		// TODO: 
-		return "";
+		return String.format(
+				"%d, %d, %d, %d",
+				id, 
+				salesId, 
+				productId, 
+				quantity);
 	}
 }
