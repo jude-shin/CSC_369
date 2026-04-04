@@ -22,7 +22,12 @@ class Customer {
 	
 	@Override
 	public String toString(){
-		// TODO: 
-		return "";
+		return String.format(
+				"%d, %s, %s, %s, %s",
+				id,
+				name, 
+				birthDate.toString().replaceAll("-", "/"),
+				address.toString(),
+				phoneNumber.toString());
 	}
 }
