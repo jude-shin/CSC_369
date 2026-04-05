@@ -6,14 +6,9 @@ package org.example;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
-import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.HashSet;
-import java.util.Scanner;
 
-/*
-	 Note that the files are stored in app/output directory
-	 */
+/* Note that the files are stored in app/output directory */
 
 public class App {
 	private static HashSet<Customer> customers;
@@ -23,10 +18,9 @@ public class App {
 	private static HashSet<LineItem> lineItems;
 
 	public static void main(String[] args) {
-		Random rand = new Random();
-
 		/* POPULATE THE HASHSETS */
 		// Customers set
+		customers = Customer.getFakeData(1);
 
 
 		/* WRITE FROM THE HASHSETS */
@@ -34,8 +28,9 @@ public class App {
 		try {
 			// Customers set
 			for (Customer c : customers) {
-				Files.writeString(Path.of("output/customer"), 
-						String.format("%s\n",  c.toString()));
+				System.out.println(String.format("%s\n", c.toString()));
+				// Files.writeString(Path.of("output/customer"), 
+				// 		String.format("%s\n",  c.toString()));
 			}
 
 			// Store set
