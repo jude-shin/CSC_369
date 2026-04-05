@@ -20,13 +20,13 @@ public class App {
 	public static void main(String[] args) {
 		/* POPULATE THE HASHSETS */
 		// Customers set
-		customers = Customer.getFakeData(1);
+		customers = Customer.getFakeData(5);
 
 		// Store set
-		stores = Store.getFakeData(1);
+		stores = Store.getFakeData(5);
 
 		// Products set
-		products = new HashSet<>();
+		products = Product.getFakeData(5);
 
 		// Sales set
 		sales = new HashSet<>();
@@ -45,8 +45,8 @@ public class App {
 				// 		String.format("%s\n",  c.toString()));
 			}
 
-			// Store set
-			System.out.println("Store set:\n");
+			// Stores set
+			System.out.println("Stores set:\n");
 			for (Store s : stores) {
 				System.out.println(String.format("%s\n", s.toString()));
 				// Files.writeString(Path.of("output/stores"), 
@@ -54,9 +54,11 @@ public class App {
 			}
 
 			// Products set
-			for (Product c : products) {
-				Files.writeString(Path.of("output/products"), 
-						String.format("%s\n",  c.toString()));
+			System.out.println("Products set:\n");
+			for (Product p : products) {
+				System.out.println(String.format("%s\n", p.toString()));
+				// Files.writeString(Path.of("output/products"), 
+				// 		String.format("%s\n",  c.toString()));
 			}
 
 			// Sales set

@@ -8,7 +8,7 @@ class LineItem {
 	private int productId;
 	private int quantity;
 
-	public LineItem (int salesId, int productId, int quantity) {
+	public LineItem(int salesId, int productId, int quantity) {
 		this.id = unique_id;
 		unique_id++;
 		this.salesId = salesId;

@@ -10,7 +10,7 @@ class Phone {
 	}
 
 	// fakerapi.it
-	public Phone (JsonNode phone) {
+	public Phone(JsonNode phone) {
 		// "+1xxxxxxxxxx"
 		this.number = Long.parseLong(phone.asText().substring(phone.asText().length()-10));
 	}

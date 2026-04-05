@@ -13,7 +13,7 @@ class Sale {
 	private int storeId;
 	private int customerId;
 
-	public Sale (LocalDate date, LocalTime time, int storeId, int customerId) {
+	public Sale(LocalDate date, LocalTime time, int storeId, int customerId) {
 		this.id = unique_id;
 		unique_id++;
 		this.date = date;

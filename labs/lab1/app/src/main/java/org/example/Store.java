@@ -1,6 +1,5 @@
 package org.example;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -18,7 +17,7 @@ class Store {
 	private Address address;
 	private Phone phoneNumber;
 
-	public Store (String name, Address address, Phone phoneNumber) {
+	public Store(String name, Address address, Phone phoneNumber) {
 		this.id = unique_id;
 		unique_id++;
 		this.name = name;
@@ -52,23 +51,21 @@ class Store {
 		}
 
 		// Parse Each Store 
-
 		for (JsonNode store : fakeStores) {
 			// The item to add 
-				Store c = new Store(
+				Store s = new Store(
 						store.get("name").asText(),
 						new Address(store.get("addresses").get(0)),
 						new Phone(store.get("phone"))
 						);
 
 			// Add it to the set
-			stores.add(c);
+			stores.add(s);
 		}
 
 		return stores;
 	}
 
-	
 	@Override
 	public String toString(){
 		return String.format(

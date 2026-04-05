@@ -16,7 +16,7 @@ class Address {
 	}
 
 	// fakerapi.it
-	public Address (JsonNode address) {
+	public Address(JsonNode address) {
 		this.address = address.get("street").asText();
 		this.city = address.get("city").asText();
 		this.zip = address.get("zipcode").asText().substring(0, 5);
