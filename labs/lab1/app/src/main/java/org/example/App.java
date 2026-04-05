@@ -22,6 +22,17 @@ public class App {
 		// Customers set
 		customers = Customer.getFakeData(1);
 
+		// Store set
+		stores = new HashSet<>();
+
+		// Products set
+		products = new HashSet<>();
+
+		// Sales set
+		sales = new HashSet<>();
+
+		// LineItems set
+		lineItems = new HashSet<>();
 
 		/* WRITE FROM THE HASHSETS */
 		// For every elemet in a set, write them to a file on a new line

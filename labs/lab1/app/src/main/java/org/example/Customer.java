@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 class Customer {
-	public static final String endpoint = "https://fakerapi.it/api/v2/persons?_quantity=quantity";
+	public static final String endpoint = "https://fakerapi.it/api/v2/persons?_quantity=";
 	public static int unique_id = 0;
 
 	private int id;
@@ -38,7 +38,7 @@ class Customer {
 			// Query quantity number of fake data from the endpoint
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(endpoint))
+				.uri(URI.create(String.format("%s%d", endpoint, quantity)))
 				.header("Accept", "application/json")
 				.GET()
 				.build();
