@@ -23,7 +23,7 @@ public class App {
 		customers = Customer.getFakeData(1);
 
 		// Store set
-		stores = new HashSet<>();
+		stores = Store.getFakeData(1);
 
 		// Products set
 		products = new HashSet<>();
@@ -38,6 +38,7 @@ public class App {
 		// For every elemet in a set, write them to a file on a new line
 		try {
 			// Customers set
+			System.out.println("Customer set:\n");
 			for (Customer c : customers) {
 				System.out.println(String.format("%s\n", c.toString()));
 				// Files.writeString(Path.of("output/customer"), 
@@ -45,9 +46,11 @@ public class App {
 			}
 
 			// Store set
-			for (Store c : stores) {
-				Files.writeString(Path.of("output/stores"), 
-						String.format("%s\n",  c.toString()));
+			System.out.println("Store set:\n");
+			for (Store s : stores) {
+				System.out.println(String.format("%s\n", s.toString()));
+				// Files.writeString(Path.of("output/stores"), 
+				// 		String.format("%s\n",  c.toString()));
 			}
 
 			// Products set

@@ -9,8 +9,6 @@ import java.net.http.HttpResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-
 class Customer {
 	public static final String endpoint = "https://fakerapi.it/api/v2/persons?_quantity=";
 	public static int unique_id = 0;
