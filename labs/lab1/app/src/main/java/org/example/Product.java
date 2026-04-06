@@ -19,11 +19,11 @@ class Product {
 	public Product(String description, double price) {
 		this.id = unique_id;
 		unique_id++;
-		this.description = description.replaceAll(".", "");
+		this.description = description.replaceAll("\\.", "");
 		this.price = price;
 	}
 	
-	public static HashSet<Product> getFakeData(int quantity) {
+	public static HashSet<Product> getFakeProducts(int quantity) {
 		HashSet<Product> products = new HashSet<>();
 		JsonNode fakeProducts;
 
@@ -60,6 +60,10 @@ class Product {
 		}
 
 		return products;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 	@Override

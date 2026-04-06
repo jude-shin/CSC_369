@@ -28,7 +28,7 @@ class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public static HashSet<Customer> getFakeData(int quantity) {
+	public static HashSet<Customer> getFakeCustomers(int quantity) {
 		HashSet<Customer> customers = new HashSet<>();
 		JsonNode fakePersons;
 
@@ -70,6 +70,10 @@ class Customer {
 		}
 
 		return customers;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 	@Override

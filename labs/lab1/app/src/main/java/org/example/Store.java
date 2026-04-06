@@ -25,8 +25,7 @@ class Store {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public static HashSet<Store> getFakeData(int quantity) {
-
+	public static HashSet<Store> getFakeStores(int quantity) {
 		HashSet<Store> stores = new HashSet<>();
 		JsonNode fakeStores;
 
@@ -64,6 +63,10 @@ class Store {
 		}
 
 		return stores;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 	@Override

@@ -20,16 +20,16 @@ public class App {
 	public static void main(String[] args) {
 		/* POPULATE THE HASHSETS */
 		// Customers set
-		customers = Customer.getFakeData(5);
+		customers = Customer.getFakeCustomers(5);
 
 		// Store set
-		stores = Store.getFakeData(5);
+		stores = Store.getFakeStores(5);
 
 		// Products set
-		products = Product.getFakeData(5);
+		products = Product.getFakeProducts(5);
 
 		// Sales set
-		sales = new HashSet<>();
+		sales = Sale.getFakeSales(5, customers, stores);
 
 		// LineItems set
 		lineItems = new HashSet<>();
@@ -62,9 +62,10 @@ public class App {
 			}
 
 			// Sales set
-			for (Sale c : sales) {
-				Files.writeString(Path.of("output/sales"), 
-						String.format("%s\n",  c.toString()));
+			for (Sale s : sales) {
+				System.out.println(String.format("%s\n", s.toString()));
+				// Files.writeString(Path.of("output/sales"), 
+				// 		String.format("%s\n",  s.toString()));
 			}
 
 			// LineItems set
