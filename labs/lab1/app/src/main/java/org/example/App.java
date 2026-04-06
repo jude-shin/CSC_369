@@ -4,8 +4,8 @@
 package org.example;
 
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.Path;
-import java.io.IOException;
 import java.util.HashSet;
 
 /* Note that the files are stored in app/output directory */
@@ -20,19 +20,19 @@ public class App {
 	public static void main(String[] args) {
 		/* POPULATE THE HASHSETS */
 		// Customers set
-		customers = Customer.getFakeCustomers(5);
+		customers = Customer.getFakeCustomers(1000);
 
 		// Store set
-		stores = Store.getFakeStores(5);
+		stores = Store.getFakeStores(100);
 
 		// Products set
-		products = Product.getFakeProducts(5);
+		products = Product.getFakeProducts(100);
 
 		// Sales set
-		sales = Sale.getFakeSales(5, customers, stores);
+		sales = Sale.getFakeSales(2000, customers, stores);
 
 		// LineItems set
-		lineItems = new HashSet<>();
+		lineItems = LineItem.getFakeLineItems(4000, sales, products);
 
 		/* WRITE FROM THE HASHSETS */
 		// For every elemet in a set, write them to a file on a new line
@@ -40,40 +40,55 @@ public class App {
 			// Customers set
 			System.out.println("Customer set:\n");
 			for (Customer c : customers) {
-				System.out.println(String.format("%s\n", c.toString()));
-				// Files.writeString(Path.of("output/customer"), 
-				// 		String.format("%s\n",  c.toString()));
+				// System.out.println(String.format("%s\n", c.toString()));
+				Files.writeString(
+						Path.of("output/customer"),
+						String.format("%s\n", c.toString()), 
+						StandardOpenOption.CREATE, 
+						StandardOpenOption.APPEND);
 			}
 
 			// Stores set
 			System.out.println("Stores set:\n");
 			for (Store s : stores) {
-				System.out.println(String.format("%s\n", s.toString()));
-				// Files.writeString(Path.of("output/stores"), 
-				// 		String.format("%s\n",  c.toString()));
+				// System.out.println(String.format("%s\n", s.toString()));
+				Files.writeString(
+						Path.of("output/stores"),
+						String.format("%s\n", s.toString()), 
+						StandardOpenOption.CREATE, 
+						StandardOpenOption.APPEND);
 			}
 
 			// Products set
 			System.out.println("Products set:\n");
 			for (Product p : products) {
-				System.out.println(String.format("%s\n", p.toString()));
-				// Files.writeString(Path.of("output/products"), 
-				// 		String.format("%s\n",  c.toString()));
+				// System.out.println(String.format("%s\n", p.toString()));
+				Files.writeString(
+						Path.of("output/products"),
+						String.format("%s\n", p.toString()), 
+						StandardOpenOption.CREATE, 
+						StandardOpenOption.APPEND);
 			}
 
 			// Sales set
 			System.out.println("Sales set:\n");
 			for (Sale s : sales) {
-				System.out.println(String.format("%s\n", s.toString()));
-				// Files.writeString(Path.of("output/sales"), 
-				// 		String.format("%s\n",  s.toString()));
+				// System.out.println(String.format("%s\n", s.toString()));
+				Files.writeString(
+						Path.of("output/sales"),
+						String.format("%s\n", s.toString()), 
+						StandardOpenOption.CREATE, 
+						StandardOpenOption.APPEND);
 			}
 
 			// LineItems set
 			for (LineItem l : lineItems) {
-				System.out.println(String.format("%s\n", l.toString()));
-				// Files.writeString(Path.of("output/lineItems"), 
-				// 		String.format("%s\n",  l.toString()));
+				// System.out.println(String.format("%s\n", l.toString()));
+				Files.writeString(
+						Path.of("output/lineItems"),
+						String.format("%s\n", l.toString()), 
+						StandardOpenOption.CREATE, 
+						StandardOpenOption.APPEND);
 			}
 
 		} catch (Exception e) { 
