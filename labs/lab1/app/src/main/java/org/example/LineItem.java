@@ -1,5 +1,16 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Duration;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+
 class LineItem {
 	public static int unique_id = 0;
 
@@ -8,6 +19,8 @@ class LineItem {
 	private int productId;
 	private int quantity;
 
+	public static int QUANTITY_MAX = 100;
+
 	public LineItem(int salesId, int productId, int quantity) {
 		this.id = unique_id;
 		unique_id++;
@@ -15,6 +28,38 @@ class LineItem {
 		this.productId = productId;
 		this.quantity = quantity;
 	}
+
+	public static HashSet<LineItem> getFakeLineItems(
+			int quantity, 
+			HashSet<Sale> sales,
+			HashSet<Product> products) {
+
+		HashSet<LineItem> lineItems = new HashSet<>();
+
+		for (int i=0; i < quantity; i++) {
+			// Grab a random customer
+			Sale s = sales.stream()
+				.skip(new Random().nextInt(sales.size()))
+				.findFirst()
+				.orElse(null);
+
+			// Grab a random store
+			Product p = products.stream()
+				.skip(new Random().nextInt(products.size()))
+				.findFirst()
+				.orElse(null);
+			
+			LineItem lineItem = new LineItem(
+					s.getId(),
+					p.getId(),
+					new Random().nextInt(LineItem.QUANTITY_MAX));
+		
+			lineItems.add(lineItem);
+		}
+
+		return lineItems;
+	}
+
 
 	@Override
 	public String toString(){

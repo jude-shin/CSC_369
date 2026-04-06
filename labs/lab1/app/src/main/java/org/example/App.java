@@ -62,6 +62,7 @@ public class App {
 			}
 
 			// Sales set
+			System.out.println("Sales set:\n");
 			for (Sale s : sales) {
 				System.out.println(String.format("%s\n", s.toString()));
 				// Files.writeString(Path.of("output/sales"), 
@@ -69,12 +70,13 @@ public class App {
 			}
 
 			// LineItems set
-			for (LineItem c : lineItems) {
-				Files.writeString(Path.of("output/lineItems"), 
-						String.format("%s\n",  c.toString()));
+			for (LineItem l : lineItems) {
+				System.out.println(String.format("%s\n", l.toString()));
+				// Files.writeString(Path.of("output/lineItems"), 
+				// 		String.format("%s\n",  l.toString()));
 			}
 
-		} catch (IOException e) { 
+		} catch (Exception e) { 
 			e.printStackTrace(); 
 		}
 	}

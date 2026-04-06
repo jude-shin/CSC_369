@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-
 class Sale {
 	public static int unique_id = 0;
 
@@ -59,11 +58,6 @@ class Sale {
 					c.getId(),
 					s.getId());
 		
-			if (sales.contains(sale)) {
-				i++;
-				continue;
-			}
-
 			sales.add(sale);
 		}
 
@@ -102,6 +96,9 @@ class Sale {
 			.collect(Collectors.toList());
 	}
 
+	public int getId() {
+		return this.id;
+	}
 
 	@Override
 	public String toString(){
