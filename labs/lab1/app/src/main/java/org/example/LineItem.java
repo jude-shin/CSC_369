@@ -33,10 +33,34 @@ class LineItem {
 			int quantity, 
 			HashSet<Sale> sales,
 			HashSet<Product> products) {
-
 		HashSet<LineItem> lineItems = new HashSet<>();
 
-		for (int i=0; i < quantity; i++) {
+		// Start off my including the first number of stores and customers
+		int i = sales.size();
+
+		if (quantity < i) {
+			// Throw an error because there must be at least one lineItem for every 
+			// sale 
+			throw new IllegalArgumentException("Quantity must be at least as large as the store and customer sets combined.");
+		}
+		
+		// Include every sale 
+		for (Sale s : sales) {
+			// Grab a random store
+			Product p = products.stream()
+				.skip(new Random().nextInt(products.size()))
+				.findFirst()
+				.orElse(null);
+
+			LineItem lineItem = new LineItem(
+					s.getId(),
+					p.getId(),
+					new Random().nextInt(LineItem.QUANTITY_MAX));
+
+			lineItems.add(lineItem);
+		}
+
+		for (; i < quantity; i++) {
 			// Grab a random customer
 			Sale s = sales.stream()
 				.skip(new Random().nextInt(sales.size()))
