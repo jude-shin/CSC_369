@@ -33,13 +33,58 @@ class Sale {
 			int quantity, 
 			HashSet<Customer> customers,
 			HashSet<Store> stores) {
-
 		HashSet<Sale> sales = new HashSet<>();
 
 		List<LocalDate> uniqueDates = getUniqueRandomDates(LocalDate.of(1900, 1, 1), LocalDate.now(), quantity);
 		List<LocalTime> uniqueTimes = getUniqueRandomTimes(LocalTime.MIN, LocalTime.MAX, quantity);
+	
+		// Start off my including the first number of stores and customers
+		int i = stores.size() + customers.size();
 
-		for (int i=0; i < quantity; i++) {
+		if (quantity < i) {
+			// Throw an error because there must be at least one from every
+			// customer and one from every store
+			throw new IllegalArgumentException("Quantity must be at least as large as the store and customer sets combined.");
+		}
+		
+		// Include every customer
+		for (Customer c : customers) {
+			// Grab a random store
+			Store s = stores.stream()
+				.skip(new Random().nextInt(stores.size()))
+				.findFirst()
+				.orElse(null);
+
+			Sale sale = new Sale(
+					uniqueDates.get(i),
+					uniqueTimes.get(i),
+					c.getId(),
+					s.getId());
+
+			sales.add(sale);
+		}
+
+		// Include every store 
+		for (Store s : stores) {
+			// Grab a random customer
+			Customer c = customers.stream()
+				.skip(new Random().nextInt(customers.size()))
+				.findFirst()
+				.orElse(null);
+
+			Sale sale = new Sale(
+					uniqueDates.get(i),
+					uniqueTimes.get(i),
+					c.getId(),
+					s.getId());
+
+			sales.add(sale);
+		}
+
+		// =====================================
+	
+		// Finish off the rest of the quantity
+		for (; i < quantity; i++) {
 			// Grab a random customer
 			Customer c = customers.stream()
 				.skip(new Random().nextInt(customers.size()))
