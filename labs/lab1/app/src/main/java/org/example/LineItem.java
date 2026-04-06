@@ -41,7 +41,7 @@ class LineItem {
 		if (quantity < i) {
 			// Throw an error because there must be at least one lineItem for every 
 			// sale 
-			throw new IllegalArgumentException("Quantity must be at least as large as the store and customer sets combined.");
+			throw new IllegalArgumentException("Quantity must be at least as large as the sales set.");
 		}
 		
 		// Include every sale 
