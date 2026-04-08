@@ -9,28 +9,16 @@ JAR = lab02.jar
 SRCS := $(wildcard $(SRC_DIR)/*.java)
 CLASSES := $(patsubst $(SRC_DIR)/%.java,$(OUT_DIR)/%.class,$(SRCS))
 
-.PHONY: all jar $(JAR) hadoop clean
+.PHONY: all hadoop clean
 
-all: jar hadoop
-
-jar: $(JAR)
-
-$(JAR): $(CLASSES)
-	jar cvf $(JAR) -C $(OUT_DIR) .
-
-$(OUT_DIR)/%.class: $(SRC_DIR)/%.java
-	mkdir -p $(OUT_DIR)
-	javac -d $(OUT_DIR) $<
+all: hadoop
 
 hadoop: $(SRCS)
 	mkdir -p $(OUT_DIR)
 	hadoop com.sun.tools.javac.Main -d $(OUT_DIR) $(SRCS)
 
-runh: $(JAR)
+run: $(JAR)
 	hadoop jar $(JAR) $(MAIN_CLASS) $(ARGS)
-
-runj: $(JAR)
-	jara -cp $(JAR)	$(MAIN_CLASS) $(ARGS)
 
 cleanall: clean
 	rm -rf $(JAR)
