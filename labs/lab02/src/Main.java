@@ -25,7 +25,7 @@ public class Main {
 		processFile(args[0]);
 	}
 
-	private static bool validateArgs(String[] args) {
+	private static boolean validateArgs(String[] args) {
 		return args.length == 1;
 	}
 
@@ -49,8 +49,8 @@ public class Main {
 		System.out.println("Results: ");
 		int totalSales = 0;
 		for (Map.Entry<String, Integer> day : dayToCt.entrySet()) {
-			System.out.println("\t" + day.key + ": " + day.value);
-			totalSales += day.value;
+			System.out.println("\t" + day.geKey() + ": " + day.getValue());
+			totalSales += day.getValue();
 		}
 
 		System.out.println("Total Days: " + dayToCt.size());
