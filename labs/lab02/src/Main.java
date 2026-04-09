@@ -31,7 +31,7 @@ public class Main {
 
 	private static void processFile(String path) {
 		// Maps a date (string) to an int (a sum)
-		HashMap<String, Integer> dayToSums = new HashMap<>();
+		HashMap<String, Integer> dayToCt = new HashMap<>();
 
 		// Open the file at the given directory args[0]
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -39,25 +39,35 @@ public class Main {
 
 			// Process each line in the text file
 			while ((line = br.readLine()) != null) {
-				processLine(line, dayToSums);
+				processLine(line, dayToCt);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	
+		// Show what we got (and some extra stats for me)
+		System.out.println("Results: ");
+		int totalSales = 0;
+		for (Map.Entry<String, Integer> day : dayToCt.entrySet()) {
+			System.out.println("\t" + day.key + ": " + day.value);
+			totalSales += day.value;
+		}
+
+		System.out.println("Total Days: " + dayToCt.size());
+		System.out.println("Total Sales: " + totalSales);
+
 	}
 
-	private static void processLine(String line, HashMap dayToSums) {
+	private static void processLine(String line, HashMap<String, Integer> dayToCt) {
 		// Parse out the day of the sale
-		// TODO:
-		String day = "TODO";
-
-		// Parse out the value for that sale
-		// TODO:
-		Integer value = -1;
-
-		Integer sum = dayToSums.get(day, 0);
-		sum += value;
-
-		dayToSums.put(day, sum);
+		// This is the second comma delimited string in a line
+		String day = line.split(", ", 1);
+		
+		if (dayToCt.containsKey(day)) {
+			dayToCt.put(day, dayToCt.get(day)+1);
+		}
+		else {
+			dayToCt.put(day, 0);
+		}
 	}
 }
