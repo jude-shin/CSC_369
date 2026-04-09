@@ -7,7 +7,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 import org.apache.hadoop.mapreduce.lib.input.*;
 
-public class Driver extends Configured implements Tool {
+public class SalesDriver extends Configured implements Tool {
 	private static final Logger THE_LOGGER = 
 		Logger.getLogger(Driver.class);
 
@@ -15,7 +15,7 @@ public class Driver extends Configured implements Tool {
 	public int run(String[] args) throws Exception {
 		// Generic Job setup
 		Job job = Job.getInstance();
-		job.setJarByClass(Driver.class);
+		job.setJarByClass(SalesDriver.class);
 		job.setJobName("Driver"); 
 
 		// Reducing output values
@@ -27,11 +27,11 @@ public class Driver extends Configured implements Tool {
 		job.setMapOutputValueClass(NullWritable.class); 
 	
 		// Custom Mapping and Reducing classes
-		job.setMapperClass(TemperatureMapper.class);
-		job.setReducerClass(TemperatureReducer.class);
+		job.setMapperClass(SalesMapper.class);
+		job.setReducerClass(SalesReducer.class);
 	
 		// Get the inputs from the args passed to this main method
-		// ex) hadoop jar lab02.jar Driver /user/jshin53/hadoop/inputs
+		// ex) hadoop jar lab02.jar SalesDriver /user/jshin53/hadoop/inputs
 		//			/user/jshin53/hadoop/outputs
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
@@ -52,7 +52,7 @@ public class Driver extends Configured implements Tool {
 		THE_LOGGER.info("outputDir = " + args[1]);
 	
 		// Run the new Driver
-		int returnStatus = ToolRunner.run(new Driver(), args);
+		int returnStatus = ToolRunner.run(new SalesDriver(), args);
 		THE_LOGGER.info("returnStatus=" + returnStatus);
 		System.exit(returnStatus);
 	}

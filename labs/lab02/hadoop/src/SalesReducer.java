@@ -4,7 +4,9 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Reducer.*;
 
 
-public class Reducer extends Reducer<Text, NullWritable, Text, IntWritable> {
+public class SalesReducer 
+	extends Reducer<Text, NullWritable, Text, IntWritable> {
+
 	@Override
 	public void reduce(Text date, Iterable<NullWritable> nulls, Context context) 
 		throws IOException, InterruptedException {

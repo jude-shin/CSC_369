@@ -2,7 +2,7 @@
 
 SRC_DIR = src
 OUT_DIR = out
-DRIVER_CLASS = Driver
+DRIVER_CLASS = SalesDriver
 JAR = lab02.jar
 
 # Wildcard these .java files, and the .class files
