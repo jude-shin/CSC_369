@@ -1,16 +1,15 @@
-SRC_DIR = src
 DRIVER_CLASS = SalesDriver
 JAR = lab02.jar
 
 # Wildcard these .java files, and the .class files
-SRCS := $(wildcard $(SRC_DIR)/*.java)
+SRCS := $(wildcard *.java)
 
 .PHONY: all hadoop clean
 
 all: hadoop
 
 hadoop: $(SRCS)
-	hadoop com.sun.tools.javac.Main  $(SRCS)
+	hadoop com.sun.tools.javac.Main $(SRCS)
 	jar cvf $(JAR) *.class
 
 run: $(JAR)
