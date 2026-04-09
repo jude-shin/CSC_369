@@ -4,12 +4,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 import java.util.HashMap;
-
+import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Main {
-	private static Logger LOGGER = Logger.getLogger(AverageTemperatureDriver.class);
+	private static Logger LOGGER = Logger.getLogger(Main.class);
 
 	// Finds the total number of sales for each day
 	// Does not use Map/Reduce
