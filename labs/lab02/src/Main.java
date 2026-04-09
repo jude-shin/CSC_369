@@ -8,6 +8,15 @@ import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import org.apache.log4j.*;
+import org.apache.hadoop.util.*;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.fs.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.mapreduce.lib.output.*;
+import org.apache.hadoop.mapreduce.lib.input.*;
+
 public class Main extends Configured implements Tool {
 	private static Logger LOGGER = Logger.getLogger(Main.class);
 
