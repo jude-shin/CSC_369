@@ -22,6 +22,6 @@ public class SalesMapper
 
 		context.write(
 				new Text(tokens[1]),	// The date as yyyy/mm/dd
-				new NullWritable());	// We don't really care...
+				NullWritable.get());	// We don't really care...
 	}
 }
