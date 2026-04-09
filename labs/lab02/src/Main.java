@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Main {
-	private static Logger LOGGER = Logger.getLogger(Main.class);
+	// private static Logger LOGGER = Logger.getLogger(Main.class);
 
 	// Finds the total number of sales for each day
 	// Does not use Map/Reduce
@@ -17,7 +17,8 @@ public class Main {
 
 		// Make sure there is an input file given as an argument
 		if (!validateArgs(args)) {
-			LOGGER.error("One input argument is needed.");
+			// LOGGER.error("One input argument is needed.");
+			System.out.println("One input argument is needed.");
 			return;
 		}
 
