@@ -18,7 +18,7 @@ public class SalesReducer
 			count++;
 		}
 
-		context.write(date, new IntWritable());
+		context.write(date, new IntWritable(count));
 	}
 }
 
