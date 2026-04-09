@@ -3,7 +3,8 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
-public class Mapper extends Mapper<> {
+public class Mapper 
+	extends Mapper<LongWritable, Text, Text, NullWritable> {
 	@Override
 	public void map(LongWritable key, Text value, Context context) 
 		throws IOException, InterruptedException {
