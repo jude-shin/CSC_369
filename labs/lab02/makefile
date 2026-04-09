@@ -16,6 +16,7 @@ all: hadoop
 hadoop: $(SRCS)
 	mkdir -p $(OUT_DIR)
 	hadoop com.sun.tools.javac.Main -d $(OUT_DIR) $(SRCS)
+	jar cvf $(JAR) $(CLASSES)
 
 run: $(JAR)
 	hadoop jar $(JAR) $(MAIN_CLASS) $(ARGS)
