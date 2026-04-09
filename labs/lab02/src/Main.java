@@ -49,7 +49,7 @@ public class Main {
 		System.out.println("Results: ");
 		int totalSales = 0;
 		for (Map.Entry<String, Integer> day : dayToCt.entrySet()) {
-			System.out.println("\t" + day.geKey() + ": " + day.getValue());
+			System.out.println("\t" + day.getKey() + ": " + day.getValue());
 			totalSales += day.getValue();
 		}
 
@@ -61,7 +61,7 @@ public class Main {
 	private static void processLine(String line, HashMap<String, Integer> dayToCt) {
 		// Parse out the day of the sale
 		// This is the second comma delimited string in a line
-		String day = line.split(", ", 1);
+		String day = line.split("[, ]")[1];
 		
 		if (dayToCt.containsKey(day)) {
 			dayToCt.put(day, dayToCt.get(day)+1);
