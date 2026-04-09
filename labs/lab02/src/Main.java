@@ -8,8 +8,8 @@ import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class Main {
-	// private static Logger LOGGER = Logger.getLogger(Main.class);
+public class Main extends Configured implements Tool {
+	private static Logger LOGGER = Logger.getLogger(Main.class);
 
 	// Finds the total number of sales for each day
 	// Does not use Map/Reduce
@@ -17,8 +17,8 @@ public class Main {
 
 		// Make sure there is an input file given as an argument
 		if (!validateArgs(args)) {
-			// LOGGER.error("One input argument is needed.");
-			System.out.println("One input argument is needed.");
+			LOGGER.error("One input argument is needed.");
+			// System.out.println("One input argument is needed.");
 			return;
 		}
 
@@ -47,16 +47,15 @@ public class Main {
 		}
 	
 		// Show what we got (and some extra stats for me)
-		System.out.println("Results: ");
+		LOGGER.info("Results: ");
 		int totalSales = 0;
 		for (Map.Entry<String, Integer> day : dayToCt.entrySet()) {
-			System.out.println("\t" + day.getKey() + ": " + day.getValue());
+			LOGGER.info("\t" + day.getKey() + ": " + day.getValue());
 			totalSales += day.getValue();
 		}
 
-		System.out.println("Total Days: " + dayToCt.size());
-		System.out.println("Total Sales: " + totalSales);
-
+		LOGGER.info("Total Days: " + dayToCt.size());
+		LOGGER.info("Total Sales: " + totalSales);
 	}
 
 	private static void processLine(String line, HashMap<String, Integer> dayToCt) {
