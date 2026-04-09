@@ -10,7 +10,6 @@ SRCS := $(wildcard $(SRC_DIR)/*.java)
 all: hadoop
 
 hadoop: $(SRCS)
-	mkdir -p $(OUT_DIR)
 	hadoop com.sun.tools.javac.Main -d *.class $(SRCS)
 	jar cvf $(JAR) $(CLASSES)
 
@@ -21,4 +20,4 @@ cleanall: clean
 	rm -rf $(JAR)
 
 clean:
-	rm -rf $(OUT_DIR)
+	rm -rf *.class
