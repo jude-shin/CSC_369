@@ -1,5 +1,3 @@
-# make runh ARGS="arg1 arg2 arg3"
-
 SRC_DIR = src
 OUT_DIR = out
 DRIVER_CLASS = SalesDriver
@@ -19,7 +17,7 @@ hadoop: $(SRCS)
 	jar cvf $(JAR) $(CLASSES)
 
 run: $(JAR)
-	hadoop jar $(JAR) $(MAIN_CLASS) $(ARGS)
+	hadoop jar $(JAR) $(MAIN_CLASS) /user/jshin53/input/sale /user/jshin53/output
 
 cleanall: clean
 	rm -rf $(JAR)
