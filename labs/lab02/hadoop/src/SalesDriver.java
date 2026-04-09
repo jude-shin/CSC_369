@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 
 public class SalesDriver extends Configured implements Tool {
 	private static final Logger THE_LOGGER = 
-		Logger.getLogger(Driver.class);
+		Logger.getLogger(SalesDriver.class);
 
 	@Override
 	public int run(String[] args) throws Exception {
