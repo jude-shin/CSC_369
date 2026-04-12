@@ -5,18 +5,18 @@ package org.example;
 
 import java.util.TreeMap;
 import java.util.Map;
+import java.time.Instant;
+import java.time.Duration;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-// TODO: write to a file
-// TODO: print the time it takes to finish the main function 
-
 public class App {
 	// Finds the total number of sales for each day
 	// Does not use Map/Reduce
 	public static void main(String[] args) {
+		Instant start = Instant.now();
 
 		// Make sure there is an input file given as an argument
 		if (!validateArgs(args)) {
@@ -26,6 +26,12 @@ public class App {
 
 		// Open the file and process each of the lines
 		processFile(args[0], args[1]);
+
+		Instant end = Instant.now();
+
+		// How long this process took in milliseconds
+		Duration elapsed = Duration.between(start, end);
+		System.out.println("Time: " + elapsed.toMillis() + "ms");
 	}
 
 	private static boolean validateArgs(String[] args) {
