@@ -4,9 +4,13 @@
 package org.example;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
+
+// TODO: write to a file
+// TODO: print the time it takes to finish the main function 
 
 public class App {
 	// Finds the total number of sales for each day
@@ -29,7 +33,7 @@ public class App {
 
 	private static void processFile(String path) {
 		// Maps a date (string) to an int (a sum)
-		HashMap<String, Integer> dayToCt = new HashMap<>();
+		TreeMap<String, Integer> dayToCt = new TreeMap<>();
 
 		// Open the file at the given directory args[0]
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -55,7 +59,7 @@ public class App {
 		System.out.println("Total Sales: " + totalSales);
 	}
 
-	private static void processLine(String line, HashMap<String, Integer> dayToCt) {
+	private static void processLine(String line, TreeMap<String, Integer> dayToCt) {
 		// Parse out the day of the sale
 		// This is the second comma delimited string in a line
     String[] parts = line.split(",");
