@@ -2,8 +2,17 @@
 21432 324 3243 2143214
 3214324 24 223 454
 
-1a)
-1b)
+1a)	
+	For the mapper, the input type will be a key-value pair: (LongWritable, Text),
+	which represents the line number of the input file, and the string of 
+	characters on that line. The ouput type for the mapper will also be a
+	key-value pair: (LongWritable, LongWritable), which represents a grouping
+	of uniqe integers	that are seen in the file, and a count of how many of that 
+	same integer was seen throughout the input file.
+
+	For the Reducer, the input type will be a key-value pair: (LongWritable, 
+	LongWritable), which came directly from the mapping function. The ouput will
+	be one key-value pair()
 1c)
 1d)
 
