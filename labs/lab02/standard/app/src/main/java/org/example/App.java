@@ -3,11 +3,12 @@
  */
 package org.example;
 
-import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 // TODO: write to a file
 // TODO: print the time it takes to finish the main function 
@@ -19,24 +20,24 @@ public class App {
 
 		// Make sure there is an input file given as an argument
 		if (!validateArgs(args)) {
-			System.out.println("One input argument is needed.");
+			System.out.println("Two input arguments are needed.");
 			return;
 		}
 
 		// Open the file and process each of the lines
-		processFile(args[0]);
+		processFile(args[0], args[1]);
 	}
 
 	private static boolean validateArgs(String[] args) {
-		return args.length == 1;
+		return args.length == 2;
 	}
 
-	private static void processFile(String path) {
+	private static void processFile(String inputPath, String outputPath) {
 		// Maps a date (string) to an int (a sum)
 		TreeMap<String, Integer> dayToCt = new TreeMap<>();
 
-		// Open the file at the given directory args[0]
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+		// Process the INPUT file
+		try (BufferedReader br = new BufferedReader(new FileReader(inputPath))) {
 			String line;
 
 			// Process each line in the text file
@@ -47,16 +48,19 @@ public class App {
 			e.printStackTrace();
 		}
 
-		// Show what we got (and some extra stats for me)
-		System.out.println("Results: ");
-		int totalSales = 0;
-		for (Map.Entry<String, Integer> day : dayToCt.entrySet()) {
-			System.out.println("\t" + day.getKey() + ": " + day.getValue());
-			totalSales += day.getValue();
-		}
+		// Write the results to the OUTPUT file
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputPath))) {
+			// Show what we got (and some extra stats for me)
+			for (Map.Entry<String, Integer> day : dayToCt.entrySet()) {
+				String outputLine = day.getKey() + ",     " + day.getValue();
 
-		System.out.println("Total Days: " + dayToCt.size());
-		System.out.println("Total Sales: " + totalSales);
+				// System.out.println(outputLine);
+				bw.write(outputLine);
+				bw.newLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void processLine(String line, TreeMap<String, Integer> dayToCt) {
