@@ -5,17 +5,16 @@ import org.apache.hadoop.mapreduce.Reducer.*;
 
 
 public class SalesReducer 
-	extends Reducer<Text, NullWritable, Text, IntWritable> {
+	extends Reducer<Text, IntWritable, Text, IntWritable> {
 
 	@Override
-	public void reduce(Text date, Iterable<NullWritable> nulls, Context context) 
+	public void reduce(Text date, Iterable<IntWritable> freqs, Context context) 
 		throws IOException, InterruptedException {
 	
-		// Since we are dealing with an iterable, we need to manually 
-		// iterate over the entire list to find the length
+		// Add together all of the frequencies
 		int count = 0;
-		for (NullWritable n : nulls) {
-			count++;
+		for (IntWritable f : freqs) {
+			count+=f.get();
 		}
 
 		context.write(date, new IntWritable(count));

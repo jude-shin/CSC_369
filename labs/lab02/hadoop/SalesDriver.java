@@ -24,10 +24,11 @@ public class SalesDriver extends Configured implements Tool {
 
 		// Mapping output values
 		job.setMapOutputKeyClass(Text.class); 
-		job.setMapOutputValueClass(NullWritable.class); 
+		job.setMapOutputValueClass(IntWritable.class); 
 	
-		// Custom Mapping and Reducing classes
+		// Setting Custom Mapping, Combiner, and Reducing classes
 		job.setMapperClass(SalesMapper.class);
+		job.setCombinerClass(SalesReducer.class);		// Same as reducer!
 		job.setReducerClass(SalesReducer.class);
 	
 		// Get the inputs from the args passed to this main method

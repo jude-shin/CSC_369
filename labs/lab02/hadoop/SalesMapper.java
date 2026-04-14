@@ -4,7 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class SalesMapper 
-	extends Mapper<LongWritable, Text, Text, NullWritable> {
+	extends Mapper<LongWritable, Text, Text, IntWritable> {
 
 	@Override
 	public void map(LongWritable key, Text value, Context context) 
@@ -22,6 +22,6 @@ public class SalesMapper
 
 		context.write(
 				new Text(tokens[1]),	// The date as yyyy/mm/dd
-				NullWritable.get());	// We don't really care...
+				new IntWritable(1));	// The Frequency of this date is initally 1
 	}
 }
