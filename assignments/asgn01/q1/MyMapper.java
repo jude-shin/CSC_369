@@ -22,10 +22,11 @@ public class MyMapper
 			if (num%3 == 0) { // Only include those that are divisible by 3
 				count++;
 			}
-
-			context.write(
-					NullWritable.get(),			// Nothing...
-					new IntWritable(count));	// The number of valid integers in this line
 		}
+		
+		// Only write once after summing everything
+		context.write(
+				NullWritable.get(),			// Nothing...
+				new IntWritable(count));	// The number of valid integers in this line
 	}
 }
