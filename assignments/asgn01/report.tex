@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{references.bib} 
+
+\marginparwidth 0.5in 
+\oddsidemargin 0.25in 
+\evensidemargin 0.25in 
+\marginparsep 0.25in
+\topmargin 0.25in 
+\textwidth=6in
+\textheight=8in
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.95}
+
+% lstlisting setttings
+\lstset{
+  backgroundcolor=\color{backcolor}, % Set background color
+  commentstyle=\color{codegreen}, % Style for comments
+  keywordstyle=\color{magenta}, % Style for keywords
+  numberstyle=\tiny\color{codegray}, % Style for line numbers
+  stringstyle=\color{codepurple}, % Style for strings
+  basicstyle=\ttfamily\footnotesize, % Basic font style and size
+  breakatwhitespace=false, % Don't break lines at whitespace only
+  breaklines=true, % Enable line breaking
+  captionpos=b, % Caption position (bottom)
+  keepspaces=true, % Keep spaces
+  numbers=left, % Show line numbers on the left
+  numbersep=5pt, % Separation of numbers from code
+  showspaces=false, % Don't show spaces as visible characters
+  showstringspaces=false, % Don't show spaces in strings
+  showtabs=false, % Don't show tabs as visible characters
+  tabsize=2, % Tab size
+  language=Java% Specify the language
+}
+
+\begin{document}
+\hfill\vbox{\hbox{Jude Shin}
+		\hbox{CSC 369, Section 01}	
+		\hbox{Assignment 1}	
+		\hbox{\today}}\par
+
+\bigskip
+\centerline{\Large\bf Map/Reduce}\par
+\bigskip
+
+\begin{enumerate}
+	\item Consider a Map/Reduce solution to a program that reads a file full with 
+		integers and computes the number of integers that are divisible by 3. Each 
+		line can contain multiple integers. Example input:
+
+		2 324 234 234 234 
+
+		21432 324 3243 2143214
+
+		3214324 24 223 454
+
+
+		\begin{enumerate}
+			\item What is the input/output type of the mapper and reducer?
+				
+				\textit{}
+
+			\item Show the map method for the program.
+				
+				\textit{}
+
+			\item Show the reduce method for the program.
+				
+				\textit{}
+
+			\item Can you create a combiner for the program? What will be the code 
+				for the reduce method of the combiner? Do you need to change the map 
+				or reduce method to support the combiner? If so, show the new map and 
+				reduce method.
+				
+				\textit{}
+
+		\end{enumerate}
+
+	\item Consider a Map/Reduce solution to a program that reads a file that 
+		contains the date and a temperature that is measured for this day on each 
+		line. There can be multiple temperatures that are measured each day. The 
+		program should calculate the highest temperature for each day. Example 
+		input:
+
+		2022/12/10  10
+
+		2022/12/10  8
+
+		2022/12/10  6
+
+		2022/12/12  11
+
+		2000/01/01  3
+
+
+		\begin{enumerate}
+			\item What is the input/output type of the mapper and reducer?
+				
+				\textit{}
+
+			\item Show the map method for the program.
+				
+				\textit{}
+
+			\item Show the reduce method for the program.
+				
+				\textit{}
+
+			\item Can you create a combiner for the program? What will be the code 
+				for the reduce method of the combiner? Do you need to change the map 
+				or reduce method to support the combiner? If so, show the new map and 
+				reduce method.
+				
+				\textit{}
+
+		\end{enumerate}
+\end{enumerate}
+
+% Any code/terminal commands can be blocked like so:
+% \begin{lstlisting}
+% $ yay -Syu #performs a full system upgrade to keep software up to date
+% 
+% int main(int argc, const char* argv[]) {
+% 	fprintf(stdout, "Hello World!\n");
+% 	exit(EXIT_SUCCESS);
+% }
+% \end{lstlisting}
+% 
+% If you want some inline code blocks, then you can use the lst package with the same settings \lstinline{like so}.
+% 
+% Quoted stuff is ``weird".
+
+\end{document}
