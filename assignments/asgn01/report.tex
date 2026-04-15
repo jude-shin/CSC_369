@@ -73,15 +73,33 @@
 		\begin{enumerate}
 			\item What is the input/output type of the mapper and reducer?
 				
-				\textit{}
+				The input for the mapper would be a key-value pair, where the 
+				key is the line number with type \lstinline{IntWritable}, and the value 
+				are the characters that are on the line with type \lstinline{Text}.
+				The output of the mapper would be a key-value pair, where the key is 
+				null of type \lstinline{NullWritable}, and the value would be the 
+				number of integers that are divisible by 3 with type 
+				\lstinline{IntWritable}. 
+
+				The input for the reducer would be a key-value pair, where the key 
+				would be null of type \lstinline{NullWritable}, and 
+				the value would be the number of integers that are divisible by 3 with 
+				type \lstinline{IntWritable}; this is the same as the output for the 
+				mapper. Finally, the output for the reducer would be a key-value pair, 
+				where the key is \lstinline{NullWritable}, and the value would be the 
+				number of integers that are divisible by 3 with type 
+				\lstinline{IntWritable}; this is (again) the same as the output for the 
+				mapper (and the same as the input for the reducer).
 
 			\item Show the map method for the program.
 				
-				\textit{}
+				\begin{lstlisting}
+				\end{lstlisting}
 
 			\item Show the reduce method for the program.
 				
-				\textit{}
+				\begin{lstlisting}
+				\end{lstlisting}
 
 			\item Can you create a combiner for the program? What will be the code 
 				for the reduce method of the combiner? Do you need to change the map 
