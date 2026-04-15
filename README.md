@@ -7,3 +7,6 @@ Useful Commands:
 
   See the output file:
     hadoop fs -cat /user/jshin53/output/part-r-00000
+
+  Put files (into the input directory)
+    hadoop fs -copyFromLocal localDataFile /user/jshin53/input
