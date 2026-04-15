@@ -25,7 +25,7 @@ public class MyMapper
 
 			context.write(
 					NullWritable.get(),			// Nothing...
-					new IntWritable(num));	// The number of valid integers in this line
+					new IntWritable(count));	// The number of valid integers in this line
 		}
 	}
 }
