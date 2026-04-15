@@ -53,7 +53,7 @@ public class MyDriver extends Configured implements Tool {
 		THE_LOGGER.info("outputDir = " + args[1]);
 	
 		// Run the new Driver
-		int returnStatus = ToolRunner.run(new SalesDriver(), args);
+		int returnStatus = ToolRunner.run(new MyDriver(), args);
 		THE_LOGGER.info("returnStatus=" + returnStatus);
 		System.exit(returnStatus);
 	}
