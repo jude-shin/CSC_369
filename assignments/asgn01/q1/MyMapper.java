@@ -12,10 +12,10 @@ public class MyMapper
 
 		// The string in one line of the input file
 		String fullLine = value.toString().trim();
-	
+
 		// Split the numbers by spaces
 		String[] tokens = fullLine.split(" ");
-		
+
 		int count = 0;	// The number of integers that we "accepted"
 		for (String chunk : tokens) {
 			int num = int(chunk);		// The integer version of the parsed string
@@ -28,3 +28,4 @@ public class MyMapper
 					new IntWritable(num));	// The number of valid integers in this line
 		}
 	}
+}
