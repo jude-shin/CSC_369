@@ -18,7 +18,7 @@ public class MyMapper
 
 		int count = 0;	// The number of integers that we "accepted"
 		for (String chunk : tokens) {
-			int num = int(chunk);		// The integer version of the parsed string
+			int num = Integer.parseInt(chunk); // The integer version of the string
 			if (num%3 == 0) { // Only include those that are divisible by 3
 				count++;
 			}
