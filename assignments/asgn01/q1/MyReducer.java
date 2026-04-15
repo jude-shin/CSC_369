@@ -20,4 +20,3 @@ public class MyReducer
 		context.write(NullWritable.get(), new IntWritable(total));
 	}
 }
-

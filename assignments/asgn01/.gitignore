@@ -2,3 +2,5 @@
 *.log
 *.ps
 *.out
+*.bcf
+*.xml

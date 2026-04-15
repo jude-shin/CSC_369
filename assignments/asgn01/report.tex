@@ -125,8 +125,24 @@ public class MyMapper
 
 			\item Show the reduce method for the program.
 				
-				\begin{lstlisting}
-				\end{lstlisting}
+\begin{lstlisting}
+public class MyReducer 
+	extends Reducer<NullWritable, IntWritable, NullWritable, IntWritable> {
+
+	@Override
+	public void reduce(NullWritable nw, Iterable<IntWritable> counts, Context context) 
+		throws IOException, InterruptedException {
+	
+		// Add together all of the counts
+		int total = 0;
+		for (IntWritable c : counts) {
+			total+=c.get();
+		}
+
+		context.write(NullWritable.get(), new IntWritable(total));
+	}
+}
+\end{lstlisting}
 
 			\item Can you create a combiner for the program? What will be the code 
 				for the reduce method of the combiner? Do you need to change the map 
