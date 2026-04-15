@@ -73,7 +73,7 @@
 		\begin{enumerate}
 			\item What is the input/output type of the mapper and reducer?
 				
-				The input for the mapper would be a key-value pair, where the 
+				\textit{The input for the mapper would be a key-value pair, where the 
 				key is the line number with type \lstinline{LongWritable}, and the 
 				value are the characters that are on the line with type 
 				\lstinline{Text}. The output of the mapper would be a key-value pair, 
@@ -89,7 +89,7 @@
 				where the key is \lstinline{NullWritable}, and the value would be the 
 				number of integers that are divisible by 3 with type 
 				\lstinline{IntWritable}; this is (again) the same as the output for the 
-				mapper (and the same as the input for the reducer).
+				mapper (and the same as the input for the reducer).}
 
 			\item Show the map method for the program.
 				
@@ -149,7 +149,11 @@ public class MyReducer
 				or reduce method to support the combiner? If so, show the new map and 
 				reduce method.
 				
-				\textit{}
+				\textit{I wrote my mapper and reducer for compatibility with a 
+				combiner. It also just so happens that I can use the reducer as the 
+				combiner because we are doing just a simple enumeration over particular 
+				integers. Since the reducer has the same inputs and outputs as the 
+				output for the mapper, we can reuse the same code.}
 
 		\end{enumerate}
 
