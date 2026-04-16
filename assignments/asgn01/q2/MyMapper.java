@@ -18,6 +18,6 @@ public class MyMapper
 
 		context.write(
 				new Text(tokens[0]), // The date
-				new IntWritable(tokens[1])); // The temperature for that day
+				new IntWritable(Integer.parseInt(tokens[1]))); // The temperature for that day
 	}
 }
