@@ -15,9 +15,10 @@ public class MyMapper
 
 		// Split the dates from the temperature
 		String[] tokens = fullLine.split(" ");
+	
+		String date = tokens[0];									// The date
+		int temp = Integer.parseInt(tokens[1]);		// The temperature for that day
 
-		context.write(
-				new Text(tokens[0]), // The date
-				new IntWritable(Integer.parseInt(tokens[1]))); // The temperature for that day
+		context.write(new Text(date), new IntWritable(temp));
 	}
 }
