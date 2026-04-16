@@ -18,13 +18,13 @@ public class MyDriver extends Configured implements Tool {
 		job.setJarByClass(MyDriver.class);
 		job.setJobName("Driver"); 
 
-		// Reducing output values
-		job.setOutputKeyClass(Text.class); 
-		job.setOutputValueClass(IntWritable.class); 
-
 		// Mapping output values
 		job.setMapOutputKeyClass(Text.class); 
 		job.setMapOutputValueClass(IntWritable.class); 
+
+		// Reducing output values
+		job.setOutputKeyClass(Text.class); 
+		job.setOutputValueClass(IntWritable.class); 
 	
 		// Setting Custom Mapping, Combiner, and Reducing classes
 		job.setMapperClass(MyMapper.class);

@@ -14,7 +14,7 @@ public class MyMapper
 		String fullLine = value.toString().trim();
 
 		// Split the dates from the temperature
-		String[] tokens = fullLine.split(" ");
+		String[] tokens = fullLine.split("\\s+");
 	
 		String date = tokens[0];									// The date
 		int temp = Integer.parseInt(tokens[1]);		// The temperature for that day

@@ -14,7 +14,7 @@ public class MyMapper
 		String fullLine = value.toString().trim();
 
 		// Split the numbers by spaces
-		String[] tokens = fullLine.split(" ");
+		String[] tokens = fullLine.split("\\s+");
 
 		int count = 0;	// The number of integers that we "accepted"
 		for (String chunk : tokens) {
