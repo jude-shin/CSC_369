@@ -5,18 +5,19 @@ import org.apache.hadoop.mapreduce.Reducer.*;
 
 
 public class MyReducer 
-	extends Reducer<NullWritable, IntWritable, NullWritable, IntWritable> {
+	extends Reducer<Text, IntWritable, Text, IntWritable> {
 
 	@Override
-	public void reduce(NullWritable nw, Iterable<IntWritable> counts, Context context) 
+	public void reduce(Text date, Iterable<IntWritable> temps, Context context) 
 		throws IOException, InterruptedException {
+
+		int max = temps.get(0);
 	
-		// Add together all of the counts
-		int total = 0;
-		for (IntWritable c : counts) {
-			total+=c.get();
+		// Get the maximum temperature over the entire iterable
+		for (Integer t : temps) {
+			max = Integer.max(max, t);
 		}
 
-		context.write(NullWritable.get(), new IntWritable(total));
+		context.write(date, new IntWritable(max));
 	}
 }
