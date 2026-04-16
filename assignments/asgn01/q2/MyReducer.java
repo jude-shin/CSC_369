@@ -12,7 +12,7 @@ public class MyReducer
 		throws IOException, InterruptedException {
 
 		// The first one must be the maximum
-		int max = temps.next().get();
+		int max = temps.iterator().next().get();
 	
 		// Get the maximum temperature over the entire iterable
 		for (IntWritable t : temps) {
