@@ -11,7 +11,7 @@ public class MyReducer
 	public void reduce(Text date, Iterable<IntWritable> temps, Context context) 
 		throws IOException, InterruptedException {
 
-		int max = temps.get(0);
+		int max = temps.next();
 	
 		// Get the maximum temperature over the entire iterable
 		for (IntWritable t : temps) {
