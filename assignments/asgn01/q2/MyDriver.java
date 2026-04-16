@@ -28,7 +28,7 @@ public class MyDriver extends Configured implements Tool {
 	
 		// Setting Custom Mapping, Combiner, and Reducing classes
 		job.setMapperClass(MyMapper.class);
-		// job.setCombinerClass(MyReducer);
+		job.setCombinerClass(MyReducer);
 		job.setReducerClass(MyReducer.class);
 	
 		// Get the inputs from the args passed to this main method

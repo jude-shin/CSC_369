@@ -14,8 +14,8 @@ public class MyReducer
 		int max = temps.get(0);
 	
 		// Get the maximum temperature over the entire iterable
-		for (Integer t : temps) {
-			max = Integer.max(max, t);
+		for (IntWritable t : temps) {
+			max = Integer.max(max, t.get());
 		}
 
 		context.write(date, new IntWritable(max));
