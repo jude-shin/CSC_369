@@ -5,10 +5,10 @@ import org.apache.hadoop.mapreduce.Reducer.*;
 
 
 public class MyReducer 
-	extends Reducer<Text, IntWritable, Text, IntWritable> {
+	extends Reducer<DateTimePair, Text, Text, Text> {
 
 	@Override
-	public void reduce(Text date, Iterable<IntWritable> temps, Context context) 
+	public void reduce(Text key, Iterable<IntWritable> temps, Context context) 
 		throws IOException, InterruptedException {
 
 		// The first one must be the maximum
@@ -19,6 +19,6 @@ public class MyReducer
 			max = Integer.max(max, t.get());
 		}
 
-		context.write(date, new IntWritable(max));
+		context.write(key, new IntWritable(max));
 	}
 }

@@ -19,8 +19,8 @@ public class MyDriver extends Configured implements Tool {
 		job.setJobName("Driver"); 
 
 		// Mapping output values
-		job.setMapOutputKeyClass(Text.class); 
-		job.setMapOutputValueClass(IntWritable.class); 
+		job.setMapOutputKeyClass(DateTimePair.class); 
+		job.setMapOutputValueClass(Text.class); 
 
 		// Reducing output values
 		job.setOutputKeyClass(Text.class); 
