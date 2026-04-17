@@ -29,6 +29,6 @@ public class MyMapper
 		// The key will be our custom key which will be sorted by date, then time
 		// Nothing special needs to happen with the value, it is just the date of 
 		// the sale and the id of that sale.
-		context.write(new DateTimePair(date, time), new Text(date + " " + id));
+		context.write(new DateTimePair(date, time), new Text(time + " " + id));
 	}
 }
