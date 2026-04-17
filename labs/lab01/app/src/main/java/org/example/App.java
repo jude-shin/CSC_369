@@ -53,7 +53,7 @@ public class App {
 			for (Store s : stores) {
 				// System.out.println(String.format("%s\n", s.toString()));
 				Files.writeString(
-						Path.of("output/stores"),
+						Path.of("output/store"),
 						String.format("%s\n", s.toString()), 
 						StandardOpenOption.CREATE, 
 						StandardOpenOption.APPEND);
@@ -64,7 +64,7 @@ public class App {
 			for (Product p : products) {
 				// System.out.println(String.format("%s\n", p.toString()));
 				Files.writeString(
-						Path.of("output/products"),
+						Path.of("output/product"),
 						String.format("%s\n", p.toString()), 
 						StandardOpenOption.CREATE, 
 						StandardOpenOption.APPEND);
@@ -75,7 +75,7 @@ public class App {
 			for (Sale s : sales) {
 				// System.out.println(String.format("%s\n", s.toString()));
 				Files.writeString(
-						Path.of("output/sales"),
+						Path.of("output/sale"),
 						String.format("%s\n", s.toString()), 
 						StandardOpenOption.CREATE, 
 						StandardOpenOption.APPEND);
@@ -85,7 +85,7 @@ public class App {
 			for (LineItem l : lineItems) {
 				// System.out.println(String.format("%s\n", l.toString()));
 				Files.writeString(
-						Path.of("output/lineItems"),
+						Path.of("output/lineItem"),
 						String.format("%s\n", l.toString()), 
 						StandardOpenOption.CREATE, 
 						StandardOpenOption.APPEND);

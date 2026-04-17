@@ -56,8 +56,8 @@ class Sale {
 				.orElse(null);
 
 			Sale sale = new Sale(
-					uniqueDates.get(i),
-					uniqueTimes.get(i),
+					uniqueDates.get(new Random().nextInt(uniqueDates.size())),
+					uniqueTimes.get(new Random().nextInt(uniqueTimes.size())),
 					c.getId(),
 					s.getId());
 
@@ -73,8 +73,8 @@ class Sale {
 				.orElse(null);
 
 			Sale sale = new Sale(
-					uniqueDates.get(i),
-					uniqueTimes.get(i),
+					uniqueDates.get(new Random().nextInt(uniqueDates.size())),
+					uniqueTimes.get(new Random().nextInt(uniqueTimes.size())),
 					c.getId(),
 					s.getId());
 
