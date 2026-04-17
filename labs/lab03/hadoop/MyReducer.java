@@ -16,7 +16,7 @@ public class MyReducer
 
 		// Concatinate all of our items (will be in sorted order) separating by ", "
 		for (Text p : timeIdPairs) {
-			value = value + timeIdPairs + ", ";
+			value = value + p.get() + ", ";
 		}
 
 		// Clean up the leftover ", " at the end of our value string (2 characters)
