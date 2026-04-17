@@ -36,7 +36,10 @@ public class MyDriver extends Configured implements Tool {
 		//			/user/jshin53/hadoop/outputs
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-	
+
+		// Set the partitioner
+		job.setPartitionerClass(SSPartitioner.class);
+
 		boolean status = job.waitForCompletion(true); 
 		THE_LOGGER.info("run(): status=" + status);
 		return status ? 0 : 1;
