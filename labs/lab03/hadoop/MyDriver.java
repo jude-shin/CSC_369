@@ -7,6 +7,19 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 import org.apache.hadoop.mapreduce.lib.input.*;
 
+/* 
+	 Map/Reduce Steps:
+
+	 (1) Map
+	 (2) Local Sort
+	 (3) Local Group
+	 (4) Combiner 
+	 (5) Partition
+	 (6) Global Sort
+	 (7) Global Group
+	 (8) Reduce
+*/
+
 public class MyDriver extends Configured implements Tool {
 	private static final Logger THE_LOGGER = 
 		Logger.getLogger(MyDriver.class);
@@ -18,27 +31,37 @@ public class MyDriver extends Configured implements Tool {
 		job.setJarByClass(MyDriver.class);
 		job.setJobName("Driver"); 
 
-		// Mapping output values
+		// =========================================================================
+
+		// (1) Map
 		job.setMapOutputKeyClass(DateTimePair.class); 
 		job.setMapOutputValueClass(Text.class); 
+		job.setMapperClass(MyMapper.class);
 
-		// Reducing output values
+		// (2/6) Local/Global Sort 
+		// TODO
+
+		// (3/7) Local/Global Group
+		// TODO
+
+		// (4) Combiner
+		// job.setCombinerClass(MyReducer.class);
+
+		// (5) Partition
+		job.setPartitionerClass(SSPartitioner.class);
+
+		// (8) Reduce
 		job.setOutputKeyClass(Text.class); 
 		job.setOutputValueClass(Text.class); 
-	
-		// Setting Custom Mapping, Combiner, and Reducing classes
-		job.setMapperClass(MyMapper.class);
-		// job.setCombinerClass(MyReducer.class);
 		job.setReducerClass(MyReducer.class);
 	
+		// =========================================================================
+
 		// Get the inputs from the args passed to this main method
 		// ex) hadoop jar lab02.jar MyDriver /user/jshin53/hadoop/inputs
 		//			/user/jshin53/hadoop/outputs
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-
-		// Set the partitioner
-		job.setPartitionerClass(SSPartitioner.class);
 
 		boolean status = job.waitForCompletion(true); 
 		THE_LOGGER.info("run(): status=" + status);
