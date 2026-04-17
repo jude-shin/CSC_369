@@ -143,11 +143,13 @@ public class MyReducer
 				or reduce method to support the combiner? If so, show the new map and 
 				reduce method.
 				
-				\textit{I wrote my mapper and reducer for compatibility with a 
-				combiner. It also just so happens that I can use the reducer as the 
-				combiner because we are doing just a simple enumeration over particular 
-				integers. Since the reducer has the same inputs and outputs as the 
-				output for the mapper, we can reuse the same code.}
+				\textit{Yes, a combiner can be used for this program. I wrote my mapper 
+				and reducer for compatibility with a combiner. It also just so happens 
+				that I can use the code in MyReducer as the combiner. Since the reducer 
+				has the same inputs and outputs as the output for the mapper, and since 
+				we are partially aggregating the data, we can safely reuse the same 
+				code. No additional changes need to be made to my original mapper or
+				reducer code.}
 
 		\end{enumerate}
 
@@ -186,11 +188,48 @@ public class MyReducer
 			\item Show the map method for the program.
 				
 \begin{lstlisting}
+public class MyMapper 
+	extends Mapper<LongWritable, Text, Text, IntWritable> {
+
+	@Override
+	public void map(LongWritable key, Text value, Context context) 
+		throws IOException, InterruptedException {
+
+		// The string in one line of the input file
+		String fullLine = value.toString().trim();
+
+		// Split the dates from the temperature
+		String[] tokens = fullLine.split("\\s+");
+	
+		String date = tokens[0];									// The date
+		int temp = Integer.parseInt(tokens[1]);		// The temperature for that day
+
+		context.write(new Text(date), new IntWritable(temp));
+	}
+}
 \end{lstlisting}
 
 			\item Show the reduce method for the program.
 				
 \begin{lstlisting}
+public class MyReducer 
+	extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+	@Override
+	public void reduce(Text date, Iterable<IntWritable> temps, Context context) 
+		throws IOException, InterruptedException {
+
+		// The first one must be the maximum
+		int max = temps.iterator().next().get();
+	
+		// Get the maximum temperature over the entire iterable
+		for (IntWritable t : temps) {
+			max = Integer.max(max, t.get());
+		}
+
+		context.write(date, new IntWritable(max));
+	}
+}
 \end{lstlisting}
 
 			\item Can you create a combiner for the program? What will be the code 
@@ -198,23 +237,15 @@ public class MyReducer
 				or reduce method to support the combiner? If so, show the new map and 
 				reduce method.
 				
-				\textit{}
+				\textit{Yes, a combiner can be used for this program. I wrote my mapper 
+				and reducer for compatibility with a combiner. It also just so happens 
+				that I can use the code in MyReducer as the combiner. Since the reducer 
+				has the same inputs and outputs as the output for the mapper, and since 
+				we are partially aggregating the data, we can safely reuse the same 
+				code. No additional changes need to be made to my original mapper or
+				reducer code.}
 
 		\end{enumerate}
 \end{enumerate}
-
-% Any code/terminal commands can be blocked like so:
-% \begin{lstlisting}
-% $ yay -Syu #performs a full system upgrade to keep software up to date
-% 
-% int main(int argc, const char* argv[]) {
-% 	fprintf(stdout, "Hello World!\n");
-% 	exit(EXIT_SUCCESS);
-% }
-% \end{lstlisting}
-% 
-% If you want some inline code blocks, then you can use the lst package with the same settings \lstinline{like so}.
-% 
-% Quoted stuff is ``weird".
 
 \end{document}
