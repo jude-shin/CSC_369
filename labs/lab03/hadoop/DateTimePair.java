@@ -14,11 +14,11 @@ public class DateTimePair
 	private final Text time = new Text();
 
 	// Empty constructor to satisfy the Java gods
-	public YMTemperaturePair() { 
+	public DateTimePair() { 
 	}
 	
 	// Constructor that will be used to populate the data
-	public YMTemperaturePair(String date, String time) {
+	public DateTimePair(String date, String time) {
 		this.date.set(date);
 		this.time.set(time);
 	}
