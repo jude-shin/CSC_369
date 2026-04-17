@@ -26,11 +26,9 @@ public class MyMapper
 		String date = tokens[1].trim();
 		String time = tokens[2].trim();
 	
-		// The key that is to be written (will be sorted on this)
-		String key = date + " " + time;
-		// The final output based on the question
-		String value = time + " " + id;
-
-		context.write(new Text(key), new Text(value));
+		// The key will be our custom key which will be sorted by date, then time
+		// Nothing special needs to happen with the value, it is just the date of 
+		// the sale and the id of that sale.
+		context.write(new DateTime(date, time), new Text(date + " " + id));
 	}
 }
