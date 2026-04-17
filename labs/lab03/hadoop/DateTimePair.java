@@ -1,3 +1,4 @@
+import java.io.IOException;
 import org.apache.hadoop.util.*;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.fs.*;
