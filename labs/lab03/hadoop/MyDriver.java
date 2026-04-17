@@ -39,10 +39,11 @@ public class MyDriver extends Configured implements Tool {
 		job.setMapperClass(MyMapper.class);
 
 		// (2/6) Local/Global Sort 
-		// TODO
+		// For this example, we have a custom composite key (not a primitive)
+		// So we don't need another sorting function; it is done in DateTimePair
 
 		// (3/7) Local/Global Group
-		// TODO
+		job.setGroupingComparatorClass(SSGrouper.class);
 
 		// (4) Combiner
 		// job.setCombinerClass(MyReducer.class);
