@@ -59,12 +59,12 @@ public class StudentTripple
 		return this.name;
 	}       
 
-	// Getter for the grade
+	// Getter for the id
 	public IntWritable getId() {
 		return this.id;
 	}
 	
-	// Getter for the id
+	// Getter for the grade
 	public Text getGrade() {
 		return this.grade;
 	}

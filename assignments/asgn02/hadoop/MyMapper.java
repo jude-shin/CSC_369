@@ -4,7 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class MyMapper 
-	extends Mapper<LongWritable, Text, DateTimePair, Text> {
+	extends Mapper<LongWritable, Text, StudentTripple, Text> {
 
 	@Override
 	public void map(LongWritable key, Text value, Context context) 
