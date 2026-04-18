@@ -25,8 +25,8 @@ public class GradePair implements Writable {
 	// How to write the data to disk (note the order is same as read)
 	@Override
 	public void write(DataOutput out) throws IOException{
-		grade.write(grade);
-		course.write(course);
+		grade.write(out);
+		course.write(out);
 	}
 	
 	// How to read the data from disk (note the order is same as write)
