@@ -35,7 +35,7 @@ public class MyDriver extends Configured implements Tool {
 
 		// (1) Map
 		job.setMapOutputKeyClass(StudentTripple.class); 
-		job.setMapOutputValueClass(Text.class); 
+		job.setMapOutputValueClass(GradePair.class); 
 		job.setMapperClass(MyMapper.class);
 
 		// (2/6) Local/Global Sort 

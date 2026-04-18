@@ -45,4 +45,10 @@ public class GradePair implements Writable {
 	public Text getCourse() {
 		return this.course;
 	}
+
+	// Hopefully this makes things easier
+	@Override
+	public String toString() {
+		return "(" + grade.get() + course.get() + ")";
+	}
 }
