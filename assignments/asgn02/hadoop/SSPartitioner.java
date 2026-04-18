@@ -3,15 +3,15 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
-public class SSPartitioner 
-	extends Partitioner<DateTimePair, Text> {
+public class SSPartitioner extends Partitioner<StudentTripple, Text> {
 
 	@Override
 	public int getPartition(
-			DateTimePair pair, 
+			StudentTripple student, 
 			Text values, 
 			int numberOfPartitions) {
-
-		return Math.abs(pair.getDate().hashCode() % numberOfPartitions);
+	
+		// We are grouping by the name, so we also partition by the name
+		return Math.abs(student.getName().hashCode() % numberOfPartitions);
 	}
 }
