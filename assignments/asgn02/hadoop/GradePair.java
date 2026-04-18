@@ -49,6 +49,6 @@ public class GradePair implements Writable {
 	// Hopefully this makes things easier
 	@Override
 	public String toString() {
-		return "(" + grade.get() + course.get() + ")";
+		return "(" + grade.toString() + course.toString() + ")";
 	}
 }
