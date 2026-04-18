@@ -29,9 +29,9 @@ public class StudentTripple
 	// How to write the data to disk (note the order is same as read)
 	@Override
 	public void write(DataOutput out) throws IOException{
-		name.write(name);
-		id.write(id);
-		grade.write(grade);
+		name.write(out);
+		id.write(out);
+		grade.write(out);
 	}
 	
 	// How to read the data from disk (note the order is same as write)
