@@ -15,8 +15,17 @@ public class MyReducer
 		Text k = new Text(student.getName() + ", " + student.getId());
 
 		// For every one of the grades, join them with a ", "
-		// The parentheticals are already added from the toString() function
-		Text v = new Text(String.join(", ", grades));
+		String value = "";
+		boolean isFirst = true;
+		for (GradePair g : grades) {
+			if (!isFirst) {
+				value = value + ", ";
+			}
+
+			value = value + g.toString();
+			isFirst = false;
+		}
+		Text v = new Text(value);
 	
 		context.write(k, v);
 	}
