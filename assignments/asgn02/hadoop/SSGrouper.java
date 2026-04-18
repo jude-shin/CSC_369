@@ -18,6 +18,6 @@ public class SSGrouper
 		StudentTripple s2 = (StudentTripple) wc2;
 
 		// We only want to group based on the date in the StudentTripple
-		return s1.getName().getName(s2.getDate());
+		return s1.getName().compareTo(s2.getName());
 	}
 }
