@@ -1,0 +1,248 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\marginparwidth 0.5in 
+\oddsidemargin 0.25in 
+\evensidemargin 0.25in 
+\marginparsep 0.25in
+\topmargin 0.25in 
+\textwidth=6in
+\textheight=8in
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.95}
+
+% lstlisting setttings
+\lstset{
+  backgroundcolor=\color{backcolor}, % Set background color
+  commentstyle=\color{codegreen}, % Style for comments
+  keywordstyle=\color{magenta}, % Style for keywords
+  numberstyle=\tiny\color{codegray}, % Style for line numbers
+  stringstyle=\color{codepurple}, % Style for strings
+  basicstyle=\ttfamily\footnotesize, % Basic font style and size
+  breakatwhitespace=false, % Don't break lines at whitespace only
+  breaklines=true, % Enable line breaking
+  captionpos=b, % Caption position (bottom)
+  keepspaces=true, % Keep spaces
+  numbers=left, % Show line numbers on the left
+  numbersep=5pt, % Separation of numbers from code
+  showspaces=false, % Don't show spaces as visible characters
+  showstringspaces=false, % Don't show spaces in strings
+  showtabs=false, % Don't show tabs as visible characters
+  tabsize=2, % Tab size
+  language=Java% Specify the language
+}
+
+\begin{document}
+\hfill\vbox{\hbox{Jude Shin}
+		\hbox{CSC 369, Section 01}	
+		\hbox{Assignment 2}	
+		\hbox{\today}}\par
+
+\bigskip
+\centerline{\Large\bf Assignment 2}\par
+\bigskip
+
+\begin{enumerate}
+	\item Consider a Map/Reduce solution to a program that reads a file full with 
+		integers and computes the number of integers that are divisible by 3. Each 
+		line can contain multiple integers. Example input:
+
+		2 324 234 234 234 
+
+		21432 324 3243 2143214
+
+		3214324 24 223 454
+
+
+		\begin{enumerate}
+			\item What is the input/output type of the mapper and reducer?
+
+				\textit{Input key-value type for mapper: (LongWritable, Text). 
+				Output key-value type for mapper: (NullWritable, IntWritable). 
+				Input key-value type for reducer: (NullWritable, IntWritable). 
+				Output key-value type for reducer: (NullWritable, IntWritable).}
+				
+				\textit{The input for the mapper would be the line number, and the 
+				characters that are on the line. The output of the mapper would be 
+				null, and the number (count) of integers that are divisible by 3.
+				The input and output for the reducer will be the exact same as the 
+				output for the mapper. (null, and the count of integers divisible by 
+				3).}
+
+			\item Show the map method for the program.
+				
+\begin{lstlisting}
+public class MyMapper 
+	extends Mapper<LongWritable, Text, NullWritable, IntWritable> {
+
+	@Override
+	public void map(LongWritable key, Text value, Context context) 
+		throws IOException, InterruptedException {
+
+		// The string in one line of the input file
+		String fullLine = value.toString().trim();
+
+		// Split the numbers by spaces
+		String[] tokens = fullLine.split("\\s+");
+
+		int count = 0;	// The number of integers that we "accepted"
+		for (String chunk : tokens) {
+			int num = Integer.parseInt(chunk); // The integer version of the string
+			if (num%3 == 0) { // Only include those that are divisible by 3
+				count++;
+			}
+		}
+		
+		// Only write once after summing everything
+		context.write(
+				NullWritable.get(),			// Nothing...
+				new IntWritable(count));	// The number of valid integers in this line
+	}
+}
+\end{lstlisting}
+
+			\item Show the reduce method for the program.
+				
+\begin{lstlisting}
+public class MyReducer 
+	extends Reducer<NullWritable, IntWritable, NullWritable, IntWritable> {
+
+	@Override
+	public void reduce(NullWritable nw, Iterable<IntWritable> counts, Context context) 
+		throws IOException, InterruptedException {
+	
+		// Add together all of the counts
+		int total = 0;
+		for (IntWritable c : counts) {
+			total+=c.get();
+		}
+
+		context.write(NullWritable.get(), new IntWritable(total));
+	}
+}
+\end{lstlisting}
+
+			\item Can you create a combiner for the program? What will be the code 
+				for the reduce method of the combiner? Do you need to change the map 
+				or reduce method to support the combiner? If so, show the new map and 
+				reduce method.
+				
+				\textit{Yes, a combiner can be used for this program. I wrote my mapper 
+				and reducer for compatibility with a combiner. It also just so happens 
+				that I can use the code in MyReducer as the combiner. Since the reducer 
+				has the same inputs and outputs as the output for the mapper, and since 
+				we are partially aggregating the data, we can safely reuse the same 
+				code. No additional changes need to be made to my original mapper or
+				reducer code.}
+
+		\end{enumerate}
+
+	\item Consider a Map/Reduce solution to a program that reads a file that 
+		contains the date and a temperature that is measured for this day on each 
+		line. There can be multiple temperatures that are measured each day. The 
+		program should calculate the highest temperature for each day. Example 
+		input:
+
+		2022/12/10  10
+
+		2022/12/10  8
+
+		2022/12/10  6
+
+		2022/12/12  11
+
+		2000/01/01  3
+
+
+		\begin{enumerate}
+			\item What is the input/output type of the mapper and reducer?
+				
+				\textit{Input key-value type for mapper: (LongWritable, Text). 
+				Output key-value type for mapper: (Text, IntWritable). 
+				Input key-value type for reducer: (Text, IntWritable). 
+				Output key-value type for reducer: (Text, IntWritable).}
+
+				\textit{The input for the mapper would be the line number, and the 
+				characters that are on the line. The output of the mapper would be 
+				the date, and the temperature for that day. The input and output for 
+				the reducer will be the exact same as the output for the mapper: 
+				(date, temperature).}
+
+
+			\item Show the map method for the program.
+				
+\begin{lstlisting}
+public class MyMapper 
+	extends Mapper<LongWritable, Text, Text, IntWritable> {
+
+	@Override
+	public void map(LongWritable key, Text value, Context context) 
+		throws IOException, InterruptedException {
+
+		// The string in one line of the input file
+		String fullLine = value.toString().trim();
+
+		// Split the dates from the temperature
+		String[] tokens = fullLine.split("\\s+");
+	
+		String date = tokens[0];									// The date
+		int temp = Integer.parseInt(tokens[1]);		// The temperature for that day
+
+		context.write(new Text(date), new IntWritable(temp));
+	}
+}
+\end{lstlisting}
+
+			\item Show the reduce method for the program.
+				
+\begin{lstlisting}
+public class MyReducer 
+	extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+	@Override
+	public void reduce(Text date, Iterable<IntWritable> temps, Context context) 
+		throws IOException, InterruptedException {
+
+		// The first one must be the maximum
+		int max = temps.iterator().next().get();
+	
+		// Get the maximum temperature over the entire iterable
+		for (IntWritable t : temps) {
+			max = Integer.max(max, t.get());
+		}
+
+		context.write(date, new IntWritable(max));
+	}
+}
+\end{lstlisting}
+
+			\item Can you create a combiner for the program? What will be the code 
+				for the reduce method of the combiner? Do you need to change the map 
+				or reduce method to support the combiner? If so, show the new map and 
+				reduce method.
+				
+				\textit{Yes, a combiner can be used for this program. I wrote my mapper 
+				and reducer for compatibility with a combiner. It also just so happens 
+				that I can use the code in MyReducer as the combiner. Since the reducer 
+				has the same inputs and outputs as the output for the mapper, and since 
+				we are partially aggregating the data, we can safely reuse the same 
+				code. No additional changes need to be made to my original mapper or
+				reducer code.}
+
+		\end{enumerate}
+\end{enumerate}
+
+\end{document}

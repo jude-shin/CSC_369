@@ -1,0 +1,6 @@
+*.aux
+*.log
+*.ps
+*.out
+*.bcf
+*.xml
