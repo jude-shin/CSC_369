@@ -34,13 +34,13 @@ public class MyDriver extends Configured implements Tool {
 		// =========================================================================
 
 		// (1) Map
-		job.setMapOutputKeyClass(DateTimePair.class); 
+		job.setMapOutputKeyClass(StudentTripple.class); 
 		job.setMapOutputValueClass(Text.class); 
 		job.setMapperClass(MyMapper.class);
 
 		// (2/6) Local/Global Sort 
 		// For this example, we have a custom composite key (not a primitive)
-		// So we don't need another sorting function; it is done in DateTimePair
+		// So we don't need another sorting function; it is done in StudentTripple
 
 		// (3/7) Local/Global Group
 		job.setGroupingComparatorClass(SSGrouper.class);
