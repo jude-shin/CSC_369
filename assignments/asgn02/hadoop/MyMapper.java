@@ -4,7 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class MyMapper 
-	extends Mapper<LongWritable, Text, StudentTripple, Text> {
+	extends Mapper<LongWritable, Text, StudentTripple, GradePair> {
 
 	@Override
 	public void map(LongWritable key, Text value, Context context) 
@@ -28,9 +28,9 @@ public class MyMapper
 		String course = tokens[3].trim();
 	
 		// The key holds the name (and the id), and the grade for sorting
-		Writable k = new StudentTripple(name, Integer.parseInt(id), grade);
+		StudentTripple k = new StudentTripple(name, Integer.parseInt(id), grade);
 		// The value holds the grade (again) and the course name
-		Writable v = new GradePair(grade, course);
+		GradePair v = new GradePair(grade, course);
 	
 		context.write(k, v);
 	}
