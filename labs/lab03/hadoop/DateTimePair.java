@@ -47,7 +47,7 @@ public class DateTimePair
 		}
 		
 		// Otherwise, just compare the difference in the dates
-		return date.compareTo(pair.getDate());
+		return -1 * date.compareTo(pair.getDate());
 	}
 	
 	// Getter for the date
