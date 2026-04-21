@@ -12,9 +12,6 @@ public class MyReducer
 		throws IOException, InterruptedException {
 		String value = "";
 
-		// Text k = new Text(student.getName() + ", " + student.getId());
-		value += student.getName() + ", " + student.getId() + ", ";
-
 		// For every one of the grades, join them with a ", "
 		boolean isFirst = true;
 		for (GradePair g : grades) {
@@ -25,8 +22,7 @@ public class MyReducer
 			value = value + g.toString();
 			isFirst = false;
 		}
-		Text v = new Text(value);
 	
-		context.write(NullWritable.get(), v);
+		context.write(student, new Text(value));
 	}
 }

@@ -68,5 +68,11 @@ public class StudentTripple
 	public Text getGrade() {
 		return this.grade;
 	}
+
+	// I only really care about the name and the id being printed
+	@Override
+	public String toString() {
+		return this.name + ", " + this.id;
+	}
 }
 
