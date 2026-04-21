@@ -5,7 +5,7 @@ import org.apache.hadoop.mapreduce.Reducer.*;
 
 
 public class MyReducer 
-	extends Reducer<StudentTripple, GradePair, NullWritable, Text> {
+	extends Reducer<StudentTripple, GradePair, StudentTripple, Text> {
 
 	@Override
 	public void reduce(StudentTripple student, Iterable<GradePair> grades, Context context) 

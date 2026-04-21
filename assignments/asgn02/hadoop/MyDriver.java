@@ -52,7 +52,7 @@ public class MyDriver extends Configured implements Tool {
 		job.setPartitionerClass(SSPartitioner.class);
 
 		// (8) Reduce
-		job.setOutputKeyClass(NullWritable.class); 
+		job.setOutputKeyClass(StudentTripple.class); 
 		job.setOutputValueClass(Text.class); 
 		job.setReducerClass(MyReducer.class);
 	
