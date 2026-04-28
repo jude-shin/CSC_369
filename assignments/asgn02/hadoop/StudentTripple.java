@@ -64,7 +64,7 @@ public class StudentTripple
 	// And the combo 
 	@Override
 	public String toString() {
-		return this.nameId;
+		return this.nameId.get();
 	}
 }
 

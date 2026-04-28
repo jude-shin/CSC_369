@@ -34,8 +34,8 @@ public class MyDriver extends Configured implements Tool {
 		// =========================================================================
 
 		// (1) Map
-		job.setMapOutputKeyClass(DateTimePair.class); 
-		job.setMapOutputValueClass(Text.class); 
+		job.setMapOutputKeyClass(NullWritable.class); 
+		job.setMapOutputValueClass(NullWritable.class); 
 		job.setMapperClass(MyMapper.class);
 
 		// (2/6) Local/Global Sort 

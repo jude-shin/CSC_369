@@ -4,31 +4,29 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class MyMapper 
-	extends Mapper<LongWritable, Text, DateTimePair, Text> {
+	extends Mapper<LongWritable, Text, NullWritable, Text> {
+	public static final int DEFAULT_N = 10;		// If no value is given
+	private int n = DEFAULT_N; 
+
+	// Only stores the top N values in main memory
+	private TreeSet<Record> top = new TreeSet<Record>();
 
 	@Override
-	public void map(LongWritable key, Text value, Context context) 
+	public void map(LongWritable key, Text value, Context context)
 		throws IOException, InterruptedException {
-
-		// The string in one line of the input file
-		String fullLine = value.toString().trim();
-
-		// Split the values by the commas
-		String[] tokens = fullLine.split(",");
-	
-		// Sales file: ID, date, time, storeID, customerID
-		if (tokens.length != 5) {
-			return;
-		}
 		
-		// Extract the data from the line
-		String id = tokens[0].trim();
-		String date = tokens[1].trim();
-		String time = tokens[2].trim();
-	
-		// The key will be our custom key which will be sorted by date, then time
-		// Nothing special needs to happen with the value, it is just the date of 
-		// the sale and the id of that sale.
-		context.write(new DateTimePair(date, time), new Text(time + " " + id));
+		// The full line from the input file
+		String line = value.toString().trim();
+
+		// Split based on a comma
+		String[] tokens = line.split(",");
+
+		double weight = Double.parseDouble(tokens[2]);
+		top.add(new Record(Integer.parseInt(tokens[0]),tokens[1],
+					weight));
+		//keep only top n
+		if (top.size() > n) {
+			top.remove(top.last());
+		}
 	}
 }
