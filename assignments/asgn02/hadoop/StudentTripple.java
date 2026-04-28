@@ -10,9 +10,8 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 public class StudentTripple 
 	implements Writable, WritableComparable<StudentTripple> {
 
-	// Will be sorted first by name, and then by grade (id needed for printing)
-	private final Text name = new Text(); 
-	private final IntWritable id = new IntWritable();
+	// Will be sorted first by name (as well as the id), and then by grade
+	private final Text nameId = new Text(); 
 	private final Text grade = new Text();
 
 	// Empty constructor to satisfy the Java gods
@@ -21,24 +20,21 @@ public class StudentTripple
 	
 	// Constructor that will be used to populate the data
 	public StudentTripple(String name, int id, String grade) {
-		this.name.set(name);
-		this.id.set(id);
+		this.nameId.set(name + ", " + id);
 		this.grade.set(grade);
 	}
 	
 	// How to write the data to disk (note the order is same as read)
 	@Override
 	public void write(DataOutput out) throws IOException{
-		name.write(out);
-		id.write(out);
+		nameId.write(out);
 		grade.write(out);
 	}
 	
 	// How to read the data from disk (note the order is same as write)
 	@Override
 	public void readFields(DataInput in) throws IOException {
-		name.readFields(in);
-		id.readFields(in);
+		nameId.readFields(in);
 		grade.readFields(in);
 	}
 
@@ -46,33 +42,29 @@ public class StudentTripple
 	@Override
 	public int compareTo(StudentTripple trip) {
 		// If the names are the same, then compare grades
-		if(name.compareTo(trip.getName()) == 0){
+		if(nameId.compareTo(trip.getNameId()) == 0){
 			return grade.compareTo(trip.getGrade());
 		}
 		
 		// Otherwise, just compare the difference in the names
-		return name.compareTo(trip.getName());
+		return nameId.compareTo(trip.getNameId());
 	}
 	
-	// Getter for the name
-	public Text getName() {
-		return this.name;
+	// Getter for the name and id combo
+	public Text getNameId() {
+		return this.nameId;
 	}       
 
-	// Getter for the id
-	public IntWritable getId() {
-		return this.id;
-	}
-	
 	// Getter for the grade
 	public Text getGrade() {
 		return this.grade;
 	}
 
 	// I only really care about the name and the id being printed
+	// And the combo 
 	@Override
 	public String toString() {
-		return this.name + ", " + this.id;
+		return this.nameId;
 	}
 }
 

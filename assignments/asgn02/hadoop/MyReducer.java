@@ -18,7 +18,8 @@ public class MyReducer
 			if (!isFirst) {
 				value = value + ", ";
 			}
-
+			
+			// Appends a pair in parenthesees
 			value = value + g.toString();
 			isFirst = false;
 		}
