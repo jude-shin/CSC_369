@@ -74,13 +74,14 @@ public class MyDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {                
 		// Validate Inputs
-		if (args.length != 2) {
+		if (args.length != 3) {
 			throw new IllegalArgumentException
-				("usage: <input> <output>");
+				("usage: <input> <output> <top_n>");
 		}
 
 		THE_LOGGER.info("inputDir = " + args[0]);
 		THE_LOGGER.info("outputDir = " + args[1]);
+		THE_LOGGER.info("topN" + args[2]);
 	
 		// Run the new Driver
 		int returnStatus = ToolRunner.run(new MyDriver(), args);
