@@ -35,7 +35,7 @@ public class MyDriver extends Configured implements Tool {
 
 		// (1) Map
 		job.setMapOutputKeyClass(NullWritable.class); 
-		job.setMapOutputValueClass(NullWritable.class); 
+		job.setMapOutputValueClass(Text.class); 
 		job.setMapperClass(MyMapper.class);
 
 		// (2/6) Local/Global Sort 
@@ -43,16 +43,16 @@ public class MyDriver extends Configured implements Tool {
 		// So we don't need another sorting function; it is done in DateTimePair
 
 		// (3/7) Local/Global Group
-		job.setGroupingComparatorClass(SSGrouper.class);
+		// job.setGroupingComparatorClass(SSGrouper.class);
 
 		// (4) Combiner
 		// job.setCombinerClass(MyReducer.class);
 
 		// (5) Partition
-		job.setPartitionerClass(SSPartitioner.class);
+		// job.setPartitionerClass(SSPartitioner.class);
 
 		// (8) Reduce
-		job.setOutputKeyClass(Text.class); 
+		job.setOutputKeyClass(NullWritable.class); 
 		job.setOutputValueClass(Text.class); 
 		job.setReducerClass(MyReducer.class);
 	
