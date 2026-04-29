@@ -22,7 +22,6 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 
 public class MyDriver extends Configured implements Tool {
 	private static final Logger THE_LOGGER = Logger.getLogger(MyDriver.class);
-
 	public static final int DEFAULT_N = 10;
 
 	@Override
@@ -31,7 +30,7 @@ public class MyDriver extends Configured implements Tool {
 		Job job = Job.getInstance();
 		job.setJarByClass(MyDriver.class);
 		job.setJobName("Driver"); 
-
+	
 		// =========================================================================
 
 		// (1) Map
@@ -61,9 +60,12 @@ public class MyDriver extends Configured implements Tool {
 
 		// Get the inputs from the args passed to this main method
 		// ex) hadoop jar lab02.jar MyDriver /user/jshin53/hadoop/inputs
-		//			/user/jshin53/hadoop/outputs
+		//			/user/jshin53/hadoop/outputs N
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+		// NOTE: set the variable for the Mapper and Reducer to read
+		job.getConfiguration().setInt("N", Integer.parseInt(args[2]));
 
 		boolean status = job.waitForCompletion(true); 
 		THE_LOGGER.info("run(): status=" + status);
