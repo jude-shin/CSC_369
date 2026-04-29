@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class MyReducer extends Reducer<NullWritable, Text, NullWritable, Text> {
 	private int n = MyDriver.DEFAULT_N;
-	private SortedSet<Record> top = new TreeSet<>();
+	private TreeSet<Record> top = new TreeSet<>();
 
 	@Override
 	public void reduce(NullWritable key, Iterable<Text> values, Context context) 
@@ -44,7 +44,7 @@ public class MyReducer extends Reducer<NullWritable, Text, NullWritable, Text> {
 	@Override
 	protected void setup(Context context) throws IOException, InterruptedException {
 		// Either sets up the global variable from the given context, or the default
-		this.n = context.getConfiguration().getInt("N", DEFAULT_N); 
+		this.n = context.getConfiguration().getInt("N", MyDriver.DEFAULT_N); 
 
 		// If for some reason the top is not initalized, initalize it to an empty set
 		if (this.top == null) {

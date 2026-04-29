@@ -5,8 +5,7 @@ import org.apache.hadoop.mapreduce.Mapper.*;
 import java.util.TreeSet;
 
 public class MyMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
-	private int DEFAULT_N = MyDriver.DEFAULT_N;
-	private int n = DEFAULT_N; 
+	private int n = MyDriver.DEFAULT_N; 
 
 	// Only stores the top N values in main memory
 	private TreeSet<Record> top = new TreeSet<Record>();
@@ -39,7 +38,7 @@ public class MyMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
 	@Override
 	protected void setup(Context context) throws IOException, InterruptedException {
 		// Either sets up the global variable from the given context, or the default
-		this.n = context.getConfiguration().getInt("N", DEFAULT_N); 
+		this.n = context.getConfiguration().getInt("N", MyDriver.DEFAULT_N); 
 
 		// If for some reason the top is not initalized, initalize it to an empty set
 		if (this.top == null) {
