@@ -21,8 +21,9 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 */
 
 public class MyDriver extends Configured implements Tool {
-	private static final Logger THE_LOGGER = 
-		Logger.getLogger(MyDriver.class);
+	private static final Logger THE_LOGGER = Logger.getLogger(MyDriver.class);
+
+	public static final int DEFAULT_N = 10;
 
 	@Override
 	public int run(String[] args) throws Exception {

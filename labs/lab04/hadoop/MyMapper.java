@@ -4,9 +4,8 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 import java.util.TreeSet;
 
-public class MyMapper 
-	extends Mapper<LongWritable, Text, NullWritable, Text> {
-	public static final int DEFAULT_N = 10;		// If no value is given
+public class MyMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
+	private int DEFAULT_N = MyDriver.DEFAULT_N;
 	private int n = DEFAULT_N; 
 
 	// Only stores the top N values in main memory
@@ -47,7 +46,8 @@ public class MyMapper
 			this.top = new TreeSet<Record>();
 		}
 	}
-
+	
+	// Run after all of the file is parsed
 	@Override
 	protected void cleanup(Context context) throws IOException, InterruptedException {
 		// Write N lines of the top n at this one mapp node
