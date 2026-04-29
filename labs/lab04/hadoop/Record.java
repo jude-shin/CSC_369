@@ -4,6 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class Record implements Comparable <Record> {
+	// An element of the inital input dataset
 	private int id;
 	private String name;
 	private double price;
@@ -14,12 +15,13 @@ public class Record implements Comparable <Record> {
 		this.price = price;
 	}
 
+	@Override
 	public String toString(){
 		return id+", "+name+", "+price;
 	}
 	
-
 	// The price should be compared to in decending order
+	@Override
 	public int compareTo(Record other){
 		if(this.price > other.price) {
 			return -1;
@@ -36,7 +38,6 @@ public class Record implements Comparable <Record> {
 		// I belive that the ids are unique, however if it is not, we could do one 
 		// more comparison to distinguish the name as well
 	
-		// 0 means that the records are the same
-		return 0;
+		return 0;		// The records are the same
 	}
 }
