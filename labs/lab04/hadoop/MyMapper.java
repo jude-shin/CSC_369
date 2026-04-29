@@ -2,6 +2,7 @@ import java.io.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
+import java.util.TreeSet;
 
 public class MyMapper 
 	extends Mapper<LongWritable, Text, NullWritable, Text> {
@@ -21,12 +22,38 @@ public class MyMapper
 		// Split based on a comma
 		String[] tokens = line.split(",");
 
-		double weight = Double.parseDouble(tokens[2]);
-		top.add(new Record(Integer.parseInt(tokens[0]),tokens[1],
-					weight));
-		//keep only top n
+		// Parse out the id, name, and the price
+		int id = Integer.parseInt(tokens[0].trim());
+		String name = tokens[1].trim();
+		double price = Double.parseDouble(tokens[2].trim());
+
+		// Add the element to the sorted running set
+		top.add(new Record(id, name, price));
+
+		// Keep only top n
 		if (top.size() > n) {
 			top.remove(top.last());
+		}
+	}
+
+	// Run before the mapping stage
+	@Override
+	protected void setup(Context context) throws IOException, InterruptedException {
+		// Either sets up the global variable from the given context, or the default
+		this.n = context.getConfiguration().getInt("N", DEFAULT_N); 
+
+		// If for some reason the top is not initalized, initalize it to an empty set
+		if (this.top == null) {
+			this.top = new TreeSet<Record>();
+		}
+	}
+
+	@Override
+	protected void cleanup(Context context) throws IOException, InterruptedException {
+		// Write N lines of the top n at this one mapp node
+		for (Record r : top) {
+			// Will be in the same form as the input ("id, name, price")
+			context.write(NullWritable.get(), new Text(r.toString()));
 		}
 	}
 }
