@@ -13,7 +13,7 @@ hadoop: $(SRCS)
 	jar cvf $(JAR) *.class
 
 run: $(JAR)
-	hadoop jar $(JAR) $(DRIVER_CLASS) /user/jshin53/input/product /user/jshin53/output
+	hadoop jar $(JAR) $(DRIVER_CLASS) /user/jshin53/input/product /user/jshin53/output 10
 
 cleanall: clean
 	rm -rf $(JAR)
