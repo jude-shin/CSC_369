@@ -1,0 +1,22 @@
+DRIVER_CLASS = MyDriver
+JAR = bonus.jar
+
+# Wildcard these .java files, and the .class files
+SRCS := $(wildcard *.java)
+
+.PHONY: all hadoop clean
+
+all: hadoop
+
+hadoop: $(SRCS)
+	hadoop com.sun.tools.javac.Main $(SRCS)
+	jar cvf $(JAR) *.class
+
+run: $(JAR)
+	hadoop jar $(JAR) $(DRIVER_CLASS) /user/jshin53/input/product /user/jshin53/output 10
+
+cleanall: clean
+	rm -rf $(JAR)
+
+clean:
+	rm -rf *.class
