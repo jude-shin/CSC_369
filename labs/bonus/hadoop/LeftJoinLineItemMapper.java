@@ -2,9 +2,10 @@ import java.io.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
-import java.util.TreeSet;
 
-public class MyMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
+public class LineItemLeftJoinSalesMapper 
+	extends Mapper<LongWritable, Text, NullWritable, Text> {
+
 	private int n = MyDriver.DEFAULT_N; 
 
 	// Only stores the top N values in main memory
