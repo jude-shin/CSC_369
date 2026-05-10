@@ -3,7 +3,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
-public class LeftJoinLineItemMapper 
+public class LeftJoinSaleMapper 
 	extends Mapper<LongWritable, Text, NullWritable, Text> {
 
 	@Override
@@ -16,22 +16,23 @@ public class LeftJoinLineItemMapper
 		// Split based on a comma
 		String[] tokens = line.split(",");
 
-		// Parse out the lineItemId, salesId, productId, and quantity
-		// int lineItemId = Integer.parseInt(tokens[0].trim());
-		int salesId = Integer.parseInt(tokens[1].trim());
-		int productId = Integer.parseInt(tokens[2].trim());
-		int quantity = Integer.parseInt(tokens[3].trim());
+		// Parse out the salesId, date, time, storeId, customerId 
+		int saleId = Integer.parseInt(tokens[0].trim());
+		String date = tokens[1].trim();
+		// String time = tokens[2].trim();
+		int storeId = Integer.parseInt(tokens[3].trim());
+		//int customerId = Integer.parseInt(tokens[4].trim());
 	
 		// The order doesn't matter... I believe it is a one to one relationship, 
 		// where there is only one line item for one sales item, and vice versa
-		// So we will just secondary group and sort this first, and the sale second
-		// ((salesId, "1",) , ("productId, quantity", "lineItem"))
+		// So we will just secondary group and sort this second, and the other second 
+		// ((salesId, "2",) , ("date, storeId", "sale"))
 
 		// pair of string b/c I am lazy... It will still secondary stort correct
-		PairOfStrings k = new PairOfStrings(salesId, "1");	
+		PairOfStrings k = new PairOfStrings(saleId, "2");	
 
-		String valueLeft = productId + ", " + quantity;
-		PairOfStrings v = new PairOfStrings(valueLeft, "lineItem");
+		String valueLeft = date + ", " + storeId;
+		PairOfStrings v = new PairOfStrings(valueLeft, "sale");
 
 		context.write(k, v); 
 	}
