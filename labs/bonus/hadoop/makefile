@@ -26,6 +26,18 @@ run: $(JAR)
 		/user/jshin53/input/store \
 		$(OUTPUTS)
 
+showfirst:
+	hadoop fs -cat /user/jshin53/firstJoin/part-r-00000
+
+showsecond:
+	hadoop fs -cat /user/jshin53/secondJoin/part-r-00000
+
+showthird:
+	hadoop fs -cat /user/jshin53/thirdJoin/part-r-00000
+
+showouput:
+	hadoop fs -cat /user/jshin53/output/part-r-00000
+
 cleanall: clean
 	rm -rf $(JAR)
 
