@@ -10,36 +10,37 @@ public class SecondReducer extends Reducer<PairOfStrings, PairOfStrings, NullWri
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {
 
+		String descriptionPrice = null;
+
 		int i = 0;
 		for (PairOfStrings value : values) {
-			// // check for the first item
-			// if (i == 0 && "sale".equals(value.getRightElement().toString())) {
-			// 	saleInfo = value.getLeftElement().toString();
-			// }
+			// check for the first item to be a product
+			if (i == 0) {
+				if ("product".equals(value.getRightElement().toString())) {
+					descriptionPrice = value.getLeftElement();
+				}
+				else {
+					// Don't write anything if there is no product before it
+					return;
+				}
+			}
 	
-			// // check for the second item
-			// if (i == 1 && "lineItem".equals(value.getRightElement().toString())) {
-			// 	lineItemInfo = value.getLeftElement().toString();
-			// 	break;
-			// }
-	
-			// // increment the counter
-			// i++;
+			// check for the other items to be of a diff
+			if (i > 0 && "first".equals(value.getRightElement().toString())) {
+				//Text out = new Text(
+				//		key.getLeftElement() + ", " +
+				//		key.getRightElement() + ", " + 
+				//		value.getLeftElement() + ", " +
+				//		value.getRightElement()
+				//		);
 
-			Text out = new Text(
-					key.getLeftElement() + ", " +
-					key.getRightElement() + ", " + 
-					value.getLeftElement() + ", " +
-					value.getRightElement()
-					);
-			context.write(NullWritable.get(), out);
+				// (description, price, date, storeId, quantity)
+				Text out = new Text(descriptionPrice + ", " + value.getLeftElement());
+				context.write(NullWritable.get(), out);
+			}
+	
+			// increment the counter
+			i++;
 		}
-
-		// // Concatinate all of the data together!
-		// if (saleInfo != null && lineItemInfo != null) {
-		// 	// The output will be in the form (date, storeId, productId, quantity)
-		// 	Text out = new Text(saleInfo + ", " + lineItemInfo);
-		// 	context.write(NullWritable.get(), out);
-		// }
 	}
 }
