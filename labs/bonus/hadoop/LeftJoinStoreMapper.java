@@ -31,7 +31,7 @@ public class LeftJoinStoreMapper
 		// pair of string b/c I am lazy... It will still secondary stort correct
 		PairOfStrings k = new PairOfStrings(new Text(storeId), new Text("1"));	
 
-		String valueLeft = price;
+		String valueLeft = storeName + ", " + city;
 		PairOfStrings v = new PairOfStrings(new Text(valueLeft), new Text("store"));
 
 		context.write(k, v); 
