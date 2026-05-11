@@ -16,20 +16,28 @@ public class TopMapper
 		// Split based on a comma
 		String[] tokens = line.split(",");
 
-		// Parse out the TODO
-		String date = tokens[0].trim();
+		// Parse out the information from the third join job
+		// storeId, name, city, price, date, quantity
+		String id = tokens[0].trim();
+		String name = tokens[1].trim();
+		String city = tokens[2].trim();
+		String price = tokens[3].trim();
+		String date = tokens[4].trim();
+		String quanity = tokens[5].trim();
 
 		// ====================================
-		// TODO: multiply the quanity and price to make a total
-		float total = 0.0;
+		// Multiply the quanity and price to make a total
+		float total = Float.getFloat(price) * Integer.getInteger(quanity);
 
-		// TODO: extract the date
-		String month = "";
+		// Parse out dates 
+		String year = date.trim().split("/")[0].trim();
+		String month = date.trim().split("/")[1].trim();
+		String yearMonth = year + "-" + month;
 	
-		// Composite key (month, total)
-		PairOfStrings k = new PairOfStrings(new Text(month), new Text(Float.toString(total)));
+		// Composite key (yearMonth, total)
+		PairOfStrings k = new PairOfStrings(new Text(yearMonth), new Text(Float.toString(total)));
 	
-		// Value (name, city, total)
+		// Value (id, name, city, total)
 		PairOfStrings v = new Text(id + ", " + name + ", " + city + ", " + total);
 
 		context.write(k, v); 

@@ -18,7 +18,7 @@ public class Record implements Comparable <Record> {
 
 	// Called when printint the final result
 	@Override
-	public String toString(){
+	public String toString() {
 		return "(" + name + ", " + city + ", " + totalSales + ")";
 	}
 	

@@ -12,6 +12,8 @@ public class TopReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritab
 	@Override
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {
+		// Composite key (month, total)
+		// Value (id, name, city, total)
 
 		for (PairOfStrings value : values) {
 
@@ -22,7 +24,6 @@ public class TopReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritab
 			String[] tokens = line.split(",");
 
 			// Parse out the id, name, and the price
-			// TODO: check the order
 			String id = tokens[0].trim();
 			String name = tokens[1].trim();
 			String city = tokens[2].trim();
