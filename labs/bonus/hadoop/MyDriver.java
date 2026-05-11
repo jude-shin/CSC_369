@@ -124,7 +124,7 @@ public class MyDriver extends Configured implements Tool {
 	*/
 	public boolean runJob2() throws IOException, InterruptedException, ClassNotFoundException {
 		Job job = Job.getInstance();
-		job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
+		job.setJarByClass(MyDriver.class); //VERY VERY IMPORTANT
 		job.setJobName("job1 LEFTJOIN product (join on productID)");
 
 		// Mapper inputs and outputs
