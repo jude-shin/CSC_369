@@ -14,7 +14,7 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 		for (PairOfStrings value : values) {
 			// check that it is a sale
 			if (firstSale==null && secondLineItem==null) {
-				if (value.getRightElement() == "sale") {
+				if (value.getRightElement().toString() == "sale") {
 					firstSale = value;
 				}
 				else {
@@ -25,11 +25,11 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 			// Will check the second value
 			else if (secondLineItem==null) {
 				// check that it is a lineItem
-				if (value.getRightElement() == "lineItem") {
+				if (value.getRightElement().toString() == "lineItem") {
 					secondLineItem = value;
 					
 					// Concatinate all of the data together!
-					context.write(NullWritable, firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement);
+					context.write(NullWritable.get(), firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement);
 
 					return;
 				}
