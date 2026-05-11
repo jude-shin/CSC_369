@@ -27,7 +27,7 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 			// // increment the values
 			// i++;
 			
-			Text out = new Text(firstSale.getLeftElement() + ", " + firstSale.getRightElement() + ", " + secondLineItem.getLeftElement() + ", " + secondLineItem.getRightElement());
+			Text out = new Text(key.getLeftElement() + ", " + key.getRightElement() + ", " + value.getLeftElement() + ", " + value.getRightElement());
 			context.write(NullWritable.get(), out);
 		}
 
