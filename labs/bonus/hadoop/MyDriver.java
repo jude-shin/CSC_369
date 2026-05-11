@@ -39,52 +39,6 @@ public class MyDriver extends Configured implements Tool {
 	@Override
 	public int run(String[] args) throws Exception {
 		return (runJob1()&&runJob2()&&runJob3()&&runJob4())? 0 : 1;
-
-		// // Generic Job setup
-		// Job job = Job.getInstance();
-		// job.setJarByClass(MyDriver.class);
-		// job.setJobName("Driver"); 
-
-		// // =========================================================================
-
-		// // (1) Map
-		// job.setMapOutputKeyClass(NullWritable.class); 
-		// job.setMapOutputValueClass(Text.class); 
-		// job.setMapperClass(MyMapper.class);
-
-		// // (2/6) Local/Global Sort 
-		// // For this example, we have a custom composite key (not a primitive)
-		// // So we don't need another sorting function; it is done in DateTimePair
-
-		// // (3/7) Local/Global Group
-		// // job.setGroupingComparatorClass(SSGrouper.class);
-
-		// // (4) Combiner
-		// // job.setCombinerClass(MyReducer.class);
-
-		// // (5) Partition
-		// // job.setPartitionerClass(SSPartitioner.class);
-
-		// // (8) Reduce
-		// job.setOutputKeyClass(NullWritable.class); 
-		// job.setOutputValueClass(Text.class); 
-		// job.setReducerClass(MyReducer.class);
-
-		// // =========================================================================
-
-		// // Get the inputs from the args passed to this main method
-		// // ex) hadoop jar lab02.jar MyDriver /user/jshin53/hadoop/inputs
-		// //			/user/jshin53/hadoop/outputs N
-		// FileInputFormat.setInputPaths(job, new Path(args[0]));
-		// FileOutputFormat.setOutputPath(job, new Path(args[1]));
-
-
-		// // NOTE: set the variable for the Mapper and Reducer to read
-		// job.getConfiguration().setInt("N", Integer.parseInt(args[2]));
-
-		// boolean status = job.waitForCompletion(true); 
-		// THE_LOGGER.info("run(): status=" + status);
-		// return status ? 0 : 1;
 	}
 	
 	/* 
@@ -205,7 +159,7 @@ public class MyDriver extends Configured implements Tool {
 		// Validate Inputs
 		if (args.length != 8) {
 			throw new IllegalArgumentException
-				("usage: <lineItemPath> <salePath> <productPath> <storePath> <firstJoin> <secondJoin> <thirdJoin>");
+				("usage: <lineItemPath> <salePath> <productPath> <storePath> <firstJoin> <secondJoin> <thirdJoin> <output>");
 		}
 
 		lineItemPath = new Path(args[0]);

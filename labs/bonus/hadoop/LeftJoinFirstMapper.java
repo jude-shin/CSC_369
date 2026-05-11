@@ -22,11 +22,11 @@ public class LeftJoinFirstMapper
 		String productId = tokens[2].trim();
 		String quantity = tokens[3].trim();
 	
-		// So we will just secondary group and sort this first 
+		// So we will just secondary group and sort this second
 		// ((productId, "2",) , ("date, storeId, quantity", "first"))
 
 		// pair of string b/c I am lazy... It will still secondary stort correct
-		PairOfStrings k = new PairOfStrings(new Text(productId), new Text("1"));	
+		PairOfStrings k = new PairOfStrings(new Text(productId), new Text("2"));
 
 		String valueLeft = date + ", " + storeId + ", " + productId;
 		PairOfStrings v = new PairOfStrings(new Text(valueLeft), new Text("first"));
