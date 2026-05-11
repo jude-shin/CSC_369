@@ -21,13 +21,11 @@ public class LeftJoinProductMapper
 		String description = tokens[1].trim();
 		String price = tokens[2].trim();
 	
-		// The order doesn't matter... I believe it is a one to one relationship, 
-		// where there is only one line item for one sales item, and vice versa
 		// So we will just secondary group and sort this second
 		// ((productId, "2",) , ("description, price", "product"))
 
 		// pair of string b/c I am lazy... It will still secondary stort correct
-		PairOfStrings k = new PairOfStrings(new Text(salesId), new Text("2"));	
+		PairOfStrings k = new PairOfStrings(new Text(productId), new Text("2"));	
 
 		String valueLeft = description + ", " + price;
 		PairOfStrings v = new PairOfStrings(new Text(valueLeft), new Text("product"));
