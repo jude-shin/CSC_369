@@ -35,17 +35,10 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 		// 	throw new IOException(" i > 1. ");
 		// }
 
-		if (firstSale == null) {
-			throw new IOException("firstSale is NULL");
+		// Concatinate all of the data together!
+		if (firstSale != null && secondLineItem != null) {
+			Text out = new Text(firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
+			context.write(NullWritable.get(), out);
 		}
-
-		if (secondLineItem == null) {
-			throw new IOException("secondLineItem is NULL");
-		}
-
-		// // Concatinate all of the data together!
-		// Text out = new Text(firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
-		// context.write(NullWritable.get(), out);
-
 	}
 }
