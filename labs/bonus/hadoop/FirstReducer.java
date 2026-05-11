@@ -8,19 +8,19 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {
 
-		PairOfStrings firstSale = null;
-		PairOfStrings secondLineItem = null;
+		String saleInfo = null;
+		String lineItemInfo = null;
 
 		int i = 0;
 		for (PairOfStrings value : values) {
 			// check for the first item
 			if (i == 0 && value.getRightElement().toString() == "sale") {
-				firstSale = value;
+				saleInfo = value.getLeftElement().toString();
 			}
 	
 			// check for the second item
 			if (i == 1 && value.getRightElement().toString() == "lineItem") {
-				secondLineItem = value;
+				lineItemInfo = value.getLeftElement().toString();
 			}
 	
 			// increment the values
@@ -30,10 +30,10 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 			context.write(NullWritable.get(), out);
 		}
 
-		// // Concatinate all of the data together!
-		// if (firstSale != null && secondLineItem != null) {
-		// 	Text out = new Text(firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
-		// 	context.write(NullWritable.get(), out);
-		// }
+		// Concatinate all of the data together!
+		if (saleInfo != null && lineItemInfo != null) {
+			Text out = new Text(saleInfo + ", " + lineItemInfo);
+			context.write(NullWritable.get(), out);
+		}
 	}
 }
