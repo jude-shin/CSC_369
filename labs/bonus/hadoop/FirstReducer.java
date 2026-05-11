@@ -4,7 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Reducer.*;
 import java.util.TreeSet;
 
-public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, PairOfStrings, PairOfStrings> {
+public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritable, PairOfStrings> {
 	@Override
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {

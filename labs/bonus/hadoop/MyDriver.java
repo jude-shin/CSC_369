@@ -102,8 +102,8 @@ public class MyDriver extends Configured implements Tool {
 		job.setMapOutputValueClass(PairOfStrings.class);
 
 		// Reducer inputs and outputs
-		job.setReducerClass(MyReducer.class);
-		job.setOutputKeyClass(PairOfStrings.class);
+		job.setReducerClass(FirstReducer.class);
+		job.setOutputKeyClass(NullWritable.class);
 		job.setOutputValueClass(PairOfStrings.class);
 		
 		// Grouping and Partitioning the outputs from both Mappers to the Reducers
