@@ -29,7 +29,7 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 					secondLineItem = value;
 					
 					// Concatinate all of the data together!
-					context.write(NullWritable.get(), firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement);
+					context.write(NullWritable.get(), firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
 
 					return;
 				}
