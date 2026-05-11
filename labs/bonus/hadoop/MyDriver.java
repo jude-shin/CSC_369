@@ -115,7 +115,7 @@ public class MyDriver extends Configured implements Tool {
 
 		// Mapper inputs and outputs
 		MultipleInputs.addInputPath(job, secondJoin, TextInputFormat.class, LeftJoinSecondMapper.class);
-		MultipleInputs.addInputPath(job, storeJoin, TextInputFormat.class, LeftJoinStoreMapper.class);
+		MultipleInputs.addInputPath(job, storePath, TextInputFormat.class, LeftJoinStoreMapper.class);
 		job.setMapOutputKeyClass(PairOfStrings.class);
 		job.setMapOutputValueClass(PairOfStrings.class);
 
