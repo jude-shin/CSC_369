@@ -5,7 +5,6 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Reducer.*;
 
 public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritable, Text> {
-	private static final Logger THE_LOGGER = Logger.getLogger(MyDriver.class);
 
 	@Override
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
@@ -17,29 +16,24 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 		int i = 0;
 		for (PairOfStrings value : values) {
 
-			THE_LOGGER.info("\t---> (" + key.getLeftElement() + "): iteration (" + i + ")\n");
-
 			// check for the first item
 			if (i == 0 && "sale".equals(value.getRightElement().toString())) {
-				THE_LOGGER.info("\t---> fornd the <sale> element!\n");
 				saleInfo = value.getLeftElement().toString();
 			}
 	
 			// check for the second item
 			if (i == 1 && "lineItem".equals(value.getRightElement().toString())) {
-				THE_LOGGER.info("\t---> fornd the <lineItem> element!\n");
 				lineItemInfo = value.getLeftElement().toString();
+				break;
 			}
 	
-			// increment the values
+			// increment the counter
 			i++;
-			
-			// Text out = new Text(key.getLeftElement() + ", " + key.getRightElement() + ", " + value.getLeftElement() + ", " + value.getRightElement());
-			// context.write(NullWritable.get(), out);
 		}
 
 		// Concatinate all of the data together!
 		if (saleInfo != null && lineItemInfo != null) {
+			// The output will be in the form (date, storeId, productId, quantity)
 			Text out = new Text(saleInfo + ", " + lineItemInfo);
 			context.write(NullWritable.get(), out);
 		}
