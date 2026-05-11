@@ -29,7 +29,7 @@ public class SecondReducer extends Reducer<PairOfStrings, PairOfStrings, NullWri
 			Text out = new Text(
 					key.getLeftElement() + ", " +
 					key.getRightElement() + ", " + 
-					value.getLeftElement + ", " +
+					value.getLeftElement() + ", " +
 					value.getRightElement()
 					);
 			context.write(NullWritable.get(), out);
