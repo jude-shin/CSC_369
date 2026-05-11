@@ -9,30 +9,22 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {
 
-		// For every line that is given to one reduce node
-		for (PairOfStrings value : values) {
-			String line = value.toString().trim();
+		// If there is a first item, explore
+		if (values.hasNext()) {
+			PairOfStrings firstSale = values.next();
 
-			// Split based on a comma
-			String[] tokens = line.split(",");
+			// Make sure it is of type "sale"
+			// If there is a second associated item
+			if (firstSale.getRightElement() == "sale" && values.hasNext()) {
+				PairOfStrings secondLineItem = values.next();
 
-			// If there is a first item, explore
-			if (values.hasNext()) {
-				PairOfStrings firstSale = values.next();
-				
-				// Make sure it is of type "sale"
-				// If there is a second associated item
-				if (firstSale.getRightElement() == "sale" && values.hasNext()) {
-					PairOfStrings secondLineItem = values.next();
-						
-					// Make sure it is of type "lineItem"
-					if (firstSale.getRightElement() == "lineItem") {
-						// Concatinate all of the data together!
-						context.write(NullWritable, firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement);
-					}
+				// Make sure it is of type "lineItem"
+				if (firstSale.getRightElement() == "lineItem") {
+					// Concatinate all of the data together!
+					context.write(NullWritable, firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement);
 				}
 			}
-
 		}
+
 	}
 }
