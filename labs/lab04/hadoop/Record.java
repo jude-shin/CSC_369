@@ -9,15 +9,15 @@ public class Record implements Comparable <Record> {
 	private String name;
 	private double price;
 
-	public Record(int id, String name, double price){
-		this.id = id;
+	public Record(String id, String name, String city, String price){
+		this.id = Integer.getInteger(id);
 		this.name = name;
 		this.price = price;
 	}
 
 	@Override
 	public String toString(){
-		return id+", "+name+", "+price;
+		return id + ", " + name + ", " + price;
 	}
 	
 	// The price should be compared to in decending order

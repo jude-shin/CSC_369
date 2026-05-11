@@ -4,22 +4,22 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class Record implements Comparable <Record> {
-	private String storeName;
-	private String storeCity;
-	private String storeId;
+	private String id;
+	private String name;
+	private String city;
 	private double total;
 
-	public Record(String storeId, String storeName, String storeCity, double total){
-		this.storeId = storeId;
-		this.storeName = storeName;
-		this.storeCity = storeCity;
-		this.total = total;
+	public Record(String id, String name, String city, String total){
+		this.id = id;
+		this.name = name;
+		this.city = city;
+		this.total = Double.parseDouble(total);
 	}
 
 	// Called when printint the final result
 	@Override
 	public String toString(){
-		return "(" + storeName + ", " + storeCity + ", " + totalSales + ")";
+		return "(" + name + ", " + city + ", " + totalSales + ")";
 	}
 	
 	// The price should be compared to in decending order
@@ -30,8 +30,8 @@ public class Record implements Comparable <Record> {
 		if(this.total < other.total) return 1;
 	
 		// Breaks any ties between the records that have the same id
-		if (this.storeId > other.storeId) return  1 ;
-		if (this.storeId < other.storeId) return  -1 ;
+		if (this.id > other.id) return  1 ;
+		if (this.id < other.id) return  -1 ;
 
 		return 0;		// The records are the same
 	}
