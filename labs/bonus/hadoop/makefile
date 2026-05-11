@@ -5,7 +5,7 @@ OUTPUTS = /user/jshin53/firstJoin /user/jshin53/secondJoin /user/jshin53/thirdJo
 # Wildcard these .java files, and the .class files
 SRCS := $(wildcard *.java)
 
-.PHONY: all hadoop clean
+.PHONY: all hadoop clean cleanall showall showfirst showsecond showthird showoutput
 
 all: hadoop
 
@@ -26,17 +26,19 @@ run: $(JAR)
 		/user/jshin53/input/store \
 		$(OUTPUTS)
 
+make showall: showfirst showsecond showthird showoutput
+
 showfirst:
-	hadoop fs -cat /user/jshin53/firstJoin/part-r-00000
+	-hadoop fs -cat /user/jshin53/firstJoin/part-r-00000
 
 showsecond:
-	hadoop fs -cat /user/jshin53/secondJoin/part-r-00000
+	-hadoop fs -cat /user/jshin53/secondJoin/part-r-00000
 
 showthird:
-	hadoop fs -cat /user/jshin53/thirdJoin/part-r-00000
+	-hadoop fs -cat /user/jshin53/thirdJoin/part-r-00000
 
-showouput:
-	hadoop fs -cat /user/jshin53/output/part-r-00000
+showoutput:
+	-hadoop fs -cat /user/jshin53/output/part-r-00000
 
 cleanall: clean
 	rm -rf $(JAR)

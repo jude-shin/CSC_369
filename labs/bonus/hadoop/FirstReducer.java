@@ -26,19 +26,14 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 			// increment the values
 			i++;
 			
-			// Text out = new Text(key.getLeftElement() + ", " + key.getRightElement() + ", " + value.getLeftElement() + ", " + value.getRightElement());
-			// context.write(NullWritable.get(), out);
-		}
-
-		// Check my sanity
-		// if (i > 1) {
-		// 	throw new IOException(" i > 1. ");
-		// }
-
-		// Concatinate all of the data together!
-		if (firstSale != null && secondLineItem != null) {
-			Text out = new Text(firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
+			Text out = new Text(key.getLeftElement() + ", " + key.getRightElement() + ", " + value.getLeftElement() + ", " + value.getRightElement());
 			context.write(NullWritable.get(), out);
 		}
+
+		// // Concatinate all of the data together!
+		// if (firstSale != null && secondLineItem != null) {
+		// 	Text out = new Text(firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
+		// 	context.write(NullWritable.get(), out);
+		// }
 	}
 }
