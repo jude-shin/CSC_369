@@ -29,10 +29,10 @@ public class LeftJoinSaleMapper
 		// ((salesId, "2",) , ("date, storeId", "sale"))
 
 		// pair of string b/c I am lazy... It will still secondary stort correct
-		PairOfStrings k = new PairOfStrings(saleId, "2");	
+		PairOfStrings k = new PairOfStrings(new Text(saleId), "2");	
 
 		String valueLeft = date + ", " + storeId;
-		PairOfStrings v = new PairOfStrings(valueLeft, "sale");
+		PairOfStrings v = new PairOfStrings(new Text(valueLeft), "sale");
 
 		context.write(k, v); 
 	}
