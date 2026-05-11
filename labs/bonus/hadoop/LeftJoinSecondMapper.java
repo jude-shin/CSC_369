@@ -3,7 +3,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
-public class LeftJoinProductMapper 
+public class LeftJoinSecondMapper 
 	extends Mapper<LongWritable, Text, PairOfStrings, PairOfStrings> {
 
 	@Override
@@ -16,19 +16,20 @@ public class LeftJoinProductMapper
 		// Split based on a comma
 		String[] tokens = line.split(",");
 
-		// Parse out the productId, description, price
-		String productId = tokens[0].trim();
-		// String description = tokens[1].trim();
-		String price = tokens[2].trim();
+		// Parse out the price, date, storeId, quantity
+		String price = tokens[0].trim();
+		String date = tokens[1].trim();
+		String storeId = tokens[2].trim();
+		String quantity = tokens[3].trim();
 	
-		// So we will just secondary group and sort this first (only one product"
-		// ((productId, "1",) , ("price", "product"))
+		// So we will just secondary group and sort this second
+		// ((storeId, "2",) , ("price, date, quantity", "second"))
 
 		// pair of string b/c I am lazy... It will still secondary stort correct
-		PairOfStrings k = new PairOfStrings(new Text(productId), new Text("1"));	
+		PairOfStrings k = new PairOfStrings(new Text(storeId), new Text("2"));
 
-		String valueLeft = price;
-		PairOfStrings v = new PairOfStrings(new Text(valueLeft), new Text("product"));
+		String valueLeft = price + ", " + date + ", " + quantity;
+		PairOfStrings v = new PairOfStrings(new Text(valueLeft), new Text("second"));
 
 		context.write(k, v); 
 	}

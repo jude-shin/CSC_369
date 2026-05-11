@@ -10,14 +10,14 @@ public class SecondReducer extends Reducer<PairOfStrings, PairOfStrings, NullWri
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {
 
-		String descriptionPrice = null;
+		String price = null;
 
 		int i = 0;
 		for (PairOfStrings value : values) {
 			// check for the first item to be a product
 			if (i == 0) {
 				if ("product".equals(value.getRightElement().toString())) {
-					descriptionPrice = value.getLeftElement().toString();
+					price = value.getLeftElement().toString();
 				}
 				else {
 					// Don't write anything if there is no product before it
@@ -34,8 +34,8 @@ public class SecondReducer extends Reducer<PairOfStrings, PairOfStrings, NullWri
 				//		value.getRightElement()
 				//		);
 
-				// (description, price, date, storeId, quantity)
-				Text out = new Text(descriptionPrice + ", " + value.getLeftElement());
+				// (price, date, storeId, quantity)
+				Text out = new Text(price + ", " + value.getLeftElement());
 				context.write(NullWritable.get(), out);
 			}
 	
