@@ -17,10 +17,10 @@ public class LeftJoinSaleMapper
 		String[] tokens = line.split(",");
 
 		// Parse out the salesId, date, time, storeId, customerId 
-		int saleId = Integer.parseInt(tokens[0].trim());
+		String saleId = tokens[0].trim();
 		String date = tokens[1].trim();
 		// String time = tokens[2].trim();
-		int storeId = Integer.parseInt(tokens[3].trim());
+		String storeId = tokens[3].trim();
 		//int customerId = Integer.parseInt(tokens[4].trim());
 	
 		// The order doesn't matter... I believe it is a one to one relationship, 

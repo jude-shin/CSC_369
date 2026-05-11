@@ -18,9 +18,9 @@ public class LeftJoinLineItemMapper
 
 		// Parse out the lineItemId, salesId, productId, and quantity
 		// int lineItemId = Integer.parseInt(tokens[0].trim());
-		int salesId = Integer.parseInt(tokens[1].trim());
-		int productId = Integer.parseInt(tokens[2].trim());
-		int quantity = Integer.parseInt(tokens[3].trim());
+		String salesId = tokens[1].trim();
+		String productId = tokens[2].trim();
+		String quantity = tokens[3].trim();
 	
 		// The order doesn't matter... I believe it is a one to one relationship, 
 		// where there is only one line item for one sales item, and vice versa
