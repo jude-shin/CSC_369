@@ -109,25 +109,32 @@ public class MyDriver extends Configured implements Tool {
 		 job3 LEFTJOIN store (join on storeID)
 	*/
 	public boolean runJob3() throws IOException, InterruptedException, ClassNotFoundException {
-		return true;
-		// Job job = Job.getInstance();
-		// job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
-		// job.setJobName("job3 LEFTJOIN store (join on join on storeID)");
-		// job.setPartitionerClass(LeftJoinPartitioner.class);
-		// job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
-		// job.setReducerClass(LeftJoinReducer.class);
-		// job.setOutputKeyClass(Text.class);
-		// job.setOutputValueClass(Text.class);
-		// MultipleInputs.addInputPath(job, transactions, 
-		// 		TextInputFormat.class, LeftJoinTransactionMapper.class);
-		// MultipleInputs.addInputPath(job, users, TextInputFormat.class, 
-		// 		LeftJoinUserMapper.class);
-		// job.setMapOutputKeyClass(PairOfStrings.class);
-		// job.setMapOutputValueClass(PairOfStrings.class);
-		// FileOutputFormat.setOutputPath(job, middle1);
-		// boolean status = job.waitForCompletion(true);
-		// THE_LOGGER.info("run(): status=" + status);
-		// return status;
+		Job job = Job.getInstance();
+		job.setJarByClass(MyDriver.class); //VERY VERY IMPORTANT
+		job.setJobName("job2 LEFTJOIN store (join on join on storeID)");
+
+		// Mapper inputs and outputs
+		MultipleInputs.addInputPath(job, secondJoin, TextInputFormat.class, LeftJoinSecondMapper.class);
+		MultipleInputs.addInputPath(job, storeJoin, TextInputFormat.class, LeftJoinStoreMapper.class);
+		job.setMapOutputKeyClass(PairOfStrings.class);
+		job.setMapOutputValueClass(PairOfStrings.class);
+
+		// Reducer inputs and outputs
+		job.setReducerClass(ThirdReducer.class);
+		job.setOutputKeyClass(NullWritable.class);
+		job.setOutputValueClass(Text.class);
+		
+		// Grouping and Partitioning the outputs from both Mappers to the Reducers
+		job.setPartitionerClass(BasicJoinPartitioner.class);
+		job.setGroupingComparatorClass(BasicJoinGrouper.class);
+
+		// Output the results to the first intermediate join path
+		// (will be referenced for later use)
+		FileOutputFormat.setOutputPath(job, thirdJoin);
+
+		boolean status = job.waitForCompletion(true);
+		THE_LOGGER.info("run(): status=" + status);
+		return status;
 	}
 
 	/* 
