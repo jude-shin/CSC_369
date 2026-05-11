@@ -28,10 +28,10 @@ public class LeftJoinLineItemMapper
 		// ((salesId, "1",) , ("productId, quantity", "lineItem"))
 
 		// pair of string b/c I am lazy... It will still secondary stort correct
-		PairOfStrings k = new PairOfStrings(salesId, "1");	
+		PairOfStrings k = new PairOfStrings(new Text(salesId), new Text("1"));	
 
 		String valueLeft = productId + ", " + quantity;
-		PairOfStrings v = new PairOfStrings(valueLeft, "lineItem");
+		PairOfStrings v = new PairOfStrings(new Text(valueLeft), new Text("lineItem"));
 
 		context.write(k, v); 
 	}
