@@ -46,7 +46,9 @@ public class ThirdReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 					value.getLeftElement() + ", " +
 					value.getRightElement()
 					);
-
+	
+			// ((storeId, "1",) , ("storeName, city", "store"))
+			// ((storeId, "2",) , ("price, date, quantity", "second"))
 			context.write(NullWritable.get(), out);
 		}
 	}
