@@ -4,7 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class LeftJoinSaleMapper 
-	extends Mapper<LongWritable, Text, NullWritable, Text> {
+	extends Mapper<LongWritable, Text, PairOfStrings, PairOfStrings> {
 
 	@Override
 	public void map(LongWritable key, Text value, Context context)

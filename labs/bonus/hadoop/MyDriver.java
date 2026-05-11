@@ -24,6 +24,17 @@ public class MyDriver extends Configured implements Tool {
 	private static final Logger THE_LOGGER = Logger.getLogger(MyDriver.class);
 	public static final int DEFAULT_N = 10;
 
+	private static Path lineItemPath;
+	private static Path salePath;
+	private static Path productPath;
+	private static Path storePath;
+
+	private static Path firstJoin;
+	private static Path secondJoin;
+	private static Path thirdJoin;
+
+	private static Path output;
+
 	@Override
 	public int run(String[] args) throws Exception {
 		return (runJob1()&&runJob2()&&runJob3()&&runJob4())? 0 : 1;
@@ -79,22 +90,29 @@ public class MyDriver extends Configured implements Tool {
 		 lineItem LEFTJOIN sale (join on saleID)
 	*/
 	public boolean runJob1() throws IOException, InterruptedException, ClassNotFoundException {
-
 		Job job = Job.getInstance();
-		job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
+		job.setJarByClass(MyDriver.class); //VERY VERY IMPORTANT
 		job.setJobName("lineItem LEFTJOIN sale (join on join on saleID)");
-		job.setPartitionerClass(LeftJoinPartitioner.class);
-		job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
+
+		// Reducer inputs and outputs
 		job.setReducerClass(LeftJoinReducer.class);
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
-		MultipleInputs.addInputPath(job, transactions, 
-				TextInputFormat.class, LeftJoinTransactionMapper.class);
-		MultipleInputs.addInputPath(job, users, TextInputFormat.class, 
-				LeftJoinUserMapper.class);
+		job.setOutputKeyClass(PairOfStrings.class);
+		job.setOutputValueClass(PairOfStrings.class);
+
+		// Mapper inputs and outputs
+		MultipleInputs.addInputPath(job, lineItem, TextInputFormat.class, LeftJoinLineItemMapper.class);
+		MultipleInputs.addInputPath(job, sale, TextInputFormat.class, LeftJoinSaleMapper.class);
 		job.setMapOutputKeyClass(PairOfStrings.class);
 		job.setMapOutputValueClass(PairOfStrings.class);
-		FileOutputFormat.setOutputPath(job, middle1);
+		
+		// Grouping and Partitioning the outputs from both Mappers to the Reducers
+		job.setPartitionerClass(BasicJoinPartitioner.class);
+		job.setGroupingComparatorClass(BasicJoinGrouper.class);
+
+		// Output the results to the first intermediate join path
+		// (will be referenced for later use)
+		FileOutputFormat.setOutputPath(job, firstJoin);
+
 		boolean status = job.waitForCompletion(true);
 		THE_LOGGER.info("run(): status=" + status);
 		return status;
@@ -104,83 +122,92 @@ public class MyDriver extends Configured implements Tool {
 		 job1 LEFTJOIN product (join on productID)
 	*/
 	public boolean runJob2() throws IOException, InterruptedException, ClassNotFoundException {
-
-		Job job = Job.getInstance();
-		job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
-		job.setJobName("job1 LEFTJOIN product (join on productID)");
-		job.setPartitionerClass(LeftJoinPartitioner.class);
-		job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
-		job.setReducerClass(LeftJoinReducer.class);
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
-		MultipleInputs.addInputPath(job, transactions, 
-				TextInputFormat.class, LeftJoinTransactionMapper.class);
-		MultipleInputs.addInputPath(job, users, TextInputFormat.class, 
-				LeftJoinUserMapper.class);
-		job.setMapOutputKeyClass(PairOfStrings.class);
-		job.setMapOutputValueClass(PairOfStrings.class);
-		FileOutputFormat.setOutputPath(job, middle1);
-		boolean status = job.waitForCompletion(true);
-		THE_LOGGER.info("run(): status=" + status);
-		return status;
+		return true;
+		// Job job = Job.getInstance();
+		// job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
+		// job.setJobName("job1 LEFTJOIN product (join on productID)");
+		// job.setPartitionerClass(LeftJoinPartitioner.class);
+		// job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
+		// job.setReducerClass(LeftJoinReducer.class);
+		// job.setOutputKeyClass(Text.class);
+		// job.setOutputValueClass(Text.class);
+		// MultipleInputs.addInputPath(job, transactions, 
+		// 		TextInputFormat.class, LeftJoinTransactionMapper.class);
+		// MultipleInputs.addInputPath(job, users, TextInputFormat.class, 
+		// 		LeftJoinUserMapper.class);
+		// job.setMapOutputKeyClass(PairOfStrings.class);
+		// job.setMapOutputValueClass(PairOfStrings.class);
+		// FileOutputFormat.setOutputPath(job, middle1);
+		// boolean status = job.waitForCompletion(true);
+		// THE_LOGGER.info("run(): status=" + status);
+		// return status;
 	}
 
 	/* 
 		 job3 LEFTJOIN store (join on storeID)
 	*/
 	public boolean runJob3() throws IOException, InterruptedException, ClassNotFoundException {
-
-		Job job = Job.getInstance();
-		job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
-		job.setJobName("job3 LEFTJOIN store (join on join on storeID)");
-		job.setPartitionerClass(LeftJoinPartitioner.class);
-		job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
-		job.setReducerClass(LeftJoinReducer.class);
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
-		MultipleInputs.addInputPath(job, transactions, 
-				TextInputFormat.class, LeftJoinTransactionMapper.class);
-		MultipleInputs.addInputPath(job, users, TextInputFormat.class, 
-				LeftJoinUserMapper.class);
-		job.setMapOutputKeyClass(PairOfStrings.class);
-		job.setMapOutputValueClass(PairOfStrings.class);
-		FileOutputFormat.setOutputPath(job, middle1);
-		boolean status = job.waitForCompletion(true);
-		THE_LOGGER.info("run(): status=" + status);
-		return status;
+		return true;
+		// Job job = Job.getInstance();
+		// job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
+		// job.setJobName("job3 LEFTJOIN store (join on join on storeID)");
+		// job.setPartitionerClass(LeftJoinPartitioner.class);
+		// job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
+		// job.setReducerClass(LeftJoinReducer.class);
+		// job.setOutputKeyClass(Text.class);
+		// job.setOutputValueClass(Text.class);
+		// MultipleInputs.addInputPath(job, transactions, 
+		// 		TextInputFormat.class, LeftJoinTransactionMapper.class);
+		// MultipleInputs.addInputPath(job, users, TextInputFormat.class, 
+		// 		LeftJoinUserMapper.class);
+		// job.setMapOutputKeyClass(PairOfStrings.class);
+		// job.setMapOutputValueClass(PairOfStrings.class);
+		// FileOutputFormat.setOutputPath(job, middle1);
+		// boolean status = job.waitForCompletion(true);
+		// THE_LOGGER.info("run(): status=" + status);
+		// return status;
 	}
 
 	/* 
 		 job4 LEFTJOIN store (join on storeID)
 	*/
 	public boolean runJob4() throws IOException, InterruptedException, ClassNotFoundException {
-
-		Job job = Job.getInstance();
-		job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
-		job.setJobName("job4 sorted top N solution (grouping on month)");
-		job.setPartitionerClass(LeftJoinPartitioner.class);
-		job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
-		job.setReducerClass(LeftJoinReducer.class);
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
-		// TODO: single input I believe
-		MultipleInputs.addInputPath(job, transactions, 
-				TextInputFormat.class, LeftJoinTransactionMapper.class);
-		job.setMapOutputKeyClass(PairOfStrings.class);
-		job.setMapOutputValueClass(PairOfStrings.class);
-		FileOutputFormat.setOutputPath(job, middle1);
-		boolean status = job.waitForCompletion(true);
-		THE_LOGGER.info("run(): status=" + status);
-		return status;
+		return true;
+		// Job job = Job.getInstance();
+		// job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
+		// job.setJobName("job4 sorted top N solution (grouping on month)");
+		// job.setPartitionerClass(LeftJoinPartitioner.class);
+		// job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
+		// job.setReducerClass(LeftJoinReducer.class);
+		// job.setOutputKeyClass(Text.class);
+		// job.setOutputValueClass(Text.class);
+		// // TODO: single input I believe
+		// MultipleInputs.addInputPath(job, transactions, 
+		// 		TextInputFormat.class, LeftJoinTransactionMapper.class);
+		// job.setMapOutputKeyClass(PairOfStrings.class);
+		// job.setMapOutputValueClass(PairOfStrings.class);
+		// FileOutputFormat.setOutputPath(job, middle1);
+		// boolean status = job.waitForCompletion(true);
+		// THE_LOGGER.info("run(): status=" + status);
+		// return status;
 	}
 
 
 	public static void main(String[] args) throws Exception {                
 		// Validate Inputs
-		if (args.length != 3) {
+		if (args.length != 7) {
 			throw new IllegalArgumentException
-				("usage: <input> <output> <top_n>");
+				("usage: <lineItemPath> <salePath> <productPath> <storePath> <firstJoin> <secondJoin> <thirdJoin>");
 		}
+
+		lineItemPath = new Path(args[0]);
+		salePath = new Path(args[1]);
+		productPath = new Path(args[2]);
+		storePath = new Path(args[3]);
+
+		firstJoin = new Path(args[4]);
+		secondJoin = new Path(args[5]);
+		thirdJoin = new Path(args[6]);
 
 		THE_LOGGER.info("inputDir = " + args[0]);
 		THE_LOGGER.info("outputDir = " + args[1]);
