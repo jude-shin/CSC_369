@@ -17,7 +17,7 @@ public class SecondReducer extends Reducer<PairOfStrings, PairOfStrings, NullWri
 			// check for the first item to be a product
 			if (i == 0) {
 				if ("product".equals(value.getRightElement().toString())) {
-					descriptionPrice = value.getLeftElement();
+					descriptionPrice = value.getLeftElement().toString();
 				}
 				else {
 					// Don't write anything if there is no product before it
