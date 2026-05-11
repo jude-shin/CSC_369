@@ -1,3 +1,4 @@
+import java.io.*;
 import org.apache.log4j.Logger;
 import org.apache.hadoop.util.*;
 import org.apache.hadoop.conf.*;
@@ -94,16 +95,16 @@ public class MyDriver extends Configured implements Tool {
 		job.setJarByClass(MyDriver.class); //VERY VERY IMPORTANT
 		job.setJobName("lineItem LEFTJOIN sale (join on join on saleID)");
 
-		// Reducer inputs and outputs
-		job.setReducerClass(LeftJoinReducer.class);
-		job.setOutputKeyClass(PairOfStrings.class);
-		job.setOutputValueClass(PairOfStrings.class);
-
 		// Mapper inputs and outputs
 		MultipleInputs.addInputPath(job, lineItem, TextInputFormat.class, LeftJoinLineItemMapper.class);
 		MultipleInputs.addInputPath(job, sale, TextInputFormat.class, LeftJoinSaleMapper.class);
 		job.setMapOutputKeyClass(PairOfStrings.class);
 		job.setMapOutputValueClass(PairOfStrings.class);
+
+		// Reducer inputs and outputs
+		job.setReducerClass(MyReducer.class);
+		job.setOutputKeyClass(PairOfStrings.class);
+		job.setOutputValueClass(PairOfStrings.class);
 		
 		// Grouping and Partitioning the outputs from both Mappers to the Reducers
 		job.setPartitionerClass(BasicJoinPartitioner.class);
