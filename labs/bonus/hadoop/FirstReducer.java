@@ -13,28 +13,36 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 
 		int i = 0;
 		for (PairOfStrings value : values) {
-			// // check for the first item
-			// if (i == 0 && value.getRightElement().toString() == "sale") {
-			// 	firstSale = value;
-			// }
+			// check for the first item
+			if (i == 0 && value.getRightElement().toString() == "sale") {
+				firstSale = value;
+			}
 	
-			// // check for the second item
-			// if (i == 1 && value.getRightElement().toString() == "lineItem") {
-			// 	secondLineItem = value;
-			// 	break;
-			// }
+			// check for the second item
+			if (i == 1 && value.getRightElement().toString() == "lineItem") {
+				secondLineItem = value;
+				break;
+			}
 	
-			// // increment the values
-			// i++;
+			// increment the values
+			i++;
 			
-			Text out = new Text(key.getLeftElement() + ", " + key.getRightElement() + ", " + value.getLeftElement() + ", " + value.getRightElement());
-			context.write(NullWritable.get(), out);
+			// Text out = new Text(key.getLeftElement() + ", " + key.getRightElement() + ", " + value.getLeftElement() + ", " + value.getRightElement());
+			// context.write(NullWritable.get(), out);
 		}
 
-		// // Check my sanity
-		// if (i > 1 || firstSale == null || secondLineItem == null) {
-		// 	throw new IOException("Something wrong with the FirstReducer (probably the input from the mappers)");
-		// }
+		// Check my sanity
+		if (i > 1) {
+			throw new IOException(" i > 1. ");
+		}
+
+		if (firstSale == null) {
+			throw new IOException("firstSale is NULL");
+		}
+
+		if (secondLineItem == null) {
+			throw new IOException("secondLineItem is NULL");
+		}
 
 		// // Concatinate all of the data together!
 		// Text out = new Text(firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
