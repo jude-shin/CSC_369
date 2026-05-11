@@ -34,7 +34,7 @@ public class MyDriver extends Configured implements Tool {
 	private static Path secondJoin;
 	private static Path thirdJoin;
 
-	private static Path output;
+	private static Path outputPath;
 
 	@Override
 	public int run(String[] args) throws Exception {
@@ -196,7 +196,7 @@ public class MyDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {                
 		// Validate Inputs
-		if (args.length != 7) {
+		if (args.length != 8) {
 			throw new IllegalArgumentException
 				("usage: <lineItemPath> <salePath> <productPath> <storePath> <firstJoin> <secondJoin> <thirdJoin>");
 		}
@@ -210,9 +210,7 @@ public class MyDriver extends Configured implements Tool {
 		secondJoin = new Path(args[5]);
 		thirdJoin = new Path(args[6]);
 
-		THE_LOGGER.info("inputDir = " + args[0]);
-		THE_LOGGER.info("outputDir = " + args[1]);
-		THE_LOGGER.info("topN" + args[2]);
+		outputPath = new Path(args[7])
 
 		// Run the new Driver
 		int returnStatus = ToolRunner.run(new MyDriver(), args);
