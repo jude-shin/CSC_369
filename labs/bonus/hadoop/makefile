@@ -26,8 +26,6 @@ run: $(JAR)
 		/user/jshin53/input/store \
 		$(OUTPUTS)
 
-make showall: showfirst showsecond showthird showoutput
-
 showfirst:
 	-hadoop fs -cat /user/jshin53/firstJoin/part-r-00000
 
@@ -39,6 +37,9 @@ showthird:
 
 showoutput:
 	-hadoop fs -cat /user/jshin53/output/part-r-00000
+
+showlog:
+	-hadoopfs -cat /user/jshin5e/log/part-r-00000
 
 cleanall: clean
 	rm -rf $(JAR)

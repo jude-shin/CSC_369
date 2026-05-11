@@ -20,13 +20,13 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 			THE_LOGGER.info("\t---> (" + key.getLeftElement() + "): iteration (" + i + ")\n");
 
 			// check for the first item
-			if (i == 0 && value.getRightElement().toString() == "sale") {
+			if (i == 0 && "sale".equals(value.getRightElement().toString())) {
 				THE_LOGGER.info("\t---> fornd the <sale> element!\n");
 				saleInfo = value.getLeftElement().toString();
 			}
 	
 			// check for the second item
-			if (i == 1 && value.getRightElement().toString() == "lineItem") {
+			if (i == 1 && "lineItem".equals(value.getRightElement().toString())) {
 				THE_LOGGER.info("\t---> fornd the <lineItem> element!\n");
 				lineItemInfo = value.getLeftElement().toString();
 			}
