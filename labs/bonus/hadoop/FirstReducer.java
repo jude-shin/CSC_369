@@ -3,7 +3,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Reducer.*;
 
-public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritable, PairOfStrings> {
+public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritable, Text> {
 	@Override
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {
@@ -29,7 +29,8 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 					secondLineItem = value;
 					
 					// Concatinate all of the data together!
-					context.write(NullWritable.get(), firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
+					Text out = new Text(firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement());
+					context.write(NullWritable.get(), out);
 
 					return;
 				}
