@@ -96,8 +96,8 @@ public class MyDriver extends Configured implements Tool {
 		job.setJobName("lineItem LEFTJOIN sale (join on join on saleID)");
 
 		// Mapper inputs and outputs
-		MultipleInputs.addInputPath(job, lineItem, TextInputFormat.class, LeftJoinLineItemMapper.class);
-		MultipleInputs.addInputPath(job, sale, TextInputFormat.class, LeftJoinSaleMapper.class);
+		MultipleInputs.addInputPath(job, lineItemPath, TextInputFormat.class, LeftJoinLineItemMapper.class);
+		MultipleInputs.addInputPath(job, salePath, TextInputFormat.class, LeftJoinSaleMapper.class);
 		job.setMapOutputKeyClass(PairOfStrings.class);
 		job.setMapOutputValueClass(PairOfStrings.class);
 
