@@ -21,7 +21,6 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 			// check for the second item
 			if (i == 1 && value.getRightElement().toString() == "lineItem") {
 				secondLineItem = value;
-				break;
 			}
 	
 			// increment the values
@@ -32,9 +31,9 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 		}
 
 		// Check my sanity
-		if (i > 1) {
-			throw new IOException(" i > 1. ");
-		}
+		// if (i > 1) {
+		// 	throw new IOException(" i > 1. ");
+		// }
 
 		if (firstSale == null) {
 			throw new IOException("firstSale is NULL");
