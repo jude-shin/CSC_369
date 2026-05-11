@@ -30,7 +30,7 @@ public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWrit
 
 		// Check my sanity
 		if (i > 1 || firstSale == null || secondLineItem == null) {
-			throw IOException("Something wrong with the FirstReducer (probably the input from the mappers)");
+			throw new IOException("Something wrong with the FirstReducer (probably the input from the mappers)");
 		}
 
 		// Concatinate all of the data together!
