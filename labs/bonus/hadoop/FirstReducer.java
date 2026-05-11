@@ -2,26 +2,39 @@ import java.io.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Reducer.*;
-import java.util.TreeSet;
 
 public class FirstReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritable, PairOfStrings> {
 	@Override
 	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
 		throws IOException, InterruptedException {
 
-		// If there is a first item, explore
-		if (values.hasNext()) {
-			PairOfStrings firstSale = values.next();
+		PairOfStrings firstSale = null;
+		PairOfStrings secondLineItem = null;
 
-			// Make sure it is of type "sale"
-			// If there is a second associated item
-			if (firstSale.getRightElement() == "sale" && values.hasNext()) {
-				PairOfStrings secondLineItem = values.next();
-
-				// Make sure it is of type "lineItem"
-				if (firstSale.getRightElement() == "lineItem") {
+		for (PairOfStrings value : values) {
+			// check that it is a sale
+			if (firstSale==null && secondLineItem==null) {
+				if (value.getRightElement() == "sale") {
+					firstSale = value;
+				}
+				else {
+					continue;
+				}
+			}
+	
+			// Will check the second value
+			else if (secondLineItem==null) {
+				// check that it is a lineItem
+				if (value.getRightElement() == "lineItem") {
+					secondLineItem = value;
+					
 					// Concatinate all of the data together!
 					context.write(NullWritable, firstSale.getLeftElement() + ", " + secondLineItem.getLeftElement);
+
+					return;
+				}
+				else {
+					continue;
 				}
 			}
 		}
