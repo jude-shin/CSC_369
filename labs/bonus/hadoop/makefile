@@ -16,7 +16,7 @@ hadoop: $(SRCS)
 # ("usage: <lineItemPath> <salePath> <productPath> <storePath> <firstJoin> <secondJoin> <thirdJoin> <output>");
 run: $(JAR)
 	# Remove the output and temp directories
-	hadoop fs -rm -r $(OUTPUTS)
+	-hadoop fs -rm -r $(OUTPUTS)
 
 	# Execute the commands
 	hadoop jar $(JAR) $(DRIVER_CLASS) \
