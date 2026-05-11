@@ -210,7 +210,7 @@ public class MyDriver extends Configured implements Tool {
 		secondJoin = new Path(args[5]);
 		thirdJoin = new Path(args[6]);
 
-		outputPath = new Path(args[7])
+		outputPath = new Path(args[7]);
 
 		// Run the new Driver
 		int returnStatus = ToolRunner.run(new MyDriver(), args);
