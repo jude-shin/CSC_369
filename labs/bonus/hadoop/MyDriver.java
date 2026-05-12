@@ -38,8 +38,8 @@ public class MyDriver extends Configured implements Tool {
 
 	@Override
 	public int run(String[] args) throws Exception {
-		return (runJob1()&&runJob2()&&runJob3()&&runJob4())? 0 : 1;
-		// return (runJob4())? 0 : 1;
+		// return (runJob1()&&runJob2()&&runJob3()&&runJob4())? 0 : 1;
+		return (runJob4())? 0 : 1;
 	}
 	
 	/* 
