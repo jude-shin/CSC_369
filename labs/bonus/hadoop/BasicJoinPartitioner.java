@@ -13,7 +13,7 @@ public class BasicJoinPartitioner
 		// String totalString = keyPair.toString() + valuePair.toString();
 
 		// Only compare the left element for partitioning
-		String totalString = keyPair.getLeftElement();
+		String totalString = keyPair.getLeftElement().toString();
 		
 		return Math.abs(totalString.hashCode() % numberOfPartitions);
 	}
