@@ -147,7 +147,7 @@ public class MyDriver extends Configured implements Tool {
 		job.setJobName("top n solution for monthly gross rankings");
 
 		// Mapper inputs and outputs
-		FileInputFormat.setInputPaths(job, new Path(thirdJoin));
+		FileInputFormat.setInputPaths(job, thirdJoin);
 
 		job.setMapOutputKeyClass(PairOfStrings.class);
 		job.setMapOutputValueClass(Text.class);
