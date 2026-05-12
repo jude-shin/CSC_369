@@ -10,7 +10,7 @@ public class Record implements Comparable <Record> {
 	private double total;
 
 	public Record(String id, String name, String city, String total){
-		this.id = Integer.getInteger(id);
+		this.id = Integer.parseInt(id);
 		this.name = name;
 		this.city = city;
 		this.total = Double.parseDouble(total);
