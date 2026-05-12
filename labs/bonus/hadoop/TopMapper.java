@@ -37,7 +37,7 @@ public class TopMapper
 		CompositeKey k = new CompositeKey(
 				new IntWritable(Integer.parseInt(month)),
 				new IntWritable(Integer.parseInt(year)),
-				new DoubleWritable(Float.parseFloat(total)));
+				new DoubleWritable(total));
 	
 		// Value (id, name, city, total)
 		Text v = new Text(id + ", " + name + ", " + city + ", " + total);
