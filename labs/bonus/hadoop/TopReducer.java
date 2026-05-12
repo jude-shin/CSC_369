@@ -5,12 +5,12 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Reducer.*;
 import java.util.TreeSet;
 
-public class TopReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritable, Text> {
+public class TopReducer extends Reducer<PairOfStrings, Text, NullWritable, Text> {
 	private int n = MyDriver.DEFAULT_N;
 	private TreeSet<Record> top = new TreeSet<>();
 
 	@Override
-	public void reduce(PairOfStrings key, Iterable<PairOfStrings> values, Context context) 
+	public void reduce(PairOfStrings key, Iterable<Text> values, Context context) 
 		throws IOException, InterruptedException {
 		// Composite key (month, total)
 		// Value (id, name, city, total)
@@ -36,15 +36,6 @@ public class TopReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritab
 			if (top.size() > n) {
 				top.remove(top.last());
 			}
-
-			// Text out = new Text(
-			// 		key.getLeftElement() + ", " +
-			// 		key.getRightElement() + ", " + 
-			// 		value.getLeftElement() + ", " +
-			// 		value.getRightElement()
-			// 		);
-
-			// context.write(NullWritable.get(), out);
 
 			// Write the yearMonth first
 			String output = key.getLeftElement().toString() + ", ";
