@@ -36,25 +36,25 @@ public class TopReducer extends Reducer<PairOfStrings, Text, NullWritable, Text>
 			if (top.size() > n) {
 				top.remove(top.last());
 			}
-
-			// Write the yearMonth first
-			String output = key.getLeftElement().toString() + ", ";
-			
-			// Continue to write the 
-			int i = 1;
-			int stop = top.size();
-			for(Record r : top){
-				// Will be in the same form as the input ("id, name, price")
-				output += r.toString();
-
-				if (i != stop) {
-					output += ", ";
-				}
-			}
-	
-			// Write it all out!
-			context.write(NullWritable.get(), new Text(output));
 		}
+
+		// Write the yearMonth first
+		String output = key.getLeftElement().toString() + ", ";
+
+		// Loop through all of the top 10 items
+		int i = 1;
+		int stop = top.size();
+		for(Record r : top){
+			// Will be in the same form as the input ("id, name, price")
+			output += r.toString();
+
+			if (i != stop) {
+				output += ", ";
+			}
+		}
+
+		// Write it all out!
+		context.write(NullWritable.get(), new Text(output));
 	}
 
 	// Run before the reduce stage
