@@ -15,47 +15,47 @@ public class TopReducer extends Reducer<CompositeKey, Text, NullWritable, Text> 
 		// Composite key (month, total)
 		// Value (id, name, city, total)
 
-		String output = key.getYearMonth() + ": ";
 		for (Text value : values) {
 
-			// // The full line from the input file
-			// String line = value.toString().trim();
+			// The full line from the input file
+			String line = value.toString().trim();
 
-			// // Split based on a comma
-			// String[] tokens = line.split(",");
+			// Split based on a comma
+			String[] tokens = line.split(",");
 
-			// // Parse out the id, name, and the price
-			// String id = tokens[0].trim();
-			// String name = tokens[1].trim();
-			// String city = tokens[2].trim();
-			// String total = tokens[3].trim();
+			// Parse out the id, name, and the price
+			String id = tokens[0].trim();
+			String name = tokens[1].trim();
+			String city = tokens[2].trim();
+			String total = tokens[3].trim();
 
-			// // Add the element to the sorted running set
-			// top.add(new Record(id, name, city, total));
+			// Add the element to the sorted running set
+			top.add(new Record(id, name, city, total));
 
-			// // Keep only top n
-			// if (top.size() > n) {
-			// 	top.remove(top.last());
-			// }
-
-			output += value.toString();
+			// Keep only top n
+			if (top.size() > n) {
+				top.remove(top.last());
+			}
 		}
+
 		context.write(NullWritable.get(), new Text(output));
 
 		// // Write the yearMonth first
-		// String output = key.getYearMonth() + ", ";
+		String output = key.getYearMonth() + ", ";
 
-		// // Loop through all of the top 10 items
-		// int i = 1;
-		// int stop = top.size();
-		// for(Record r : top){
-		// 	// Will be in the same form as the input ("id, name, price")
-		// 	output += r.toString();
+		// Loop through all of the top 10 items
+		int i = 1;
+		int stop = top.size();
+		for(Record r : top){
+			// Will be in the same form as the input ("id, name, price")
+			output += r.toString();
 
-		// 	if (i != stop) {
-		// 		output += ", ";
-		// 	}
-		// }
+			if (i != stop) {
+				output += ", ";
+			}
+
+			i++;
+		}
 
 		// Write it all out!
 		context.write(NullWritable.get(), new Text(output));
