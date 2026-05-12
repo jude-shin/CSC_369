@@ -15,7 +15,7 @@ public class TopReducer extends Reducer<PairOfStrings, Text, NullWritable, Text>
 		// Composite key (month, total)
 		// Value (id, name, city, total)
 
-		for (PairOfStrings value : values) {
+		for (Text value : values) {
 
 			// The full line from the input file
 			String line = value.toString().trim();
