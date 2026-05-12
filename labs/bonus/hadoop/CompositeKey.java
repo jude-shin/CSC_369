@@ -12,6 +12,9 @@ public class CompositeKey
 	private DoubleWritable  total;
 
 	public CompositeKey() {
+		this.month = new IntWritable();
+		this.year = new IntWritable();
+		this.total = new DoubleWritable();
 	}
 
 	public CompositeKey(IntWritable month, IntWritable year, DoubleWritable total) {
@@ -30,7 +33,7 @@ public class CompositeKey
 		return month;
 	}
 
-	public IntWritable getDay() {
+	public IntWritable getYear() {
 		return year;
 	}
 
