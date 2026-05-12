@@ -27,7 +27,7 @@ public class TopMapper
 
 		// ====================================
 		// Multiply the quanity and price to make a total
-		float total = Float.parseFloat(price) * Integer.getInteger(quanity);
+		float total = Float.parseFloat(price) * Integer.parseInt(quanity);
 
 		// Parse out dates 
 		String year = date.trim().split("/")[0].trim();
