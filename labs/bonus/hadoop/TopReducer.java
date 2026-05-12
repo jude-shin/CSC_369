@@ -38,8 +38,6 @@ public class TopReducer extends Reducer<CompositeKey, Text, NullWritable, Text> 
 			}
 		}
 
-		context.write(NullWritable.get(), new Text(output));
-
 		// // Write the yearMonth first
 		String output = key.getYearMonth() + ", ";
 
