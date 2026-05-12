@@ -54,7 +54,8 @@ public class PairOfStrings
 		//return -1*compareValue; // to sort descending
 
 	}
-
+	
+	@Override
 	public String toString(){
 		return left+", "+right;
 	}

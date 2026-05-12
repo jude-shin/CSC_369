@@ -8,7 +8,13 @@ public class BasicJoinPartitioner
 
 	@Override
 	public int getPartition(PairOfStrings keyPair, PairOfStrings valuePair, int numberOfPartitions) {
-		String totalString = keyPair.toString() + valuePair.toString();
+
+		// TODO: I think this might be wrong???
+		// String totalString = keyPair.toString() + valuePair.toString();
+
+		// Only compare the left element for partitioning
+		String totalString = keyPair.getLeftElement();
+		
 		return Math.abs(totalString.hashCode() % numberOfPartitions);
 	}
 }
