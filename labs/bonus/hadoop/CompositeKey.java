@@ -14,28 +14,32 @@ public class CompositeKey
 	public CompositeKey() {
 	}
 
-	public void set(IntWritable month, IntWritable year, DoubleWritable total){
+	public CompositeKey(IntWritable month, IntWritable year, DoubleWritable total) {
 		this.month = month;
 		this.year = year;
 		this.total = total;
 	}
 
-	public IntWritable getMonth(){
+	public void set(IntWritable month, IntWritable year, DoubleWritable total) {
+		this.month = month;
+		this.year = year;
+		this.total = total;
+	}
+
+	public IntWritable getMonth() {
 		return month;
 	}
 
-	public IntWritable getDay(){
+	public IntWritable getDay() {
 		return year;
 	}
 
-	public DoubleWritable getTotal(){
+	public DoubleWritable getTotal() {
 		return total;
 	}
 
-	public CompositeKey(IntWritable month, IntWritable year, DoubleWritable total){
-		this.month = month;
-		this.year = year;
-		this.total = total;
+	public String getYearMonth() {
+		return this.year.toString() + "-" + this.month.toString();
 	}
 
 	@Override

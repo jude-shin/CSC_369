@@ -4,7 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class TopMapper 
-	extends Mapper<LongWritable, Text, PairOfStrings, Text> {
+	extends Mapper<LongWritable, Text, CompositeKey, Text> {
 
 	@Override
 	public void map(LongWritable key, Text value, Context context)
@@ -32,10 +32,12 @@ public class TopMapper
 		// Parse out dates 
 		String year = date.trim().split("/")[0].trim();
 		String month = date.trim().split("/")[1].trim();
-		String yearMonth = year + "-" + month;
 	
-		// Composite key (yearMonth, total)
-		PairOfStrings k = new PairOfStrings(new Text(yearMonth), new Text(Float.toString(total)));
+		// Composite key (IntWritable month, IntWritable year, DoubleWritable total)
+		CompositeKey k = new CompositeKey(
+				new IntWritable(Integer.parseInt(month)),
+				new IntWritable(Integer.parseInt(year)),
+				new DoubleWritable(Float.parseFloat(total)));
 	
 		// Value (id, name, city, total)
 		Text v = new Text(id + ", " + name + ", " + city + ", " + total);

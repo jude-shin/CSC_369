@@ -149,7 +149,7 @@ public class MyDriver extends Configured implements Tool {
 		// Mapper inputs and outputs
 		FileInputFormat.setInputPaths(job, thirdJoin);
 		job.setMapperClass(TopMapper.class);
-		job.setMapOutputKeyClass(PairOfStrings.class);
+		job.setMapOutputKeyClass(CompositeKey.class);
 		job.setMapOutputValueClass(Text.class);
 
 		// Reducer inputs and outputs
