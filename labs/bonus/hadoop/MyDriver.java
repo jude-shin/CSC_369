@@ -106,7 +106,7 @@ public class MyDriver extends Configured implements Tool {
 	}
 
 	/* 
-		 job3 LEFTJOIN store (join on storeID)
+		 job2 LEFTJOIN store (join on storeID)
 	*/
 	public boolean runJob3() throws IOException, InterruptedException, ClassNotFoundException {
 		Job job = Job.getInstance();
@@ -138,27 +138,34 @@ public class MyDriver extends Configured implements Tool {
 	}
 
 	/* 
-		 job4 LEFTJOIN store (join on storeID)
+		 top n solution for the months gross income
 	*/
 	public boolean runJob4() throws IOException, InterruptedException, ClassNotFoundException {
-		return true;
-		// Job job = Job.getInstance();
-		// job.setJarByClass(LeftJoinDriver.class); //VERY VERY IMPORTANT
-		// job.setJobName("job4 sorted top N solution (grouping on month)");
-		// job.setPartitionerClass(LeftJoinPartitioner.class);
-		// job.setGroupingComparatorClass(LeftJoinGroupComparator.class);
-		// job.setReducerClass(LeftJoinReducer.class);
-		// job.setOutputKeyClass(Text.class);
-		// job.setOutputValueClass(Text.class);
-		// // TODO: single input I believe
-		// MultipleInputs.addInputPath(job, transactions, 
-		// 		TextInputFormat.class, LeftJoinTransactionMapper.class);
-		// job.setMapOutputKeyClass(PairOfStrings.class);
-		// job.setMapOutputValueClass(PairOfStrings.class);
-		// FileOutputFormat.setOutputPath(job, middle1);
-		// boolean status = job.waitForCompletion(true);
-		// THE_LOGGER.info("run(): status=" + status);
-		// return status;
+		Job job = Job.getInstance();
+		job.setJarByClass(MyDriver.class); //VERY VERY IMPORTANT
+		job.setJobName("top n solution for monthly gross rankings");
+
+		// Mapper inputs and outputs
+		MultipleInputs.addInputPath(job, thirdJoin, TextInputFormat.class, TopMapper.class);
+		job.setMapOutputKeyClass(PairOfStrings.class);
+		job.setMapOutputValueClass(PairOfStrings.class);
+
+		// Reducer inputs and outputs
+		job.setReducerClass(TopReducer.class);
+		job.setOutputKeyClass(NullWritable.class);
+		job.setOutputValueClass(Text.class);
+		
+		// Grouping and Partitioning the outputs from both Mappers to the Reducers
+		job.setPartitionerClass(BasicJoinPartitioner.class);
+		job.setGroupingComparatorClass(BasicJoinGrouper.class);
+
+		// Output the results to the first intermediate join path
+		// (will be referenced for later use)
+		FileOutputFormat.setOutputPath(job, outputPath);
+
+		boolean status = job.waitForCompletion(true);
+		THE_LOGGER.info("run(): status=" + status);
+		return status;
 	}
 
 
