@@ -47,7 +47,7 @@ public class TopReducer extends Reducer<PairOfStrings, PairOfStrings, NullWritab
 			// context.write(NullWritable.get(), out);
 
 			// Write the yearMonth first
-			String ouput = key.getLeftElement().toString() + ", ";
+			String output = key.getLeftElement().toString() + ", ";
 			
 			// Continue to write the 
 			int i = 1;
