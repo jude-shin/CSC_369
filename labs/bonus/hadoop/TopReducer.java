@@ -7,13 +7,14 @@ import java.util.TreeSet;
 
 public class TopReducer extends Reducer<CompositeKey, Text, NullWritable, Text> {
 	private int n = MyDriver.DEFAULT_N;
-	private TreeSet<Record> top = new TreeSet<>();
 
 	@Override
 	public void reduce(CompositeKey key, Iterable<Text> values, Context context) 
 		throws IOException, InterruptedException {
 		// Composite key (month, total)
 		// Value (id, name, city, total)
+
+		TreeSet<Record> top = new TreeSet<>();
 
 		for (Text value : values) {
 
@@ -41,7 +42,7 @@ public class TopReducer extends Reducer<CompositeKey, Text, NullWritable, Text> 
 		// // Write the yearMonth first
 		String output = key.getYearMonth() + ", ";
 
-		// Loop through all of the top 10 items
+		// Loop through all of the top n items
 		int i = 1;
 		int stop = top.size();
 		for(Record r : top){
@@ -64,10 +65,5 @@ public class TopReducer extends Reducer<CompositeKey, Text, NullWritable, Text> 
 	protected void setup(Context context) throws IOException, InterruptedException {
 		// Either sets up the global variable from the given context, or the default
 		this.n = context.getConfiguration().getInt("N", MyDriver.DEFAULT_N); 
-
-		// If for some reason the top is not initalized, initalize it to an empty set
-		if (this.top == null) {
-			this.top = new TreeSet<Record>();
-		}
 	}
 }
