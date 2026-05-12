@@ -38,7 +38,8 @@ public class MyDriver extends Configured implements Tool {
 
 	@Override
 	public int run(String[] args) throws Exception {
-		return (runJob1()&&runJob2()&&runJob3()&&runJob4())? 0 : 1;
+		// return (runJob1()&&runJob2()&&runJob3()&&runJob4())? 0 : 1;
+		return (runJob4())? 0 : 1;
 	}
 	
 	/* 
@@ -146,7 +147,8 @@ public class MyDriver extends Configured implements Tool {
 		job.setJobName("top n solution for monthly gross rankings");
 
 		// Mapper inputs and outputs
-		MultipleInputs.addInputPath(job, thirdJoin, TextInputFormat.class, TopMapper.class);
+		FileInputFormat.setInputPaths(job, new Path(thirdJoin));
+
 		job.setMapOutputKeyClass(PairOfStrings.class);
 		job.setMapOutputValueClass(Text.class);
 
