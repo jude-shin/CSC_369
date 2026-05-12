@@ -158,8 +158,8 @@ public class MyDriver extends Configured implements Tool {
 		job.setOutputValueClass(Text.class);
 		
 		// Grouping and Partitioning the outputs from both Mappers to the Reducers
-		job.setPartitionerClass(BasicJoinPartitioner.class);
-		job.setGroupingComparatorClass(BasicJoinGrouper.class);
+		job.setPartitionerClass(TopPartitioner.class);
+		job.setGroupingComparatorClass(TopGrouper.class);
 
 		// Output the results to the first intermediate join path
 		// (will be referenced for later use)
