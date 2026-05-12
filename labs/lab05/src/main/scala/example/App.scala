@@ -1,25 +1,25 @@
 package example
-object App { // Object means that everything in this is "static" like java
 
-  def sum(a:Int*):Int = {
-    var sum = 0;
-    for( el <- a){
-      sum = sum + el;
-    }
-    return sum;
-  }
+/*
+Job 1: join everything together to get proceeds for each store in history
+(((sale <leftjoin> lineItem) <leftjoin> product) <leftjoin> store)
 
-  println(sum(2,3,4,5,6));
-  def max(x: Int, y: Int): Int = {
-    if (x > y) {
-      x;
-    }
+Job 2:
+  mapper: parse (grouping and partitioning as well) upon ((State, storeId), price)
+  combiner: aggregate everything
+  reducer: aggregate everything again
 
-    y;
-  }
-
+*/
+object App {
   def main(args: Array[String]) {
-    println("Hello, World!")
-    println(sum(5, 5, 5, 5, 10, 15, 5, 20))
+    // Load the data from disk
+    val saleInput = ""
+    val lineItemInput = ""
+    val productInput = ""
+    val storeInput = ""
+
+    // Convert the string to a list delimited by a comma
+
+
   }
 }
