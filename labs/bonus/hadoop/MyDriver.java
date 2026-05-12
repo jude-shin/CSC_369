@@ -148,7 +148,7 @@ public class MyDriver extends Configured implements Tool {
 		// Mapper inputs and outputs
 		MultipleInputs.addInputPath(job, thirdJoin, TextInputFormat.class, TopMapper.class);
 		job.setMapOutputKeyClass(PairOfStrings.class);
-		job.setMapOutputValueClass(PairOfStrings.class);
+		job.setMapOutputValueClass(Text.class);
 
 		// Reducer inputs and outputs
 		job.setReducerClass(TopReducer.class);

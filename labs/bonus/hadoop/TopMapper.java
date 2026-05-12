@@ -4,7 +4,7 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.Mapper.*;
 
 public class TopMapper 
-	extends Mapper<LongWritable, Text, PairOfStrings, PairOfStrings> {
+	extends Mapper<LongWritable, Text, PairOfStrings, Text> {
 
 	@Override
 	public void map(LongWritable key, Text value, Context context)
@@ -27,7 +27,7 @@ public class TopMapper
 
 		// ====================================
 		// Multiply the quanity and price to make a total
-		float total = Float.getFloat(price) * Integer.getInteger(quanity);
+		float total = Float.parseFloat(price) * Integer.getInteger(quanity);
 
 		// Parse out dates 
 		String year = date.trim().split("/")[0].trim();
@@ -38,7 +38,7 @@ public class TopMapper
 		PairOfStrings k = new PairOfStrings(new Text(yearMonth), new Text(Float.toString(total)));
 	
 		// Value (id, name, city, total)
-		PairOfStrings v = new Text(id + ", " + name + ", " + city + ", " + total);
+		Text v = new Text(id + ", " + name + ", " + city + ", " + total);
 
 		context.write(k, v); 
 	}
