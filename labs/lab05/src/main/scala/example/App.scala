@@ -17,7 +17,7 @@ object App {
 
     // Get the paths from the application arguments
 
-    val test = "/user/jshin53/"
+    val test = "makefile"
 
     // val lineItemPath = "/user/jshin53/input/lineItem"
     // val salePath = "/user/jshin53/input/sale"
@@ -25,7 +25,7 @@ object App {
     // val storePath = "/user/jshin53/input/store"
 
     // Get the text inside the paths
-    val testValue = Source.fromFile(test)
+    val testValue = Source.fromFile(test).mkString
     // val lineItems = Source.fromFile(lineItemPath).mkString
     // val sales = Source.fromFile(salePath).mkString
     // val products = Source.fromFile(productPath).mkString
