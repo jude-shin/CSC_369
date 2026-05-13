@@ -12,14 +12,14 @@ Job 2:
 */
 object App {
   def main(args: Array[String]) {
-    // Load the data from disk
-    val saleInput = ""
-    val lineItemInput = ""
-    val productInput = ""
-    val storeInput = ""
+
+    // Get the paths from the application arguments
+    val lineItemPath = args(0)
+    val salePath = args(1)
+    val productPath = args(2)
+    val storePath = args(3)
+
 
     // Convert the string to a list delimited by a comma
-
-
   }
 }
