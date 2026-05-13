@@ -22,10 +22,10 @@ object App {
     val storePath = args(3)
 
     // Get the text inside the paths
-    val lineItems = Source.fromFile(lineItemPath)
-    val sales = Source.fromFile(salePath)
-    val products = Source.fromFile(productPath)
-    val stores = Source.fromFile(storePath)
+    val lineItems = Source.fromFile(lineItemPath).mkString
+    val sales = Source.fromFile(salePath).mkString
+    val products = Source.fromFile(productPath).mkString
+    val stores = Source.fromFile(storePath).mkString
 
     println(sales)
 
