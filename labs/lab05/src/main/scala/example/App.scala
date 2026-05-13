@@ -16,18 +16,22 @@ object App {
   def main(args: Array[String]) {
 
     // Get the paths from the application arguments
-    val lineItemPath = "/user/jshin53/input/lineItem"
-    val salePath = "/user/jshin53/input/sale"
-    val productPath = "/user/jshin53/input/product"
-    val storePath = "/user/jshin53/input/store"
+
+    val test = "/user/jshin53/"
+
+    // val lineItemPath = "/user/jshin53/input/lineItem"
+    // val salePath = "/user/jshin53/input/sale"
+    // val productPath = "/user/jshin53/input/product"
+    // val storePath = "/user/jshin53/input/store"
 
     // Get the text inside the paths
-    val lineItems = Source.fromFile(lineItemPath).mkString
-    val sales = Source.fromFile(salePath).mkString
-    val products = Source.fromFile(productPath).mkString
-    val stores = Source.fromFile(storePath).mkString
+    val testValue = Source.fromFile(lineItemPath)
+    // val lineItems = Source.fromFile(lineItemPath).mkString
+    // val sales = Source.fromFile(salePath).mkString
+    // val products = Source.fromFile(productPath).mkString
+    // val stores = Source.fromFile(storePath).mkString
 
-    println(sales)
+    println(storeValue)
 
     // Convert the string to a list delimited by a comma
   }
