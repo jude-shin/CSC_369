@@ -17,10 +17,10 @@ object App {
 
     // Get the paths from the application arguments
     // Note that this has to be in the project directory
-    val lineItemPath = "/user/jshin53/input/lineItem"
-    val salePath = "/user/jshin53/input/sale"
-    val productPath = "/user/jshin53/input/product"
-    val storePath = "/user/jshin53/input/store"
+    val lineItemPath = "inputs/lineItem"
+    val salePath = "inputs/sale"
+    val productPath = "inputs/product"
+    val storePath = "inputs/store"
 
     // Get the text inside the paths
     val lineItems = Source.fromFile(lineItemPath).mkString
