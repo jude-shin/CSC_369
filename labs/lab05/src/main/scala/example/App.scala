@@ -22,14 +22,13 @@ object App {
     val productPath = "inputs/product"
     val storePath = "inputs/store"
 
-    // Get the text inside the paths
-    val lineItems = Source.fromFile(lineItemPath).mkString
-    val sales = Source.fromFile(salePath).mkString
-    val products = Source.fromFile(productPath).mkString
-    val stores = Source.fromFile(storePath).mkString
+    // Get the text inside the paths and 
+    // converts the string to a list delimited by a comma and 
+    // trimming the whitespace after
+    val lineItems = Source.fromFile(lineItemPath).mkString.split(",").map(_.trim)
+    val sales = Source.fromFile(salePath).mkString.split(",").map(_.trim)
+    val products = Source.fromFile(productPath).mkString.split(",").map(_.trim)
+    val stores = Source.fromFile(storePath).mkString.split(",").map(_.trim)
 
-    println(lineItems)
-
-    // Convert the string to a list delimited by a comma
   }
 }
