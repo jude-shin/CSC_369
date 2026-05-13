@@ -25,13 +25,13 @@ object App {
     // val storePath = "/user/jshin53/input/store"
 
     // Get the text inside the paths
-    val testValue = Source.fromFile(lineItemPath)
+    val testValue = Source.fromFile(test)
     // val lineItems = Source.fromFile(lineItemPath).mkString
     // val sales = Source.fromFile(salePath).mkString
     // val products = Source.fromFile(productPath).mkString
     // val stores = Source.fromFile(storePath).mkString
 
-    println(storeValue)
+    println(testValue)
 
     // Convert the string to a list delimited by a comma
   }
