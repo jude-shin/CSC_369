@@ -16,10 +16,10 @@ object App {
   def main(args: Array[String]) {
 
     // Get the paths from the application arguments
-    val lineItemPath = args(/user/jshin53/input/lineItem)
-    val salePath = args(/user/jshin53/input/sale)
-    val productPath = args(/user/jshin53/input/product)
-    val storePath = args(/user/jshin53/input/store)
+    val lineItemPath = args("/user/jshin53/input/lineItem")
+    val salePath = args("/user/jshin53/input/sale")
+    val productPath = args("/user/jshin53/input/product")
+    val storePath = args("/user/jshin53/input/store")
 
     // Get the text inside the paths
     val lineItems = Source.fromFile(lineItemPath).mkString
