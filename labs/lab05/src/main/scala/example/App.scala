@@ -27,6 +27,8 @@ object App {
     val products = Source.fromFile(productPath)
     val stores = Source.fromFile(storePath)
 
+    println(sales)
+
     // Convert the string to a list delimited by a comma
   }
 }
