@@ -1,5 +1,7 @@
 package example
 
+import scala.io.Source
+
 /*
 Job 1: join everything together to get proceeds for each store in history
 (((sale <leftjoin> lineItem) <leftjoin> product) <leftjoin> store)
@@ -19,6 +21,11 @@ object App {
     val productPath = args(2)
     val storePath = args(3)
 
+    // Get the text inside the paths
+    val lineItems = Source.fromFile(lineItemPath)
+    val sales = Source.fromFile(salePath)
+    val products = Source.fromFile(productPath)
+    val stores = Source.fromFile(storePath)
 
     // Convert the string to a list delimited by a comma
   }
