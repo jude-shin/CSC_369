@@ -11,7 +11,7 @@ object LineItem {
 
 // lineItemId, saleId, productId, quantity
 case class LineItem(lineItemId: Int, saleId: Int, productId: Int, quantity: Int) {
-  override def toString(): String {
+  override def toString(): String = {
     return "(" + lineItemId + ", " + saleId + ", " + productId + ", " + quantity + ")"
   }
 }
