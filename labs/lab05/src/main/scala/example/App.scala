@@ -14,8 +14,7 @@ Job 2:
 */
 object App {
   def main(args: Array[String]) {
-
-    // Get the paths from the application arguments
+    // PARSE INPUTS //
     // Note that this has to be in the project directory
     val lineItemPath = "inputs/lineItem"
     val salePath = "inputs/sale"
@@ -25,10 +24,29 @@ object App {
     // Get the text inside the paths and 
     // converts the string to a list delimited by a comma and 
     // trimming the whitespace after
-    val lineItems = Source.fromFile(lineItemPath).mkString.split(",").map(_.trim)
-    val sales = Source.fromFile(salePath).mkString.split(",").map(_.trim)
-    val products = Source.fromFile(productPath).mkString.split(",").map(_.trim)
-    val stores = Source.fromFile(storePath).mkString.split(",").map(_.trim)
+    val lineItemLines = Source.fromFile(lineItemPath).getLines.toList
+    val saleLines = Source.fromFile(salePath).getLines.toList
+    val productLines = Source.fromFile(productPath).getLines.toList
+    val storeLines = Source.fromFile(storePath).getLines.toList
+
+    // =========================================================================
+
+    // PARSE ITEMS //
+    LineItem.parse(lineItemLines).foreach(println)
+
+
+
+
+    // JOIN ITEMS //
+
+    // CREATE RECORDS //
+    // Toss all of the information we just gathered into a record?
+
+    // AGGREGATE THE 
+    // Aggregate all of the sales for each store
+
+    // TREEMAP //
+    // The key is going to be the state
 
   }
 }
