@@ -32,10 +32,7 @@ object App {
     // =========================================================================
 
     // PARSE ITEMS //
-    LineItem.parse(lineItemLines).foreach(println)
-
-
-
+    lineItemLines.foreach(println(LineItem.parse(_)))
 
     // JOIN ITEMS //
 
