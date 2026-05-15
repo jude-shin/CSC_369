@@ -23,23 +23,29 @@ object App {
 
     // Read the text from the source
     // Each line is parsed into a dataclass of the given type (comma delimeted)
-    var lineItemLines = Source.fromFile(lineItemPath).getLines.toList.lineItemLines.map(LineItem.parse)
-    var saleLines = Source.fromFile(salePath).getLines.toList.saleLines.map(Sale.parse)
-    var productLines = Source.fromFile(productPath).getLines.toList.productLines.map(Product.parse)
-    var storeLines = Source.fromFile(storePath).getLines.toList.storeLines.map(Store.parse)
+    val lineItems = Source.fromFile(lineItemPath).getLines.toList.lineItemLines.map(LineItem.parse)
+    val sales = Source.fromFile(salePath).getLines.toList.saleLines.map(Sale.parse)
+    val products = Source.fromFile(productPath).getLines.toList.productLines.map(Product.parse)
+    val stores = Source.fromFile(storePath).getLines.toList.storeLines.map(Store.parse)
 
     // =========================================================================
 
     // JOIN ITEMS //
+    var records = Record.joinall(lineItems)(sales)(products)(stores)
 
-    // CREATE RECORDS //
-    // Toss all of the information we just gathered into a record?
+    // GROUP //
+    // Group all of the records into a (list of (list of records))
+    
+    // AGGREGATE //
+    // if the id is the same, then add the total and return a new one
+    // TODO: this might be the .reduce function? 
 
-    // AGGREGATE THE 
-    // Aggregate all of the sales for each store
+    // SORT //
+    // Sort everything
 
-    // TREEMAP //
-    // The key is going to be the state
+    // PRINT //
+    // print the output
+
 
   }
 }
