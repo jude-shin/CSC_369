@@ -31,7 +31,7 @@ object App {
     // =========================================================================
 
     // JOIN ITEMS //
-    var records = Record.joinall(lineItems)(sales)(products)(stores)
+    var records = Record.joinall(lineItems)(sales)(products)(stores).foreach(println)
 
     // GROUP //
     // Group all of the records into a (list of (list of records))
