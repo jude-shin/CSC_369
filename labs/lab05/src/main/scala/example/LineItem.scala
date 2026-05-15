@@ -15,10 +15,10 @@ object LineItem {
 
 // lineItemId, saleId, productId, quantity
 case class LineItem(
-  private lineItemId: Int, 
-  private saleId: Int, 
-  private productId: Int, 
-  private quantity: Int) {
+  private val lineItemId: Int, 
+  private val saleId: Int, 
+  private val productId: Int, 
+  private val quantity: Int) {
     override def toString: String =
       s"($lineItemId, $saleId, $productId, $quantity)"
 

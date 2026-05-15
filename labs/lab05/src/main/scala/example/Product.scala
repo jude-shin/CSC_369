@@ -14,9 +14,9 @@ object Product {
 
 // productId, description, price
 case class Product(
-  productId: Int, 
-  description: String, 
-  price: Double) {
+  private val productId: Int, 
+  private val description: String, 
+  private val price: Double) {
     override def toString: String =
       s"($productId, $description, $price)"
   }
