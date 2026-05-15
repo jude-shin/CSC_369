@@ -23,10 +23,10 @@ object App {
 
     // Read the text from the source
     // Each line is parsed into a dataclass of the given type (comma delimeted)
-    val lineItems = Source.fromFile(lineItemPath).getLines.toList.lineItemLines.map(LineItem.parse)
-    val sales = Source.fromFile(salePath).getLines.toList.saleLines.map(Sale.parse)
-    val products = Source.fromFile(productPath).getLines.toList.productLines.map(Product.parse)
-    val stores = Source.fromFile(storePath).getLines.toList.storeLines.map(Store.parse)
+    val lineItems = Source.fromFile(lineItemPath).getLines.toList.map(LineItem.parse)
+    val sales = Source.fromFile(salePath).getLines.toList.map(Sale.parse)
+    val products = Source.fromFile(productPath).getLines.toList.map(Product.parse)
+    val stores = Source.fromFile(storePath).getLines.toList.map(Store.parse)
 
     // =========================================================================
 
