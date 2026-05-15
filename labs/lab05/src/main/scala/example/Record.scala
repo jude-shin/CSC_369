@@ -32,10 +32,9 @@ object Record {
         if storeId == sId
       } yield Record(storeId, state, lineTotal)
   }
-
 }
 
-case class Record(
+case class Record (
   private val storeId: Int, 
   private val storeState: String, 
   private val totalSales: Double

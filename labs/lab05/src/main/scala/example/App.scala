@@ -24,14 +24,15 @@ object App {
     // Read the text from the source
     // Each line is parsed into a dataclass of the given type (comma delimeted)
     val lineItems: List[LineItem] = Source.fromFile(lineItemPath).getLines.toList.map(LineItem.parse)
-    val sales: List[LineItem] = Source.fromFile(salePath).getLines.toList.map(Sale.parse)
-    val products: List[LineItem] = Source.fromFile(productPath).getLines.toList.map(Product.parse)
-    val stores: List[LineItem] = Source.fromFile(storePath).getLines.toList.map(Store.parse)
+    val sales: List[Sale] = Source.fromFile(salePath).getLines.toList.map(Sale.parse)
+    val products: List[Product] = Source.fromFile(productPath).getLines.toList.map(Product.parse)
+    val stores: List[Store] = Source.fromFile(storePath).getLines.toList.map(Store.parse)
 
     // =========================================================================
 
     // JOIN ITEMS //
     var records = Record.joinall(lineItems)(sales)(products)(stores).foreach(println)
+
 
     // GROUP //
     // Group all of the records into a (list of (list of records))
