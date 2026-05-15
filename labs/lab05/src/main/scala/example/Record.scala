@@ -1,14 +1,12 @@
 package example
 
-import scala.collection._
-
 object Record {
   def joinall
-  (lineItems: scala.collection.immutable.Set[LineItem])
-  (sales: scala.collection.immutable.Set[Sale])
-  (products: scala.collection.immutable.Set[Product])
-  (stores: scala.collection.immutable.Set[Store])
-  : scala.collection.immutable.Set[Record] = {
+  (lineItems: List[LineItem])
+  (sales: List[Sale])
+  (products: List[Product])
+  (stores: List[Store])
+  : List[Record] = {
 
     // Job1: join the lineItems and the sales
     val job1 =
