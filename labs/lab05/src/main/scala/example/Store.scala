@@ -18,13 +18,13 @@ object Store {
 
 // storeId, name, address, city, zip, state, phone.
 case class Store(
-  storeId: Int, 
-  name: String, 
-  address: String, 
-  city: String, 
-  zip: String,
-  state: String, 
-  phone: String) {
+  private storeId: Int, 
+  private name: String, 
+  private address: String, 
+  private city: String, 
+  private zip: String,
+  private state: String, 
+  private phone: String) {
     override def toString: String =
       s"($storeId, $name, $address, $city, $zip, $state, $phone)"
   }

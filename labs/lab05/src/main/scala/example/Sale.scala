@@ -16,11 +16,11 @@ object Sale {
 
 // saleId, date, time, storeId, customerId
 case class Sale(
-  saleId: Int, 
-  date: String, 
-  time: String, 
-  storeId: Int, 
-  customerId: Int) {
+  private saleId: Int, 
+  private date: String, 
+  private time: String, 
+  private storeId: Int, 
+  private customerId: Int) {
     override def toString: String =
       s"($saleId, $date, $time, $storeId, $customerId)"
   }
