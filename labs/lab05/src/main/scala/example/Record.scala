@@ -31,6 +31,8 @@ object Record {
         Store(sId, _, _, _, _, state, _) <- stores
         if storeId == sId
       } yield Record(storeId, state, lineTotal)
+
+    return job3
   }
 }
 
