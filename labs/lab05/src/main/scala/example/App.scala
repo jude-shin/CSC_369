@@ -32,7 +32,11 @@ object App {
     // =========================================================================
 
     // PARSE ITEMS //
-    lineItemLines.map(LineItem.parse).foreach(println)
+    // Each is a list of each respective dataclass
+    lineItemLines.map(LineItem.parse)
+    saleLines.map(Sale.parse)
+    productLines.map(Product.parse)
+    storeLines.map(Store.parse)
 
     // JOIN ITEMS //
 
