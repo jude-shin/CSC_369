@@ -21,22 +21,14 @@ object App {
     val productPath = "inputs/product"
     val storePath = "inputs/store"
 
-    // Get the text inside the paths and 
-    // converts the string to a list delimited by a comma and 
-    // trimming the whitespace after
-    val lineItemLines = Source.fromFile(lineItemPath).getLines.toList
-    val saleLines = Source.fromFile(salePath).getLines.toList
-    val productLines = Source.fromFile(productPath).getLines.toList
-    val storeLines = Source.fromFile(storePath).getLines.toList
+    // Read the text from the source
+    // Each line is parsed into a dataclass of the given type (comma delimeted)
+    var lineItemLines = Source.fromFile(lineItemPath).getLines.toList.lineItemLines.map(LineItem.parse)
+    var saleLines = Source.fromFile(salePath).getLines.toList.saleLines.map(Sale.parse)
+    var productLines = Source.fromFile(productPath).getLines.toList.productLines.map(Product.parse)
+    var storeLines = Source.fromFile(storePath).getLines.toList.storeLines.map(Store.parse)
 
     // =========================================================================
-
-    // PARSE ITEMS //
-    // Each is a list of each respective dataclass
-    lineItemLines.map(LineItem.parse)
-    saleLines.map(Sale.parse)
-    productLines.map(Product.parse)
-    storeLines.map(Store.parse)
 
     // JOIN ITEMS //
 
