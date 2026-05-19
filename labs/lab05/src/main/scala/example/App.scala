@@ -12,6 +12,8 @@ Job 2:
   reducer: aggregate everything again
 
 */
+
+// TODO: the Record class should store the state as well for convienience
 object App {
   def main(args: Array[String]) {
     // PARSE INPUTS //
@@ -31,18 +33,26 @@ object App {
     // =========================================================================
 
     // JOIN ITEMS //
-    var records = Record.joinall(lineItems)(sales)(products)(stores).foreach(println)
+    var records: List[Record]= Record.joinall(lineItems)(sales)(products)(stores)
 
+    // GROUP BY STORE //
+    val storeToRecords: mutable.Map[Int, List[Record]] = mutable.Map[Int, List[Record]]()
+    records.foreach(Record(id, name, sale) => storeToRecords+=(id, Record(id, name, sale)))
 
-    // GROUP //
-    // Group all of the records into a (list of (list of records))
-    
     // AGGREGATE //
-    // if the id is the same, then add the total and return a new one
-    // TODO: this might be the .reduce function? 
+    // each store now has a total sum
+    val storeTotal: List[Record] = storeToRecords.map {
+      // For each of the stores, sum up their contents, creating a new record
+      case (id, records) => 
+        Record(id, records.head.getName, records.fold(0)((total, r) => total+r.getSales))
+    }
+
+    // =========================================================================
+    // Note that at this point we have a list of Records with their total sales
+    // There should only be one record for one store
 
     // SORT //
-    // Sort everything
+    // Sort everything, first on state, then on total sale
 
     // PRINT //
     // print the output
