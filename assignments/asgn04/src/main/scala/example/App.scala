@@ -6,7 +6,7 @@ object App {
   def q1() = {
     val intsPath: String= "inputs/q1"
     val ints: List[String] = Source.fromFile(intsPath).getLines.toList
-    val res: int = ints.flatMap(_.split(" ").toList).count(_.toInt%3 == 0)
+    val res: Int = ints.flatMap(_.split(" ").toList).count(_.toInt%3 == 0)
 
     println(res)
   }
