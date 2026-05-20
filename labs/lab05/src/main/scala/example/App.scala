@@ -28,7 +28,7 @@ object App {
 
     // AGGREGATE //
     // each store now has a total sum
-    var storeTotal: List[Record] = new List()
+    var storeTotal: List[Record] = new List[Record]()
     for ((id, rs) <- storeToRecords) {
       storeTotal = Record(id, rs.head.getState, rs.foldLeft(0.0)((total, r) => total+r.getSales)) :: storeTotal
     }
