@@ -21,7 +21,7 @@ object App {
     // Map the temperatures to the dates
     val dates = mutable.Map[String, String]();
     for (dateTemp <- dateTemps) {
-      d: String = dateTemp(0)
+      val d: String = dateTemp(0)
       // If the key is already in the map
       if (dates.contains(d)) {
         if (dateTemp(1) > dates(d)) {
