@@ -8,7 +8,7 @@ object App {
     val ints: List[String] = Source.fromFile(intsPath).getLines.toList
     ints
       .flatMap(_.split(" ").toList)
-      .filter(x => x.asInstanceOf[Int]%3 == 0)
+      .filter(x => x.toInt%3 == 0)
       .foreach(println)
   }
 
