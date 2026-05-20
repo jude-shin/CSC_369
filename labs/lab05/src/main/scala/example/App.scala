@@ -28,9 +28,10 @@ object App {
 
     // AGGREGATE //
     // each store now has a total sum
-    var storeTotal: List[Record] = storeToRecords
-      .foreach((id, rs) => yield Record(id, rs.head.getState, rs.foldLeft(0.0)((total, r) => total+r.getSales)))
-      .tolist
+    var storeTotal: List[Record] = storeToRecords.map { 
+      case (id, rs) =>
+        Record(id, rs.head.getState, rs.foldLeft(0.0)((total, r) => total + r.getSales))
+    }.toList
 
     // =========================================================================
     // Note that at this point we have a list of Records with their total sales
