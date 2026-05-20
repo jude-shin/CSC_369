@@ -6,7 +6,7 @@ import scala.collection.mutable
 object App {
   def q1() = {
     val inputPath: String= "inputs/q1"
-    val ints: List[String] = Source.fromFile(intsPath).getLines.toList
+    val ints: List[String] = Source.fromFile(inputPath).getLines.toList
     val count: Int = ints.flatMap(_.split(" ").toList).count(_.toInt%3 == 0)
 
     println(count)
