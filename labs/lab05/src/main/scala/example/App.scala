@@ -29,21 +29,19 @@ object App {
 
     // AGGREGATE //
     // each store now has a total sum
-  }.toList
+    val storeTotal: List[Record] = for ((id, records) <- storeToRecords) {
+      yield Record(id, rs.head.getState, rs.fold(0.0)((total, r) => total+r.asInstanceOf[Record].getSales).asInstanceOf[Double])
+    }
 
-  val storeTotal: List[Record] = for ((id, records) <- storeToRecords) {
-    yield Record(id, rs.head.getState, rs.fold(0.0)((total, r) => total+r.asInstanceOf[Record].getSales).asInstanceOf[Double])
+    // =========================================================================
+    // Note that at this point we have a list of Records with their total sales
+    // There should only be one record for one store
+
+    // SORT //
+    // Sort everything, first on state, then on total sale, finally by id
+    val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
+
+    // PRINT //
+    sorted.foreach(println)
   }
-
-  // =========================================================================
-  // Note that at this point we have a list of Records with their total sales
-  // There should only be one record for one store
-
-  // SORT //
-  // Sort everything, first on state, then on total sale, finally by id
-  val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
-
-  // PRINT //
-  sorted.foreach(println)
-}
 }
