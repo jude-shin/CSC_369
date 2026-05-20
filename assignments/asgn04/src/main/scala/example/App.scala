@@ -24,7 +24,7 @@ object App {
       val d: String = dateTemp(0)
       // If the key is already in the map
       if (dates.contains(d)) {
-        if (dateTemp(1) > dates(d)) {
+        if (dateTemp(1).toInt > dates(d).toInt) {
           dates(d) = dateTemp(1)
         }
       }
@@ -34,7 +34,7 @@ object App {
     }
 
     // Print all of the key-value pairs
-    dateTemps.foreach(println)
+    dates.foreach(println)
   }
 
   def q3() = {
