@@ -29,7 +29,7 @@ object App {
     // AGGREGATE //
     // each store now has a total sum
     val storeTotal: List[Record] = for ((id, rs) <- storeToRecords) yield {
-      Record(id, rs.head.getState, rs.foldLeft(0.0)((total, r) => total+r.asInstanceOf[Record].getSales).asInstanceOf[Double])
+      Record(id, rs.head.getState, rs.foldLeft(0.0)((total, r) => total+r.getSales))
     }
 
     // =========================================================================
