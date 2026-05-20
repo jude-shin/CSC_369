@@ -4,12 +4,11 @@ import scala.io.Source
 
 object App {
   def q1() = {
-    val intsPath = "inputs/q1"
+    val intsPath: String= "inputs/q1"
     val ints: List[String] = Source.fromFile(intsPath).getLines.toList
-    ints
-      .flatMap(_.split(" ").toList)
-      .filter(x => x.toInt%3 == 0)
-      .foreach(println)
+    val res: int = ints.flatMap(_.split(" ").toList).count(_.toInt%3 == 0)
+
+    println(res)
   }
 
   def q2() = {
