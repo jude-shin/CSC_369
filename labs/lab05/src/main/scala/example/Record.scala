@@ -55,5 +55,6 @@ case class Record (
   
   // Getters
   def getId: Int = id 
+  def getState: String = state
   def getSales: Int = sales
 }

@@ -2,18 +2,6 @@ package example
 
 import scala.io.Source
 
-/*
-Job 1: join everything together to get proceeds for each store in history
-(((sale <leftjoin> lineItem) <leftjoin> product) <leftjoin> store)
-
-Job 2:
-  mapper: parse (grouping and partitioning as well) upon ((State, storeId), price)
-  combiner: aggregate everything
-  reducer: aggregate everything again
-
-*/
-
-// TODO: the Record class should store the state as well for convienience
 object App {
   def main(args: Array[String]) {
     // PARSE INPUTS //
@@ -37,14 +25,14 @@ object App {
 
     // GROUP BY STORE //
     val storeToRecords: mutable.Map[Int, List[Record]] = mutable.Map[Int, List[Record]]()
-    records.foreach(Record(id, name, sale) => storeToRecords+=(id, Record(id, name, sale)))
+    records.foreach(Record(id, state, sale) => storeToRecords+=(id, Record(id, state, sale)))
 
     // AGGREGATE //
     // each store now has a total sum
     val storeTotal: List[Record] = storeToRecords.map {
       // For each of the stores, sum up their contents, creating a new record
       case (id, records) => 
-        Record(id, records.head.getName, records.fold(0)((total, r) => total+r.getSales))
+        Record(id, records.head.getState, records.fold(0)((total, r) => total+r.getSales))
     }
 
     // =========================================================================
@@ -52,11 +40,10 @@ object App {
     // There should only be one record for one store
 
     // SORT //
-    // Sort everything, first on state, then on total sale
+    // Sort everything, first on state, then on total sale, finally by id
+    val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
 
     // PRINT //
-    // print the output
-
-
+    sorted.println()
   }
 }
