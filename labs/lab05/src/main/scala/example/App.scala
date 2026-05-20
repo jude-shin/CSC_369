@@ -25,7 +25,9 @@ object App {
 
     // GROUP BY STORE //
     val storeToRecords: mutable.Map[Int, List[Record]] = mutable.Map[Int, List[Record]]()
-    records.foreach(Record(id, state, sale) => storeToRecords+=(id, Record(id, state, sale)))
+    records.map {
+      case (id, state, sale) => storeToRecords+=(id, Record(id, state, sale))
+    }
 
     // AGGREGATE //
     // each store now has a total sum
