@@ -1,6 +1,7 @@
 package example
 
 import scala.io.Source
+import scala.collection.mutable.Map
 
 object App {
   def main(args: Array[String]) {
@@ -24,7 +25,7 @@ object App {
     var records: List[Record]= Record.joinall(lineItems)(sales)(products)(stores)
 
     // GROUP BY STORE //
-    val storeToRecords: mutable.Map[Int, List[Record]] = mutable.Map[Int, List[Record]]()
+    val storeToRecords: Map[Int, List[Record]] = Map[Int, List[Record]]()
     records.map {
       case (id, state, sale) => storeToRecords+=(id, Record(id, state, sale))
     }
