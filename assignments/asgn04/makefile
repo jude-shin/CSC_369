@@ -1,11 +1,12 @@
 PACKAGE = example
 CLASS = App
 
-.PHONY: all hadoop clean
+.PHONY: all hadoop clean scala run
 
 all: scala
 
 scala:
+	git pull
 	sbt package
 
 run:
