@@ -24,19 +24,16 @@ object App {
     // JOIN ITEMS //
     var records: List[Record]= Record.joinall(lineItems)(sales)(products)(stores)
 
-    // GROUP BY STORE //
-    val storeToRecords: Map[Int, List[Record]] = Map[Int, List[Record]]()
-    records.map {
-      case (id, state, sale) => storeToRecords+=(id, Record(id, state, sale))
-    }
+    // GROUP BY ID//
+    var storeToRecords: Map[Int, List[Record]] = records.groupby(_.getId)
 
     // AGGREGATE //
     // each store now has a total sum
-    val storeTotal: List[Record] = storeToRecords.map {
+    var storeTotal: List[Record] = storeToRecords.map {
       // For each of the stores, sum up their contents, creating a new record
       case (id, records) => 
         Record(id, records.head.getState, records.fold(0)((total, r) => total+r.getSales))
-    }
+    }.toList
 
     // =========================================================================
     // Note that at this point we have a list of Records with their total sales
