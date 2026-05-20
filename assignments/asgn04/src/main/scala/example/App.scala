@@ -5,7 +5,7 @@ import scala.io.Source
 object App {
   def q1() = {
     val intsPath = "inputs/q1"
-    val ints: List[LineItem] = Source.fromFile(intsPath).getLines.toList
+    val ints: List[String] = Source.fromFile(intsPath).getLines.toList
     ints.flatmap(_.split(" ").toList).filter(x => x.asInstanceOf[Int]%3 == 0).foreach(println)
   }
 
