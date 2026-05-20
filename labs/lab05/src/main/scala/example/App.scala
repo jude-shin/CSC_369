@@ -47,6 +47,6 @@ object App {
     val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
 
     // PRINT //
-    sorted.println()
+    sorted.foreach(println)
   }
 }
