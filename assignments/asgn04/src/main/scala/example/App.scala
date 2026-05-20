@@ -24,7 +24,7 @@ object App {
       val d: String = dateTemp(0)
       // If the key is already in the map
       if (dates.contains(d)) {
-        if (dateTemp(1).toInt > dates(d).toInt) {
+        if (dateTemp(1) > dates(d)) {
           dates(d) = dateTemp(1)
         }
       }
