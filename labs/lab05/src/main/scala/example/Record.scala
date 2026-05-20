@@ -43,7 +43,7 @@ case class Record (
 ) {
 
   override def toString: String =
-    s"($id, $state, $sales)"
+    s"$r.getState, $r.getId, $r.getSales"
 
   def aggregate(other: Record): Record = {
     // Called assuming that the records have the same id (and thus the same state)
