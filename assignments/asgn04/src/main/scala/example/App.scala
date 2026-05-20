@@ -42,7 +42,7 @@ object App {
   }
 
   def main(args: Array[String]) {
-    q1()
+    // q1()
     q2()
   }
 }
