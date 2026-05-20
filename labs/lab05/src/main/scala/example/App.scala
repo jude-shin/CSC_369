@@ -1,7 +1,6 @@
 package example
 
 import scala.io.Source
-import scala.collection.mutable.Map
 
 object App {
   def main(args: Array[String]) {
@@ -25,7 +24,7 @@ object App {
     var records: List[Record]= Record.joinall(lineItems)(sales)(products)(stores)
 
     // GROUP BY ID//
-    var storeToRecords: Map[Int, List[Record]] = records.groupby(_.getId)
+    var storeToRecords: Map[Int, List[Record]] = records.groupBy(_.getId)
 
     // AGGREGATE //
     // each store now has a total sum
