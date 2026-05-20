@@ -31,8 +31,8 @@ object App {
     // each store now has a total sum
     var storeTotal: List[Record] = storeToRecords.map {
       // For each of the stores, sum up their contents, creating a new record
-      case (id, records) => 
-        Record(id, records.head.getState, records.fold(0)((total, r) => total+r.getSales))
+      case (id, rs) => 
+        Record(id, rs.head.getState, rs.fold(0)((total, r) => total+r.getSales))
     }.toList
 
     // =========================================================================
