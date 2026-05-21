@@ -1,7 +1,7 @@
 package example
 
 import scala.io.Source
-import scala.collection.mutable.Map
+import scala.collection.immutable.Map
 import scala.collection.immutable.TreeMap
 import scala.collection.immutable.TreeSet
 
@@ -27,17 +27,17 @@ object App {
     val dateTemps = Source.fromFile(inputPath).getLines.toList.map(_.split(" ").toList)
 
     // Map the temperatures to the dates
-    val dates = Map[String, String]();
+    var dates = Map[String, String]();
     for (dateTemp <- dateTemps) {
       val d: String = dateTemp(0)
       // If the key is already in the map
       if (dates.contains(d)) {
-        if (dateTemp(1) > dates(d)) {
-          dates(d) = dateTemp(1)
+        if (dateTemp(1).toInt > dates(d).toInt) {
+          dates = dates + (d -> dateTemp(1))
         }
       }
       else {
-        dates += (d -> dateTemp(1))
+        dates = dates + (d -> dateTemp(1))
       }
     }
 
@@ -84,8 +84,8 @@ object App {
   }
 
   def main(args: Array[String]) {
-    // q1()
-    // q2()
+    q1()
+    q2()
     q3()
   }
 }
