@@ -1,7 +1,8 @@
 package example
 
 import scala.io.Source
-import scala.collection.mutable
+import scala.collection.mutable.Map
+import scala.collection.immutable.TreeMap
 
 object App {
   def q1() = {
@@ -25,7 +26,7 @@ object App {
     val dateTemps = Source.fromFile(inputPath).getLines.toList.map(_.split(" ").toList)
 
     // Map the temperatures to the dates
-    val dates = mutable.Map[String, String]();
+    val dates = Map[String, String]();
     for (dateTemp <- dateTemps) {
       val d: String = dateTemp(0)
       // If the key is already in the map
@@ -56,19 +57,21 @@ object App {
     val lines = Source.fromFile(inputPath).getLines.toList.map(_.split(", ").toList)
 
     // Map the (grade, course) tuples to a given student (name, id)
-    val students = mutable.TreeMap[(String, Int), List[(String, String)]]();
+    // Sorted on the key first
+    var students = TreeMap[(String, Int), List[(String, String)]]();
 
     for (line <- lines) {
-      // Student tuples will be name, id pairs
+      // Student tuples will be (name, id) pairs
       val student: (String, Int) = (line(0), line(1).toInt)
+      // Course tuples will be (grade, course) pairs
       val course: (String, String) = (line(2), line(3))
 
       // If the key is already in the map
       if (students.contains(student)) {
-        students(student) = course :: students(student)
+        students = students + (student -> (course :: students(student)))
       }
       else { // Otherwise, create a new list
-        students += (student -> List(course))
+        students = students + (student -> List(course))
       }
     }
     
