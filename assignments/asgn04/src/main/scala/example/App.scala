@@ -56,7 +56,7 @@ object App {
     val lines = Source.fromFile(inputPath).getLines.toList.map(_.split(", ").toList)
 
     // Map the (grade, course) tuples to a given student (name, id)
-    val students = mutable.Map[(String, Int), List[(String, String)]]();
+    val students = mutable.TreeMap[(String, Int), List[(String, String)]]();
 
     for (line <- lines) {
       // Student tuples will be name, id pairs
@@ -73,11 +73,10 @@ object App {
     }
     
     // Print every student and the courses that they have taken
-    // for ((student, courses) <- students) {
-    //   println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}")
-    // }
     students.foreach({
-      case (student, courses) => println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}")
+      case (student, courses) => 
+        val sortedCourses = courses.sortBy { case (grade, course) => grade }
+        println(s"${student._1}, ${student._2}, ${sortedCourses.mkString(", ")}")
     })
   }
 
