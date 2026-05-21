@@ -76,8 +76,9 @@ object App {
     // for ((student, courses) <- students) {
     //   println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}")
     // }
-    students.foreach((student, courses) => 
-        println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}"))
+    students.foreach({
+      case (student, courses) => println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}"))
+    }
   }
 
   def main(args: Array[String]) {
