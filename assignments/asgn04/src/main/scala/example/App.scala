@@ -73,9 +73,11 @@ object App {
     }
     
     // Print every student and the courses that they have taken
-    for (student <- students) {
-      println(s"${student._1._1}, ${student._1._2} ${student._2}")
-    }
+    // for ((student, courses) <- students) {
+    //   println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}")
+    // }
+    students.foreach((student, courses) => 
+        println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}"))
   }
 
   def main(args: Array[String]) {
