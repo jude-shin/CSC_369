@@ -6,9 +6,15 @@ import scala.collection.mutable
 object App {
   def q1() = {
     val inputPath: String= "inputs/q1"
+    
+    // Convert each line to an element in a list
     val ints: List[String] = Source.fromFile(inputPath).getLines.toList
-    val count: Int = ints.flatMap(_.split(" ").toList).count(_.toInt%3 == 0)
 
+    // Each line is flattened into a 1D array of integers
+    // Then that list is counted with a filtering condition (divisible by 3)
+    val count: Int = ints.flatMap(_.split(" ").toList).count(_.toInt%3 == 0)
+  
+    // Print the result
     println(count)
   }
 
@@ -38,7 +44,38 @@ object App {
   }
 
   def q3() = {
+    val inputPath: String= "inputs/q3"
+    
+    // 2D array 
+    // Nested array second array 
+    //  [0]: name
+    //  [1]: id
+    //  [2]: grade
+    //  [3]: course
+    // Each line has the previous information
+    val lines = Source.fromFile(inputPath).getLines.toList.map(_.split(", ").toList)
 
+    // Map the (grade, course) tuples to a given student (name, id)
+    val students = mutable.Map[(String, Int), List[(String, String)]]();
+
+    for (line <- lines) {
+      // Student tuples will be name, id pairs
+      val student: (String, Int) = (line(0), line(1).toInt)
+      val course: (String, String) = (line(2), line(3))
+
+      // If the key is already in the map
+      if (students.contains(student)) {
+        students(student) = course :: students(student)
+      }
+      else { // Otherwise, create a new list
+        students += (student -> List(course))
+      }
+    }
+    
+    // Print every student and the courses that they have taken
+    for (student <- students) {
+      println(s"${student._1._1}, ${student._1._2} ${student._2}")
+    }
   }
 
   def main(args: Array[String]) {
