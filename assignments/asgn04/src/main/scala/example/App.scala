@@ -3,6 +3,7 @@ package example
 import scala.io.Source
 import scala.collection.mutable.Map
 import scala.collection.immutable.TreeMap
+import scala.collection.immutable.TreeSet
 
 object App {
   def q1() = {
@@ -58,7 +59,7 @@ object App {
 
     // Map the (grade, course) tuples to a given student (name, id)
     // Sorted on the key first
-    var students = TreeMap[(String, Int), List[(String, String)]]();
+    var students = TreeMap[(String, Int), TreeSet[(String, String)]]();
 
     for (line <- lines) {
       // Student tuples will be (name, id) pairs
@@ -68,18 +69,17 @@ object App {
 
       // If the key is already in the map
       if (students.contains(student)) {
-        students = students + (student -> (course :: students(student)))
+        students = students + (student -> (students(student) + course))
       }
-      else { // Otherwise, create a new list
-        students = students + (student -> List(course))
+      else { // Otherwise, create a new TreeSet
+        students = students + (student -> TreeSet(course))
       }
     }
     
     // Print every student and the courses that they have taken
     students.foreach({
       case (student, courses) => 
-        val sortedCourses = courses.sortBy { case (grade, course) => grade }
-        println(s"${student._1}, ${student._2}, ${sortedCourses.mkString(", ")}")
+        println(s"${student._1}, ${student._2}, ${courses.mkString(", ")}")
     })
   }
 
