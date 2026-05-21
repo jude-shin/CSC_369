@@ -80,6 +80,7 @@ object App {
 
   def main(args: Array[String]) {
     // q1()
-    q2()
+    // q2()
+    q3()
   }
 }
