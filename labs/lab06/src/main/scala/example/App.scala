@@ -59,17 +59,17 @@ object App {
     val job2Tuple = job1Tuple.join(productTuple).map({
       case (productId, ((saleId, quantity, storeId), price)) => 
         (storeId, (saleId, productId, quantity, price))
-    })
+    }).collect().foreach(println)
 
-    // job3: join job2 and the store on the storeId
-    // structure: (saleId, productId, quantity, storeId, price, state)
-    val storeTuple = stores.map({
-      case Array(storeId, _, _, _, _, state, _) => (storeId, state)
-    })
-    val joined = job2Tuple.join(storeTuple).map({
-      case (storeId, ((saleId, productId, quantity, price), state)) => 
-        (storeId, saleId, productId, quantity, price, state)
-    })
+    // // job3: join job2 and the store on the storeId
+    // // structure: (saleId, productId, quantity, storeId, price, state)
+    // val storeTuple = stores.map({
+    //   case Array(storeId, _, _, _, _, state, _) => (storeId, state)
+    // }).collect()
+    // val joined = job2Tuple.join(storeTuple).map({
+    //   case (storeId, ((saleId, productId, quantity, price), state)) => 
+    //     (storeId, saleId, productId, quantity, price, state)
+    // })
     
     // =========================================================================k
 
@@ -92,6 +92,6 @@ object App {
     // val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
 
     // // PRINT //
-    joined.collect().foreach(println)
+    // joined.collect().foreach(println)
   }
 }
