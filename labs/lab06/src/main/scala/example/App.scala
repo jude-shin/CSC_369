@@ -73,7 +73,6 @@ object App {
       case (storeId, ((saleId, productId, quantity, price), state)) => 
         (storeId, saleId, productId, quantity, price, state)
     }).map({
-
       case (storeId, saleId, productId, quantity, price, state) =>
         val total = quantity.toInt * price.toDouble
         (storeId, saleId, productId, total, state)
@@ -93,7 +92,7 @@ object App {
         // ._4 is the total for that record
         // ._5 is the state
         (id, records.head._5, 
-          records.foldleft(0.0)({ case (total, (_, _, _, t, _)) => total + t)})
+          records.foldleft(0.0)({ case (total, (_, _, _, t, _)) => total + t}))
     })
 
     // =========================================================================
