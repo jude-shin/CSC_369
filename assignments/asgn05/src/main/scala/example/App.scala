@@ -42,13 +42,18 @@ object App {
   
     // Filter those who only have the same did (basically a join on did)
     rdd = rdd.filter({
-      case ((ename, did), (did2, dname)) => did == did2
+      // ((ename, did), (did2, dname))
+      // empl._2 and dept._1 is the did
+      case (empl, dept) => empl._2 == dept._1
       case _ => throw IllegalArgumentException("You are the problem... You should never be here!")
     })
   
     // Creates a list of all those joined; prints the output
     rdd.collect().foreach({
-      case ((ename, did), (did2, dname)) => println(s"$ename, $dname")
+      // ((ename, did), (did2, dname))
+      // empl._1 is the employee name
+      // dept._2 is the department name
+      case (empl, dept) => println(s"$empl._1, $dept._2")
       case _ => throw IllegalArgumentException("You are the problem... You should never be here!")
     })
   }
