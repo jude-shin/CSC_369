@@ -36,7 +36,7 @@ object App {
     // job1: join the lineItems and the sales on the saleId 
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
-      case Id, productId, quantity) => (saleId, (productId, quantity))
+      case (Id, productId, quantity) => (saleId, (productId, quantity))
     })
     val saleTuple = sales.map({
       case (saleId, _, _, storeId, _) => (saleId, storeId)
