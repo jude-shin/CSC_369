@@ -23,7 +23,7 @@ object App {
     // Creates a map of the element and it's frequency; prints the result
     rdd.countByValue().foreach({
       case (int, ct) => println(s"$int appears $ct times")
-      case _ => throw IllegalArgumentException("You are the problem... You should never be here!")
+      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
     })
   }
 
@@ -45,7 +45,7 @@ object App {
       // ((ename, did), (did2, dname))
       // empl._2 and dept._1 is the did
       case (empl, dept) => empl._2 == dept._1
-      case _ => throw IllegalArgumentException("You are the problem... You should never be here!")
+      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
     })
   
     // Creates a list of all those joined; prints the output
@@ -54,7 +54,7 @@ object App {
       // empl._1 is the employee name
       // dept._2 is the department name
       case (empl, dept) => println(s"$empl._1, $dept._2")
-      case _ => throw IllegalArgumentException("You are the problem... You should never be here!")
+      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
     })
   }
 
@@ -74,7 +74,7 @@ object App {
       // result in the format of (name, id, grades)
       case Array(name, id, gradeCourses) => 
         (name, id, getGpa(gradeCourses.split(",").map(_.trim).map(_.substring(0, 1))))
-      case _ => throw IllegalArgumentException("You are the problem... You should never be here!")
+      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
     })
 
     // Print the result
