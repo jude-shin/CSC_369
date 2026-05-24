@@ -92,8 +92,8 @@ object App {
         // ._4 is the total for that record
         // ._5 is the state
         (id, records.head._5, 
-          records.foldleft(0.0)({ 
-            case (total, (_, _, _, t, _)) => total + t.toDouble
+          records.foldLeft(0.0)({ 
+            case (total, (_, _, _, t, _)) => total + t
           }))
     })
 
