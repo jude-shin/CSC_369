@@ -32,11 +32,9 @@ object App {
     var employeeRdd = sc.textFile("input/asgn05/q2_employees/")
     var departmentRdd = sc.textFile("input/asgn05/q2_departments/")
 
-    employeeRdd.collect().foreach(println)
-
-    // // Parse the inputs to tuples (String, String)
-    // employeeRdd = employeeRdd.map(l => l.split(",").map(_.trim))
-    // departmentRdd = departmentRdd.map(l => l.split(",").map(_.trim))
+    // Parse the inputs to tuples (String, String)
+    employeeRdd = employeeRdd.map(l => l.split(",").map(_.trim))
+    departmentRdd = departmentRdd.map(l => l.split(",").map(_.trim))
 
     // // Cartesian product of the two inputs
     // // result in the format ((ename, did), (did, dname))
@@ -62,7 +60,7 @@ object App {
 
   // def q3(sc: SparkContext) = {
   //   // Raw input lines from a text file
-  //   val students = sc.textFile("input/asgn05/q3_students")
+  //   val students = sc.textFile("input/asgn05/q3_students/")
   // 
   //   // Parse each line
   //   // result in the format of (name, id, gradeCourses)
