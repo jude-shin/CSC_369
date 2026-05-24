@@ -42,7 +42,7 @@ object App {
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
       case Array(saleId, productId, quantity) => (saleId, (productId, quantity))
-    })
+    }).collect()
     
     // lineItemTuple.collect().foreach(println) // TODO: get rid of this
 
