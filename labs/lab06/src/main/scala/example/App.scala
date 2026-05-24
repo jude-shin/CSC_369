@@ -25,7 +25,7 @@ object App {
     // val productPath = "input/product/product"
     // val storePath = "input/store/store"
 
-    // (saleId, productId, quantity)
+    // (_, saleId, productId, quantity)
     val lineItems = sc.textFile(lineItemPath).map(l => l.split(",").map(_.trim))
     // // (saleId, _, _, storeId, _) 
     // val sales = sc.textFile(salePath).map(l => l.split(",").map(_.trim))
@@ -41,7 +41,7 @@ object App {
     // job1: join the lineItems and the sales on the saleId 
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
-      case Array(saleId, productId, quantity) => (saleId, (productId, quantity))
+      case Array(_, saleId, productId, quantity) => (saleId, (productId, quantity))
     }).collect()
     
     // lineItemTuple.collect().foreach(println) // TODO: get rid of this
