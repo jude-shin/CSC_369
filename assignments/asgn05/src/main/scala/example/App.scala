@@ -32,9 +32,16 @@ object App {
     var employeeRdd = sc.textFile("input/asgn05/q2_employees/")
     var departmentRdd = sc.textFile("input/asgn05/q2_departments/")
 
-    // Parse the inputs to tuples (String, String)
-    employeeRdd = employeeRdd.map(l => l.split(",").map(_.trim))
-    departmentRdd = departmentRdd.map(l => l.split(",").map(_.trim))
+    // Parse the inputs to one array per line Array(String, String)
+    employeeRdd = employeeRdd.map(l => l.split(","))
+    departmentRdd = departmentRdd.map(l => l.split(","))
+
+    // Trim the strings in the array and convert them to tuples
+    employeeRdd.map({case Array(s1, s2) => (s1.trim, s2.trim)})
+    departmentRdd.map({case Array(s1, s2) => (s1.trim, s2.trim)})
+
+    employeeRdd.collect().foreach(println)
+    departmentRdd.collect().foreach(println)
 
     // // Cartesian product of the two inputs
     // // result in the format ((ename, did), (did, dname))
