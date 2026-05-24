@@ -55,7 +55,10 @@ object App {
         // ((ename, did), (did2, dname))
         // empl._1 is the employee name
         // dept._2 is the department name
-        case (empl, dept) => println(s"$empl._1, $dept._2")
+        case (empl, dept) => 
+          val ename = empl._1
+          val dname = dept._2
+          println(s"$ename, $dname")
         case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
       })
   }
