@@ -24,10 +24,14 @@ object App {
     val productPath = "/user/jshin53/input/product"
     val storePath = "/user/jshin53/input/store"
 
-    val lineItems = sc.textFile(lineItemPath)
-    val sales = sc.textFile(salePath)
-    val products = sc.textFile(productPath)
-    val stores = sc.textFile(storePath)
+    // (saleId, productId, quantity)
+    val lineItems = sc.textFile(lineItemPath).split(",").map(_.trim)
+    // (saleId, _, _, storeId, _) 
+    val sales = sc.textFile(salePath).split(",").map(_.trim)
+    // (productId, _, price)
+    val products = sc.textFile(productPath).split(",").map(_.trim)
+    // (storeId, _, _, _, _, state, _)
+    val stores = sc.textFile(storePath).split(",").map(_.trim)
 
     // =========================================================================
 
@@ -36,7 +40,7 @@ object App {
     // job1: join the lineItems and the sales on the saleId 
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
-      case (Id, productId, quantity) => (saleId, (productId, quantity))
+      case (saleId, productId, quantity) => (saleId, (productId, quantity))
     })
     val saleTuple = sales.map({
       case (saleId, _, _, storeId, _) => (saleId, storeId)

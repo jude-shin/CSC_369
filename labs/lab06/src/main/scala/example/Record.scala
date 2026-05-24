@@ -1,9 +1,13 @@
 package example
 
+object Record {
+  // TODO: parse into comparable strings, ints, and doubles and other
+}
+
 case class Record (
-  private val id: Int, 
-  private val state: String, 
-  private val sales: Double
+  val id: Int, 
+  val state: String, 
+  val sales: Double
 ) {
 
   override def toString: String =
@@ -11,8 +15,8 @@ case class Record (
 
   def aggregate(other: Record): Record = {
     // Called assuming that the records have the same id (and thus the same state)
-    if (id != other.getId) throw new ArithmeticException("aggregation failed: Record ids do not match")
+    if (id != other.id) throw new ArithmeticException("aggregation failed: Record ids do not match")
 
-    return Record(id, state, sales+other.getSales)
+    return Record(id, state, sales+other.id)
   }
 }
