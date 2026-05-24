@@ -69,7 +69,7 @@ object App {
       case Array(storeId, _, _, _, _, state, _) => (storeId, state)
     })
     val joined = job2Tuple.join(storeTuple).map({
-      case Array(storeId, ((saleId, productId, quantity, price), state)) => 
+      case (storeId, ((saleId, productId, quantity, price), state)) => 
         (storeId, saleId, productId, quantity, price, state)
     })
 
