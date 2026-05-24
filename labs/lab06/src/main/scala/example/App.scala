@@ -25,13 +25,13 @@ object App {
     val storePath = "/user/jshin53/input/store"
 
     // (saleId, productId, quantity)
-    val lineItems = sc.textFile(lineItemPath).split(",").map(_.trim)
+    val lineItems = sc.textFile(lineItemPath).map(l => l.split(",").map(_.trim))
     // (saleId, _, _, storeId, _) 
-    val sales = sc.textFile(salePath).split(",").map(_.trim)
+    val sales = sc.textFile(salePath).map(l => l.split(",").map(_.trim))
     // (productId, _, price)
-    val products = sc.textFile(productPath).split(",").map(_.trim)
+    val products = sc.textFile(productPath).map(l => l.split(",").map(_.trim))
     // (storeId, _, _, _, _, state, _)
-    val stores = sc.textFile(storePath).split(",").map(_.trim)
+    val stores = sc.textFile(storePath).map(l => l.split(",").map(_.trim))
 
     // =========================================================================
 
@@ -69,8 +69,8 @@ object App {
       case (storeId, _, _, _, _, state, _) => (storeId, state)
     })
     val job3 = job2Tuple.join(storeTuple).map({
-      case (productId, ((saleId, productId, quantity, price), state)) => 
-        (saleId, productId, quantity, storeId, price, state)
+      case (storeId, ((saleId, productId, quantity, price), state)) => 
+        (storeId, saleId, productId, quantity, price, state)
     })
 
 
