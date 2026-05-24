@@ -37,8 +37,14 @@ object App {
     departmentRdd = departmentRdd.map(l => l.split(","))
 
     // Trim the strings in the array and convert them to tuples
-    employeeRdd.map({case Array(s1, s2) => (s1.trim, s2.trim)})
-    departmentRdd.map({case Array(s1, s2) => (s1.trim, s2.trim)})
+    employeeRdd.map({
+      case Array(s1, s2) => (s1.trim, s2.trim)
+      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    })
+    departmentRdd.map({
+      case Array(s1, s2) => (s1.trim, s2.trim)
+      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    })
 
     employeeRdd.collect().foreach(println)
     departmentRdd.collect().foreach(println)
