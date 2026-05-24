@@ -36,7 +36,7 @@ object App {
 
     // =========================================================================
 
-    // JOINS
+    // JOIN ALL OF THE FILES
     // job1: join the lineItems and the sales on the saleId 
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
@@ -64,7 +64,7 @@ object App {
     })
 
     // job3: join job2 and the store on the storeId
-    // structure: (saleId, productId, quantity, storeId, price, state)
+    // structure: (storeId, saleId, productId, total, state)
     val storeTuple = stores.map({
       case Array(storeId, _, _, _, _, state, _) => (storeId, state)
       case badrow => ("", "")
@@ -72,26 +72,34 @@ object App {
     val joined = job2Tuple.join(storeTuple).map({
       case (storeId, ((saleId, productId, quantity, price), state)) => 
         (storeId, saleId, productId, quantity, price, state)
-    })
+    }).map({
+
+      case (storeId, saleId, productId, quantity, price, state) =>
+        val total = quantity.toInt * price.toDouble
+        (storeId, saleId, productId, total, state)
+    }).collect
     
+
     // =========================================================================k
 
-    // // GROUP BY ID//
-    // var storeToRecords: Map[Int, List[Record]] = records.groupBy(_.getId)
+    // GROUP BY ID //
+    var storeToRecords = records.groupBy(_.id)
 
-    // // AGGREGATE //
-    // // each store now has a total sum
-    // var storeTotal: List[Record] = storeToRecords.map { 
-    //   case (id, rs) =>
-    //     Record(id, rs.head.getState, rs.foldLeft(0.0)((total, r) => total + r.getSales))
-    // }.toList
+    // AGGREGATE //
+    // For each id (each store has a unique id), sum all the items
+    // var storeTotals = storeToRecords.map { 
+    //   case (id, records) => 
+    //     // ._4 is the total for that record
+    //     // ._5 element in the record is the state
+    //     (id, records.head._6, records.fold(0.0)((total, r) => total + r._4))
+    // }
 
-    // // =========================================================================
-    // // Note that at this point we have a list of Records with their total sales
-    // // There should only be one record for one store
+    // =========================================================================
+    // Note that at this point we have a list of Records with their total sales
+    // There should only be one record for one store
 
-    // // SORT //
-    // // Sort everything, first on state, then on total sale, finally by id
+    // SORT //
+    // Sort everything, first on state, then on total sale, finally by id
     // val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
 
     // // PRINT //
