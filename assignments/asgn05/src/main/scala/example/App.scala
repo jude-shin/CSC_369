@@ -83,8 +83,7 @@ object App {
       case Array(name, id, gpa) =>
         println(s"$name, $id, $gpa")
     })
-
-  // }
+  }
   
   // Returns the average GPA from a list of letter grades
   def getGpa(gs: String*): Double = {
@@ -108,11 +107,6 @@ object App {
       case _ => Double.NaN
     }
   }
-
-    // val lineItemTuple = lineItems.map({
-    //   case Array(_, saleId, productId, quantity) => (saleId, (productId, quantity))
-    //   case badrow => ("", ("", ""))
-    // }).filter(_._1 != "")
 
   def main(args: Array[String]) {
     // Don't log a bunch of the junk
