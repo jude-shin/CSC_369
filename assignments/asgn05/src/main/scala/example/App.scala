@@ -58,31 +58,31 @@ object App {
   //   })
   // }
 
-  // def q3(sc: SparkContext) = {
-  //   // Raw input lines from a text file
-  //   val students = sc.textFile("input/asgn05/q3_students")
-  // 
-  //   // Parse each line
-  //   // result in the format of (name, id, gradeCourses)
-  //   var rdd = students.map(l => l.split(",", 3))
+  def q3(sc: SparkContext) = {
+    // Raw input lines from a text file
+    val students = sc.textFile("input/asgn05/q3_students")
+  
+    // Parse each line
+    // result in the format of (name, id, gradeCourses)
+    var rdd = students.map(l => l.split(",", 3))
 
-  //   // Parse out only the letter grade from the list of students
-  //   rdd = rdd.map({
-  //     // Split every grade based on the comma
-  //     // Extract the grade letter for every course (the first character of the grade course pair)
-  //     // Calculate the gpa based on those letters
-  //     // result in the format of (name, id, grades)
-  //     case Array(name, id, gradeCourses) => 
-  //       (name, id, getGpa(gradeCourses.split(",").map(_.trim).map(_.substring(0, 1))))
-  //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-  //   })
+    // Parse out only the letter grade from the list of students
+    rdd = rdd.map({
+      // Split every grade based on the comma
+      // Extract the grade letter for every course (the first character of the grade course pair)
+      // Calculate the gpa based on those letters
+      // result in the format of (name, id, grades)
+      case Array(name, id, gradeCourses) => 
+        (name, id, getGpa(gradeCourses.split(",").map(_.trim).map(_.substring(0, 1))))
+      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    })
 
-  //   // Print the result
-  //   rdd.collect().foreach({
-  //     // TODO: why is this an array?
-  //     case Array(name, id, gpa) =>
-  //       println(s"$name, $id, $gpa")
-  //   })
+    // Print the result
+    rdd.collect().foreach({
+      // TODO: why is this an array?
+      case Array(name, id, gpa) =>
+        println(s"$name, $id, $gpa")
+    })
 
   // }
   
@@ -124,8 +124,8 @@ object App {
     val sc = new SparkContext(conf)
     
     // =========================================================================
-    q1(sc)
+    // q1(sc)
     // q2(sc)
-    // q3(sc)
+    q3(sc)
   }
 }
