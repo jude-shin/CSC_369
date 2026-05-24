@@ -89,8 +89,8 @@ object App {
     // For each id (each store has a unique id), sum all the items
     var storeTotals = storeToRecords.map({ 
       case (id, records) => 
-        // ._4 is the total for that record
-        // ._5 is the state
+        // ._5 is the state; since the id is unique, we can take just the first
+        // state that we are given
         (id, records.head._5, 
           records.foldLeft(0.0)({ 
             case (total, (_, _, _, t, _)) => total + t
@@ -100,12 +100,18 @@ object App {
     // =========================================================================
     // Note that at this point we have a list of Records with their total sales
     // There should only be one record for one store
+    // The tuple type is now  (String, String, Double)
+    // This represents        (id, state, total)
 
-    // SORT //
-    // Sort everything, first on state, then on total sale, finally by id
-    // val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
+    // Sort everything, first on state, then on total sale, 
+    // finally, breaking ties by the id
+    val sorted = storeTotals.sortBy({
+      case (id, state, total) => (state, total, id))
+    })
 
-    // // PRINT //
-    // joined.collect().foreach(println)
+    // Collect to one node, and then print the results all pretty
+    sorted.collect().foreach({
+      case (id, state, total) => println(s"$state, $id, $total")
+    })
   }
 }
