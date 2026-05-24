@@ -59,8 +59,8 @@ object App {
     val storePath = "/user/jshin53/input/store"
 
     val lineItems = sc.textFile(lineItemPath)
-    val sales = sc.textFile.(salePath).getLines
-    val products = sc.textFile.(productPath)
+    val sales = sc.textFile(salePath)
+    val products = sc.textFile(productPath)
     val stores = sc.textFile(storePath)
 
     // =========================================================================
