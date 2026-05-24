@@ -10,7 +10,7 @@ import scala.collection._
 
 object App {
 
-  def q1(sc) = {
+  def q1(sc: SparkContext) = {
     // Raw input lines from a text file
     val integersRdd = sc.textFile("input/asgn05/q1_integers")
 
@@ -27,7 +27,7 @@ object App {
     })
   }
 
-  def q2(sc) = {
+  def q2(sc: SparkContext) = {
     // Raw input lines from a text file
     val employeeRdd = sc.textFile("input/asgn05/q2_employees")
     val departmentRdd = sc.textFile("input/asgn05/q2_departments")
@@ -53,7 +53,7 @@ object App {
     })
   }
 
-  def q3(sc) = {
+  def q3(sc: SparkContext) = {
     // Raw input lines from a text file
     val students = sc.textFile("input/asgn05/q3_students")
   
