@@ -20,19 +20,19 @@ object App {
 
     // Parse input files into RDDs
     // val lineItemPath = "/user/jshin53/input/lineItem/lineItem"
-    val lineItemPath = "lineItem/lineItem"
-    val salePath = "/user/jshin53/input/sale/sale"
-    val productPath = "/user/jshin53/input/product/product"
-    val storePath = "/user/jshin53/input/store/store"
+    val lineItemPath = "input/lineItem/lineItem"
+    val salePath = "input/sale/sale"
+    val productPath = "input/product/product"
+    val storePath = "input/store/store"
 
     // (saleId, productId, quantity)
     val lineItems = sc.textFile(lineItemPath).map(l => l.split(",").map(_.trim))
     // (saleId, _, _, storeId, _) 
     val sales = sc.textFile(salePath).map(l => l.split(",").map(_.trim))
     // // (productId, _, price)
-    // val products = sc.textFile(productPath).map(l => l.split(",").map(_.trim))
-    // // (storeId, _, _, _, _, state, _)
-    // val stores = sc.textFile(storePath).map(l => l.split(",").map(_.trim))
+    val products = sc.textFile(productPath).map(l => l.split(",").map(_.trim))
+    // (storeId, _, _, _, _, state, _)
+    val stores = sc.textFile(storePath).map(l => l.split(",").map(_.trim))
 
     // =========================================================================
 
