@@ -41,7 +41,7 @@ object App {
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
       case Array(_, saleId, productId, quantity) => (saleId, (productId, quantity))
-      case badrow => ("", "")
+      case badrow => ("", ("", ""))
     }).filter(_._1 != "")
     val saleTuple = sales.map({
       case Array(saleId, _, _, storeId, _) => (saleId, storeId)
@@ -83,7 +83,7 @@ object App {
     // =========================================================================k
 
     // GROUP BY ID //
-    var storeToRecords = records.groupBy(_.id)
+    var storeToRecords = joined.groupBy(_.id)
 
     // AGGREGATE //
     // For each id (each store has a unique id), sum all the items
