@@ -41,11 +41,12 @@ object App {
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
       case Array(_, saleId, productId, quantity) => (saleId, (productId, quantity))
-    })
+      case badrow => ("", "")
+    }).filter(_._1 != "")
     val saleTuple = sales.map({
       case Array(saleId, _, _, storeId, _) => (saleId, storeId)
-    })
-
+      case badrow => ("", "")
+    }).filter(_._1 != "")
     val job1Tuple = lineItemTuple.join(saleTuple).map({
       case (saleId, ((productId, quantity), storeId)) => 
         (productId, (saleId, quantity, storeId))
@@ -55,7 +56,8 @@ object App {
     // structure: (storeId, (saleId, productId, quantity, price))
     val productTuple = products.map({
       case Array(productId, _, price) => (productId, price)
-    })
+      case badrow => ("", "")
+    }).filter(_._1 != "")
     val job2Tuple = job1Tuple.join(productTuple).map({
       case (productId, ((saleId, quantity, storeId), price)) => 
         (storeId, (saleId, productId, quantity, price))
@@ -65,9 +67,8 @@ object App {
     // structure: (saleId, productId, quantity, storeId, price, state)
     val storeTuple = stores.map({
       case Array(storeId, _, _, _, _, state, _) => (storeId, state)
-      case badrow => ("error", "badrow")
-      // case badrow => None 
-    })// .filter(_isDefined).map(_.get)
+      case badrow => ("", "")
+    }).filter(_._1 != "")
     val joined = job2Tuple.join(storeTuple).map({
       case (storeId, ((saleId, productId, quantity, price), state)) => 
         (storeId, saleId, productId, quantity, price, state)
