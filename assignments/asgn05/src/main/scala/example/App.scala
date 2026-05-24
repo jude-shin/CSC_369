@@ -32,22 +32,25 @@ object App {
     var employeeRdd = sc.textFile("input/asgn05/q2_employees/")
     var departmentRdd = sc.textFile("input/asgn05/q2_departments/")
 
-    // Parse the inputs to one array per line Array(String, String)
-    employeeRdd = employeeRdd.map(l => l.split(","))
-    departmentRdd = departmentRdd.map(l => l.split(","))
+    println(employeeRdd.first())
+    println(departmentRdd.first())
 
-    // Trim the strings in the array and convert them to tuples
-    employeeRdd.map({
-      case Array(s1, s2) => (s1.trim, s2.trim)
-      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    })
-    departmentRdd.map({
-      case Array(s1, s2) => (s1.trim, s2.trim)
-      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    })
+    // // Parse the inputs to one array per line Array(String, String)
+    // employeeRdd = employeeRdd.map(l => l.split(","))
+    // departmentRdd = departmentRdd.map(l => l.split(","))
 
-    employeeRdd.collect().foreach(println)
-    departmentRdd.collect().foreach(println)
+    // // Trim the strings in the array and convert them to tuples
+    // employeeRdd.map({
+    //   case Array(s1, s2) => (s1.trim, s2.trim)
+    //   case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    // })
+    // departmentRdd.map({
+    //   case Array(s1, s2) => (s1.trim, s2.trim)
+    //   case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    // })
+
+    // employeeRdd.collect().foreach(println)
+    // departmentRdd.collect().foreach(println)
 
     // // Cartesian product of the two inputs
     // // result in the format ((ename, did), (did, dname))
