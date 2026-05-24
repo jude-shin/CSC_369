@@ -19,10 +19,11 @@ object App {
     val sc = new SparkContext(conf)
 
     // Parse input files into RDDs
-    val lineItemPath = "/user/jshin53/input/lineItem/lineItem"
-    val salePath = "/user/jshin53/input/sale"
-    //// val productPath = "/user/jshin53/input/product"
-    //// val storePath = "/user/jshin53/input/store"
+    // val lineItemPath = "/user/jshin53/input/lineItem/lineItem"
+    val lineItemPath = "lineItem/lineItem"
+    val salePath = "/user/jshin53/input/sale/sale"
+    val productPath = "/user/jshin53/input/product/product"
+    val storePath = "/user/jshin53/input/store/store"
 
     // (saleId, productId, quantity)
     val lineItems = sc.textFile(lineItemPath).map(l => l.split(",").map(_.trim))
@@ -43,8 +44,7 @@ object App {
       case Array(saleId, productId, quantity) => (saleId, (productId, quantity))
     })
     
-    println("I hope this works!!")
-    // lineItemTuple.collect().foreach(println) // TODO: get rid of this
+    lineItemTuple.collect().foreach(println) // TODO: get rid of this
 
 //     val saleTuple = sales.map({
 //       case Array(saleId, _, _, storeId, _) => (saleId, storeId)
