@@ -77,11 +77,8 @@ object App {
           val letters = gradeCourses
             .split(",")   // Split into an Array of Strings " A CSC400"
             .map(_.trim)  // For each of them, trim it down "A CSC400"
-            .map(_.substring(0, 1))  // For each, get the first character "A"
-
-          letters.foreach(println)
-
-          (name, id, getGpa(letters))
+            .map(_.substring(0, 1))  // Get the first character of each "A"
+          (name, id, getGpa(letters))// Return a tuple of the GPA
         case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
       })
       .collect().foreach({          // Print the result
