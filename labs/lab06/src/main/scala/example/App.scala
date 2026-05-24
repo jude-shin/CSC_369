@@ -77,20 +77,21 @@ object App {
       case (storeId, saleId, productId, quantity, price, state) =>
         val total = quantity.toInt * price.toDouble
         (storeId, saleId, productId, total, state)
-    }).collect
+    })
     
 
     // =========================================================================k
 
     // GROUP BY ID //
-    var storeToRecords = joined.groupBy(_.id)
+    // ._1 is the storeId
+    var storeToRecords = joined.groupBy(_.id).collect()
 
     // AGGREGATE //
     // For each id (each store has a unique id), sum all the items
     // var storeTotals = storeToRecords.map { 
     //   case (id, records) => 
     //     // ._4 is the total for that record
-    //     // ._5 element in the record is the state
+    //     // ._5 is the state
     //     (id, records.head._6, records.fold(0.0)((total, r) => total + r._4))
     // }
 
@@ -103,6 +104,6 @@ object App {
     // val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
 
     // // PRINT //
-    joined.collect().foreach(println)
+    // joined.collect().foreach(println)
   }
 }
