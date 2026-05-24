@@ -79,7 +79,8 @@ object App {
 
     // Print the result
     rdd.collect().foreach({
-      case (name, id, gpa) =>
+      // TODO: why is this an array?
+      case Array(name, id, gpa) =>
         println(s"$name, $id, $gpa")
     })
 
