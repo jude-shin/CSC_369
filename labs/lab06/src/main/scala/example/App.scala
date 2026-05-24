@@ -9,40 +9,6 @@ import org.apache.log4j.Level
 import scala.collection._
 
 object App {
-  def joinall
-  (lineItems: List[LineItem])
-  (sales: List[Sale])
-  (products: List[Product])
-  (stores: List[Store])
-  : List[Record] = {
-
-    // Job1: join the lineItems and the sales
-    val job1 =
-      for {
-        LineItem(_, saleId, productId, quantity) <- lineItems 
-        Sale(sId, _, _, storeId, _) <- sales
-        if saleId == sId
-      } yield (storeId, productId, quantity)
-
-    // Job2: Join job1 and the products
-    val job2 =
-      for {
-        (storeId, productId, quantity) <- job1
-        Product(pId, _, price) <- products
-        if productId == pId
-      } yield (storeId, quantity * price)
-
-    // Job3: Join job2 and the stores
-    val job3 =
-      for {
-        (storeId, lineTotal) <- job2
-        if storeId == sId
-      } yield Record(storeId, state, lineTotal)
-
-    return job3
-  }
-
-
   def main(args: Array[String]) {
     // Don't log a bunch of the junk
     Logger.getLogger("org").setLevel(Level.OFF)
