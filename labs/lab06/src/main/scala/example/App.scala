@@ -59,17 +59,18 @@ object App {
     val job2Tuple = job1Tuple.join(productTuple).map({
       case (productId, ((saleId, quantity, storeId), price)) => 
         (storeId, (saleId, productId, quantity, price))
-    }).collect().foreach(println)
+    })
 
-    // // job3: join job2 and the store on the storeId
-    // // structure: (saleId, productId, quantity, storeId, price, state)
-    // val storeTuple = stores.map({
-    //   case Array(storeId, _, _, _, _, state, _) => (storeId, state)
-    // }).collect()
-    // val joined = job2Tuple.join(storeTuple).map({
-    //   case (storeId, ((saleId, productId, quantity, price), state)) => 
-    //     (storeId, saleId, productId, quantity, price, state)
-    // })
+    // job3: join job2 and the store on the storeId
+    // structure: (saleId, productId, quantity, storeId, price, state)
+    val storeTuple = stores.map({
+      case Array(storeId, _, _, _, _, state, _) => (storeId, state)
+      case _ => ("ERROR in StoreTuple mapping", "ERROR in StoreTuple mapping")
+    }).collect()
+    val joined = job2Tuple.join(storeTuple).map({
+      case (storeId, ((saleId, productId, quantity, price), state)) => 
+        (storeId, saleId, productId, quantity, price, state)
+    })
     
     // =========================================================================k
 
