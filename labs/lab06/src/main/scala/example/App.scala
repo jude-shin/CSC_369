@@ -15,7 +15,7 @@ object App {
     Logger.getLogger("akka").setLevel(Level.OFF)
 
     // Spark setup
-    val conf = new SparkConf().setAppName("NameOfApp")
+    val conf = new SparkConf().setAppName("App")
     val sc = new SparkContext(conf)
 
     // Parse input files into RDDs
@@ -44,7 +44,7 @@ object App {
     })
     
 
-    lineItemTuple.collect().foreach(println)
+    // lineItemTuple.collect().foreach(println) // TODO: get rid of this
 
 //     val saleTuple = sales.map({
 //       case Array(saleId, _, _, storeId, _) => (saleId, storeId)
