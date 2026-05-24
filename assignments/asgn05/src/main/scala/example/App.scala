@@ -12,7 +12,7 @@ object App {
 
   def q1(sc: SparkContext) = {
     // Raw input lines from a text file
-    val integersRdd = sc.textFile("input/asgn05/q1_integers")
+    val integersRdd = sc.textFile("input/asgn05/q1_integers/")
 
     // Each integer is parsed individually
     var rdd = integersRdd.flatMap(l => l.split(" ")).map(_.toInt)
@@ -29,8 +29,8 @@ object App {
 
   def q2(sc: SparkContext) = {
     // Raw input lines from a text file
-    var employeeRdd = sc.textFile("input/asgn05/q2_employees")
-    var departmentRdd = sc.textFile("input/asgn05/q2_departments")
+    var employeeRdd = sc.textFile("input/asgn05/q2_employees/")
+    var departmentRdd = sc.textFile("input/asgn05/q2_departments/")
 
     employeeRdd.collect().foreach(println)
 

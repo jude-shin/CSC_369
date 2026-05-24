@@ -22,10 +22,10 @@ showinput:
 copyHDFS:
 	-hadoop fs -rm -r /user/jshin53/input/asgn05
 	hadoop fs -mkdir /user/jshin53/input/asgn05
-	hadoop fs -put ./local_inputs/q2_employees /user/jshin53/input/asgn05/q2_employees
-	hadoop fs -put ./local_inputs/q2_departments /user/jshin53/input/asgn05/q2_departments
-	# hadoop fs -put ./local_inputs/q3_students /user/jshin53/input/asgn05/q3_students
-	# hadoop fs -put ./local_inputs/q1_integers /user/jshin53/input/asgn05/q1_integers
+	hadoop fs -put ./local_inputs/q2_employees /user/jshin53/input/asgn05/q2_employees/q2_employees
+	hadoop fs -put ./local_inputs/q2_departments /user/jshin53/input/asgn05/q2_departments/q2_departments
+	hadoop fs -put ./local_inputs/q3_students /user/jshin53/input/asgn05/q3_students/q3_students
+	hadoop fs -put ./local_inputs/q1_integers /user/jshin53/input/asgn05/q1_integers/q1_integers
 
 cleanHDFS:
 	hadoop fs -rm -r /user/jshin53/input/asgn05
