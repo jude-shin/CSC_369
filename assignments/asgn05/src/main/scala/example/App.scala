@@ -32,15 +32,15 @@ object App {
     var employeeRdd = sc.textFile("input/asgn05/q2_employees")
     var departmentRdd = sc.textFile("input/asgn05/q2_departments")
 
-    // Parse the inputs to tuples (String, String)
-    employeeRdd = employeeRdd.map(l => l.split(",").map(_.trim))
-    departmentRdd = departmentRdd.map(l => l.split(",").map(_.trim))
+    employeeRdd.collect().foreach(println)
 
-    // Cartesian product of the two inputs
-    // result in the format ((ename, did), (did, dname))
-    var rdd = employeeRdd.cartesian(departmentRdd)
+    // // Parse the inputs to tuples (String, String)
+    // employeeRdd = employeeRdd.map(l => l.split(",").map(_.trim))
+    // departmentRdd = departmentRdd.map(l => l.split(",").map(_.trim))
 
-    rdd.collect().foreach(println)
+    // // Cartesian product of the two inputs
+    // // result in the format ((ename, did), (did, dname))
+    // var rdd = employeeRdd.cartesian(departmentRdd)
   
     // // Filter those who only have the same did (basically a join on did)
     // rdd = rdd.filter({
