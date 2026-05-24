@@ -37,22 +37,19 @@ object App {
     // =========================================================================
 
     // JOINS
-
     // job1: join the lineItems and the sales on the saleId 
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
       case Array(_, saleId, productId, quantity) => (saleId, (productId, quantity))
     })
-
     val saleTuple = sales.map({
       case Array(saleId, _, _, storeId, _) => (saleId, storeId)
     })
+
     val job1Tuple = lineItemTuple.join(saleTuple).map({
       case (saleId, ((productId, quantity), storeId)) => 
         (productId, (saleId, quantity, storeId))
     })
-
-    // =========================================================================k
 
     // job2: join job1 and the products on the productId
     // structure: (storeId, (saleId, productId, quantity, price))
@@ -64,17 +61,17 @@ object App {
         (storeId, (saleId, productId, quantity, price))
     })
 
-    // =========================================================================k
     // job3: join job2 and the store on the storeId
     // structure: (saleId, productId, quantity, storeId, price, state)
-    val storeTuple = products.map({
+    val storeTuple = store.map({
       case Array(storeId, _, _, _, _, state, _) => (storeId, state)
     })
     val joined = job2Tuple.join(storeTuple).map({
       case (storeId, ((saleId, productId, quantity, price), state)) => 
         (storeId, saleId, productId, quantity, price, state)
     })
-
+    
+    // =========================================================================k
 
     // // GROUP BY ID//
     // var storeToRecords: Map[Int, List[Record]] = records.groupBy(_.getId)
