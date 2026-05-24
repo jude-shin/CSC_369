@@ -92,7 +92,8 @@ object App {
       case (id, records) => 
         // ._4 is the total for that record
         // ._5 is the state
-        (id, records.head._5, records.fold(0.0)((total, r) => total + r._4))
+        (id, records.head._5, 
+          records.fold(0.0)((total, (_, _, _, t, _)) => total + t))
     }
 
     // =========================================================================
