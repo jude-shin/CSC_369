@@ -30,21 +30,18 @@ object App {
   def q2(sc: SparkContext) = {
     // Raw input lines from a text file
     val employeeLines = sc.textFile("input/asgn05/q2_employees/")
+      .map(l => l.split(","))   // one array per line Array[String, String]
+      .map({                    // trim the result and turn into a tuple
+        case Array(s1, s2) => (s1.trim, s2.trim)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
+
     val departmentLines = sc.textFile("input/asgn05/q2_departments/")
-
-    // Parse the inputs to one array per line Array[String, String]
-    var employeeRdd = employeeLines.map(l => l.split(","))
-    var departmentRdd = departmentLines.map(l => l.split(","))
-
-    // // Trim the strings in the array and convert them to tuples
-    // employeeRdd.map({
-    //   case Array(s1, s2) => (s1.trim, s2.trim)
-    //   case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    // })
-    // departmentRdd.map({
-    //   case Array(s1, s2) => (s1.trim, s2.trim)
-    //   case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    // })
+      .map(l => l.split(","))   // one array per line Array[String, String]
+      .map({                    // trim the result and turn into a tuple
+        case Array(s1, s2) => (s1.trim, s2.trim)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
 
     employeeRdd.collect().foreach(println)
     departmentRdd.collect().foreach(println)
