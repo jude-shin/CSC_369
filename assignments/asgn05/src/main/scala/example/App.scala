@@ -29,15 +29,12 @@ object App {
 
   def q2(sc: SparkContext) = {
     // Raw input lines from a text file
-    var employeeRdd = sc.textFile("input/asgn05/q2_employees/")
-    var departmentRdd = sc.textFile("input/asgn05/q2_departments/")
+    val employeeLines = sc.textFile("input/asgn05/q2_employees/")
+    val departmentLines = sc.textFile("input/asgn05/q2_departments/")
 
-    println(employeeRdd.first())
-    println(departmentRdd.first())
-
-    // // Parse the inputs to one array per line Array(String, String)
-    // employeeRdd = employeeRdd.map(l => l.split(","))
-    // departmentRdd = departmentRdd.map(l => l.split(","))
+    // Parse the inputs to one array per line Array[String, String]
+    var employeeRdd = employeeRdd.map(l => l.split(","))
+    var departmentRdd = departmentRdd.map(l => l.split(","))
 
     // // Trim the strings in the array and convert them to tuples
     // employeeRdd.map({
@@ -49,8 +46,8 @@ object App {
     //   case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
     // })
 
-    // employeeRdd.collect().foreach(println)
-    // departmentRdd.collect().foreach(println)
+    employeeRdd.collect().foreach(println)
+    departmentRdd.collect().foreach(println)
 
     // // Cartesian product of the two inputs
     // // result in the format ((ename, did), (did, dname))
