@@ -63,7 +63,7 @@ object App {
 
     // job3: join job2 and the store on the storeId
     // structure: (saleId, productId, quantity, storeId, price, state)
-    val storeTuple = store.map({
+    val storeTuple = stores.map({
       case Array(storeId, _, _, _, _, state, _) => (storeId, state)
     })
     val joined = job2Tuple.join(storeTuple).map({
