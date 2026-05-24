@@ -106,7 +106,7 @@ object App {
     // Sort everything, first on state, then on total sale, 
     // finally, breaking ties by the id
     val sorted = storeTotals.sortBy({
-      case (id, state, total) => (state, total, id))
+      case (id, state, total) => (state, total, id)
     })
 
     // Collect to one node, and then print the results all pretty
