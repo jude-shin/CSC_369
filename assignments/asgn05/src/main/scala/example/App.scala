@@ -29,8 +29,8 @@ object App {
 
   def q2(sc: SparkContext) = {
     // Raw input lines from a text file
-    val employeeRdd = sc.textFile("input/asgn05/q2_employees")
-    val departmentRdd = sc.textFile("input/asgn05/q2_departments")
+    var employeeRdd = sc.textFile("input/asgn05/q2_employees")
+    var departmentRdd = sc.textFile("input/asgn05/q2_departments")
 
     // Parse the inputs to tuples (String, String)
     employeeRdd = employeeRdd.flatMap(l => l.split(",").map(_.trim))
