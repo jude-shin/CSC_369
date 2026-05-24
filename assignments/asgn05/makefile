@@ -1,8 +1,6 @@
 PACKAGE = example
 CLASS = App
 
-HDFS_INPUTS = /user/jshin53/input/asgn05/q1_integers /user/jshin53/input/q2_employees /user/jshin53/input/q2_departments /user/jshin53/input/q3_students
-
 .PHONY: all hadoop clean scala run showinput showoutput
 
 all: scala
@@ -30,7 +28,7 @@ copyHDFS:
 	hadoop fs -put ./local_inputs/q1_integers /user/jshin53/input/asgn05/q3_students
 
 cleanHDFS:
-	-hadoop fs -rm -r $(HDFS_INPUTS)
+	hadoop fs -rm -r /user/jshin53/input/asgn05
 
 clean:
 	rm -rf project target
