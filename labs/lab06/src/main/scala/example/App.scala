@@ -36,10 +36,10 @@ object App {
     // job1: join the lineItems and the sales on the saleId 
     // structure: (productId, (saleId, quantity, storeId))
     val lineItemTuple = lineItems.map({
-      case LineItem(_, saleId, productId, quantity) => (saleId, (productId, quantity))
+      case Id, productId, quantity) => (saleId, (productId, quantity))
     })
     val saleTuple = sales.map({
-      case Sale(saleId, _, _, storeId, _) => (saleId, storeId)
+      case (saleId, _, _, storeId, _) => (saleId, storeId)
     })
     val job1Tuple = lineItemTuple.join(saleTuple).map({
       case (saleId, ((productId, quantity), storeId)) => 
@@ -51,7 +51,7 @@ object App {
     // job2: join job1 and the products on the productId
     // structure: (storeId, (saleId, productId, quantity, price))
     val productTuple = products.map({
-      case Product(productId, _, price) => (productId, price)
+      case (productId, _, price) => (productId, price)
     })
     val job2 = job1Tuple.join(productTuple).map({
       case (productId, ((saleId, quantity, storeId), price)) => 
@@ -62,7 +62,7 @@ object App {
     // job3: join job2 and the store on the storeId
     // structure: (saleId, productId, quantity, storeId, price, state)
     val storeTuple = products.map({
-      case Store(storeId, _, _, _, _, state, _) => (storeId, state)
+      case (storeId, _, _, _, _, state, _) => (storeId, state)
     })
     val job3 = job2Tuple.join(storeTuple).map({
       case (productId, ((saleId, productId, quantity, price), state)) => 
