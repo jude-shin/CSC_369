@@ -88,13 +88,13 @@ object App {
 
     // AGGREGATE //
     // For each id (each store has a unique id), sum all the items
-    var storeTotals = storeToRecords.map { 
+    var storeTotals = storeToRecords.map({ 
       case (id, records) => 
         // ._4 is the total for that record
         // ._5 is the state
         (id, records.head._5, 
-          records.foldleft(0.0)((total, (_, _, _, t, _)) => total + t))
-    }
+          records.foldleft(0.0)({ case (total, (_, _, _, t, _)) => total + t)})
+    })
 
     // =========================================================================
     // Note that at this point we have a list of Records with their total sales
