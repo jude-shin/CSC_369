@@ -43,7 +43,7 @@ object App {
       case Array(saleId, productId, quantity) => (saleId, (productId, quantity))
     })
     
-
+    println("I hope this works!!")
     // lineItemTuple.collect().foreach(println) // TODO: get rid of this
 
 //     val saleTuple = sales.map({
