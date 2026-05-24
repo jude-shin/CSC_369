@@ -46,7 +46,7 @@ object App {
       case Array(saleId, _, _, storeId, _) => (saleId, storeId)
     })
     val job1Tuple = lineItemTuple.join(saleTuple).map({
-      case Array(saleId, ((productId, quantity), storeId)) => 
+      case (saleId, ((productId, quantity), storeId)) => 
         (productId, (saleId, quantity, storeId))
     })
 
@@ -57,8 +57,8 @@ object App {
     val productTuple = products.map({
       case Array(productId, _, price) => (productId, price)
     })
-    val job2 = job1Tuple.join(productTuple).map({
-      case Array(productId, ((saleId, quantity, storeId), price)) => 
+    val job2Tuple = job1Tuple.join(productTuple).map({
+      case (productId, ((saleId, quantity, storeId), price)) => 
         (storeId, (saleId, productId, quantity, price))
     })
 
@@ -68,7 +68,7 @@ object App {
     val storeTuple = products.map({
       case Array(storeId, _, _, _, _, state, _) => (storeId, state)
     })
-    val job3 = job2Tuple.join(storeTuple).map({
+    val joined = job2Tuple.join(storeTuple).map({
       case Array(storeId, ((saleId, productId, quantity, price), state)) => 
         (storeId, saleId, productId, quantity, price, state)
     })
@@ -93,6 +93,6 @@ object App {
     // val sorted: List[Record] = storeTotal.sortBy(r => (r.getState, r.getSales, r.getId))
 
     // // PRINT //
-    job3.collect().foreach(println)
+    joined.collect().foreach(println)
   }
 }
