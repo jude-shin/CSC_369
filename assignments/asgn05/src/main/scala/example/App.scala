@@ -27,64 +27,64 @@ object App {
     })
   }
 
-  def q2(sc: SparkContext) = {
-    // Raw input lines from a text file
-    var employeeRdd = sc.textFile("input/asgn05/q2_employees")
-    var departmentRdd = sc.textFile("input/asgn05/q2_departments")
+  // def q2(sc: SparkContext) = {
+  //   // Raw input lines from a text file
+  //   var employeeRdd = sc.textFile("input/asgn05/q2_employees")
+  //   var departmentRdd = sc.textFile("input/asgn05/q2_departments")
 
-    // Parse the inputs to tuples (String, String)
-    employeeRdd = employeeRdd.flatMap(l => l.split(",").map(_.trim))
-    departmentRdd = departmentRdd.flatMap(l => l.split(",").map(_.trim))
+  //   // Parse the inputs to tuples (String, String)
+  //   employeeRdd = employeeRdd.flatMap(l => l.split(",").map(_.trim))
+  //   departmentRdd = departmentRdd.flatMap(l => l.split(",").map(_.trim))
 
-    // Cartesian product of the two inputs
-    // result in the format ((ename, did), (did, dname))
-    var rdd = employeeRdd.cartesian(departmentRdd)
-  
-    // Filter those who only have the same did (basically a join on did)
-    rdd = rdd.filter({
-      // ((ename, did), (did2, dname))
-      // empl._2 and dept._1 is the did
-      case (empl, dept) => empl._2 == dept._1
-      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    })
-  
-    // Creates a list of all those joined; prints the output
-    rdd.collect().foreach({
-      // ((ename, did), (did2, dname))
-      // empl._1 is the employee name
-      // dept._2 is the department name
-      case (empl, dept) => println(s"$empl._1, $dept._2")
-      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    })
-  }
+  //   // Cartesian product of the two inputs
+  //   // result in the format ((ename, did), (did, dname))
+  //   var rdd = employeeRdd.cartesian(departmentRdd)
+  // 
+  //   // Filter those who only have the same did (basically a join on did)
+  //   rdd = rdd.filter({
+  //     // ((ename, did), (did2, dname))
+  //     // empl._2 and dept._1 is the did
+  //     case (empl, dept) => empl._2 == dept._1
+  //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+  //   })
+  // 
+  //   // Creates a list of all those joined; prints the output
+  //   rdd.collect().foreach({
+  //     // ((ename, did), (did2, dname))
+  //     // empl._1 is the employee name
+  //     // dept._2 is the department name
+  //     case (empl, dept) => println(s"$empl._1, $dept._2")
+  //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+  //   })
+  // }
 
-  def q3(sc: SparkContext) = {
-    // Raw input lines from a text file
-    val students = sc.textFile("input/asgn05/q3_students")
-  
-    // Parse each line
-    // result in the format of (name, id, gradeCourses)
-    var rdd = students.map(l => l.split(",", 3))
+  // def q3(sc: SparkContext) = {
+  //   // Raw input lines from a text file
+  //   val students = sc.textFile("input/asgn05/q3_students")
+  // 
+  //   // Parse each line
+  //   // result in the format of (name, id, gradeCourses)
+  //   var rdd = students.map(l => l.split(",", 3))
 
-    // Parse out only the letter grade from the list of students
-    rdd = rdd.map({
-      // Split every grade based on the comma
-      // Extract the grade letter for every course (the first character of the grade course pair)
-      // Calculate the gpa based on those letters
-      // result in the format of (name, id, grades)
-      case Array(name, id, gradeCourses) => 
-        (name, id, getGpa(gradeCourses.split(",").map(_.trim).map(_.substring(0, 1))))
-      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    })
+  //   // Parse out only the letter grade from the list of students
+  //   rdd = rdd.map({
+  //     // Split every grade based on the comma
+  //     // Extract the grade letter for every course (the first character of the grade course pair)
+  //     // Calculate the gpa based on those letters
+  //     // result in the format of (name, id, grades)
+  //     case Array(name, id, gradeCourses) => 
+  //       (name, id, getGpa(gradeCourses.split(",").map(_.trim).map(_.substring(0, 1))))
+  //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+  //   })
 
-    // Print the result
-    rdd.collect().foreach({
-      // TODO: why is this an array?
-      case Array(name, id, gpa) =>
-        println(s"$name, $id, $gpa")
-    })
+  //   // Print the result
+  //   rdd.collect().foreach({
+  //     // TODO: why is this an array?
+  //     case Array(name, id, gpa) =>
+  //       println(s"$name, $id, $gpa")
+  //   })
 
-  }
+  // }
   
   // Returns the average GPA from a list of letter grades
   def getGpa(gs: String*): Double = {
