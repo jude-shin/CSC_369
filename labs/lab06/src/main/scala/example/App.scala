@@ -84,7 +84,7 @@ object App {
 
     // GROUP BY ID //
     // ._1 is the storeId
-    var storeToRecords = joined.groupBy(_.id).collect()
+    var storeToRecords = joined.groupBy(_._1).collect()
 
     // AGGREGATE //
     // For each id (each store has a unique id), sum all the items
