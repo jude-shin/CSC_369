@@ -33,8 +33,8 @@ object App {
     val departmentLines = sc.textFile("input/asgn05/q2_departments/")
 
     // Parse the inputs to one array per line Array[String, String]
-    var employeeRdd = employeeRdd.map(l => l.split(","))
-    var departmentRdd = departmentRdd.map(l => l.split(","))
+    var employeeRdd = employeeLines.map(l => l.split(","))
+    var departmentRdd = departmentLines.map(l => l.split(","))
 
     // // Trim the strings in the array and convert them to tuples
     // employeeRdd.map({
