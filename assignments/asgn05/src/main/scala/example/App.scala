@@ -15,7 +15,7 @@ object App {
     val integersRdd = sc.textFile("input/asgn05/q1_integers")
 
     // Each integer is parsed individually
-    var rdd = integersRdd.flatmap(l => l.split(" ")).map(_.toInt)
+    var rdd = integersRdd.flatMap(l => l.split(" ")).map(_.toInt)
   
     // Filter out all those who are divisible by 3
     rdd = rdd.filter(_%3 == 0)
@@ -33,8 +33,8 @@ object App {
     val departmentRdd = sc.textFile("input/asgn05/q2_departments")
 
     // Parse the inputs to tuples (String, String)
-    employeeRdd = employeeRdd.flatmap(l => l.split(",").map(_.trim))
-    departmentRdd = departmentRdd.flatmap(l => l.split(",").map(_.trim))
+    employeeRdd = employeeRdd.flatMap(l => l.split(",").map(_.trim))
+    departmentRdd = departmentRdd.flatMap(l => l.split(",").map(_.trim))
 
     // Cartesian product of the two inputs
     // result in the format ((ename, did), (did, dname))
