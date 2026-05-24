@@ -39,23 +39,25 @@ object App {
     // Cartesian product of the two inputs
     // result in the format ((ename, did), (did, dname))
     var rdd = employeeRdd.cartesian(departmentRdd)
+
+    rdd.collect().foreach(println)
   
-    // Filter those who only have the same did (basically a join on did)
-    rdd = rdd.filter({
-      // ((ename, did), (did2, dname))
-      // empl._2 and dept._1 is the did
-      case (empl, dept) => empl._2 == dept._1
-      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    })
+    // // Filter those who only have the same did (basically a join on did)
+    // rdd = rdd.filter({
+    //   // ((ename, did), (did2, dname))
+    //   // empl._2 and dept._1 is the did
+    //   case (empl, dept) => empl._2 == dept._1
+    //   case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    // })
   
-    // Creates a list of all those joined; prints the output
-    rdd.collect().foreach({
-      // ((ename, did), (did2, dname))
-      // empl._1 is the employee name
-      // dept._2 is the department name
-      case (empl, dept) => println(s"$empl._1, $dept._2")
-      case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    })
+    // // Creates a list of all those joined; prints the output
+    // rdd.collect().foreach({
+    //   // ((ename, did), (did2, dname))
+    //   // empl._1 is the employee name
+    //   // dept._2 is the department name
+    //   case (empl, dept) => println(s"$empl._1, $dept._2")
+    //   case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    // })
   }
 
   // def q3(sc: SparkContext) = {
