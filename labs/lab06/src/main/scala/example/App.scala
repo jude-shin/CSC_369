@@ -84,16 +84,16 @@ object App {
 
     // GROUP BY ID //
     // ._1 is the storeId
-    var storeToRecords = joined.groupBy(_._1).collect()
+    var storeToRecords = joined.groupBy(_._1)
 
     // AGGREGATE //
     // For each id (each store has a unique id), sum all the items
-    // var storeTotals = storeToRecords.map { 
-    //   case (id, records) => 
-    //     // ._4 is the total for that record
-    //     // ._5 is the state
-    //     (id, records.head._6, records.fold(0.0)((total, r) => total + r._4))
-    // }
+    var storeTotals = storeToRecords.map { 
+      case (id, records) => 
+        // ._4 is the total for that record
+        // ._5 is the state
+        (id, records.head._6, records.fold(0.0)((total, r) => total + r._4))
+    }
 
     // =========================================================================
     // Note that at this point we have a list of Records with their total sales
