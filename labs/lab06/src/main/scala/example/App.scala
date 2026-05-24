@@ -67,10 +67,10 @@ object App {
       case Array(storeId, _, _, _, _, state, _) => (storeId, state)
       case badrow => println("Oh no, there is a bad row!" + badrow.mkString("[", ", ", "]"))
     }).collect()
-    val joined = job2Tuple.join(storeTuple).map({
-      case (storeId, ((saleId, productId, quantity, price), state)) => 
-        (storeId, saleId, productId, quantity, price, state)
-    })
+    // val joined = job2Tuple.join(storeTuple).map({
+    //   case (storeId, ((saleId, productId, quantity, price), state)) => 
+    //     (storeId, saleId, productId, quantity, price, state)
+    // })
     
     // =========================================================================k
 
