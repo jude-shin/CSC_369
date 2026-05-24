@@ -21,18 +21,18 @@ object App {
     // Parse input files into RDDs
     // val lineItemPath = "/user/jshin53/input/lineItem/lineItem"
     val lineItemPath = "input/lineItem/lineItem"
-    val salePath = "input/sale/sale"
-    val productPath = "input/product/product"
-    val storePath = "input/store/store"
+    // val salePath = "input/sale/sale"
+    // val productPath = "input/product/product"
+    // val storePath = "input/store/store"
 
     // (saleId, productId, quantity)
     val lineItems = sc.textFile(lineItemPath).map(l => l.split(",").map(_.trim))
-    // (saleId, _, _, storeId, _) 
-    val sales = sc.textFile(salePath).map(l => l.split(",").map(_.trim))
+    // // (saleId, _, _, storeId, _) 
+    // val sales = sc.textFile(salePath).map(l => l.split(",").map(_.trim))
     // // (productId, _, price)
-    val products = sc.textFile(productPath).map(l => l.split(",").map(_.trim))
-    // (storeId, _, _, _, _, state, _)
-    val stores = sc.textFile(storePath).map(l => l.split(",").map(_.trim))
+    // val products = sc.textFile(productPath).map(l => l.split(",").map(_.trim))
+    // // (storeId, _, _, _, _, state, _)
+    // val stores = sc.textFile(storePath).map(l => l.split(",").map(_.trim))
 
     // =========================================================================
 
@@ -44,7 +44,7 @@ object App {
       case Array(saleId, productId, quantity) => (saleId, (productId, quantity))
     })
     
-    lineItemTuple.collect().foreach(println) // TODO: get rid of this
+    // lineItemTuple.collect().foreach(println) // TODO: get rid of this
 
 //     val saleTuple = sales.map({
 //       case Array(saleId, _, _, storeId, _) => (saleId, storeId)
