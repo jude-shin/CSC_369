@@ -74,14 +74,17 @@ object App {
         // Calculate the gpa based on those letters
         // result in the format of (name, id, grades)
         case (name, id, gradeCourses) => 
-          // val letters = gradeCourses
-          //   .split(",")
-          //   .map(_.trim)
+          val letters = gradeCourses
+            .split(",")   // Split into an Array of Strings " A CSC400"
+            .map(_.trim)  // For each of them, trim it down "A CSC400"
+            .map(_.substring(0, 1))  // For each, get the first character "A"
+
+          letters.foreach(println)
+
           (name, id, 0)
         case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
       })
       .collect().foreach({          // Print the result
-      // TODO: why is this an array?
       case (name, id, gpa) =>
         println(s"$name, $id, $gpa")
     })
