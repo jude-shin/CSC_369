@@ -33,8 +33,8 @@ object App {
     var departmentRdd = sc.textFile("input/asgn05/q2_departments")
 
     // Parse the inputs to tuples (String, String)
-    employeeRdd = employeeRdd.flatMap(l => l.split(",").map(_.trim))
-    departmentRdd = departmentRdd.flatMap(l => l.split(",").map(_.trim))
+    employeeRdd = employeeRdd.map(l => l.split(",").map(_.trim))
+    departmentRdd = departmentRdd.map(l => l.split(",").map(_.trim))
 
     // Cartesian product of the two inputs
     // result in the format ((ename, did), (did, dname))
