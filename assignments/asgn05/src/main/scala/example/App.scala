@@ -92,8 +92,14 @@ object App {
   def getGpa(gs: Array[String]): Double = {
     // Maps all the letters to a numerical value, then sums, then divides by the 
     // number of strings that were given
-    // TODO: use aggregate
-    return gs.map(x => lToNGrade(x)).fold(0.0)({(x, y) => x+y}) / gs.length
+
+    // return gs.map(x => lToNGrade(x)).fold(0.0)({(x, y) => x+y}) / gs.length
+    // (sum, count)
+    val result = gs.aggregate((0.0, 0.0))(
+      (x,y) => (x._1 + y, x._2 + 1), 
+      (x,y) => (x._1 + y._1, x._2 + y._2))
+
+    return result._1/result._2
   }
 
   def lToNGrade(l: String): Double = {
