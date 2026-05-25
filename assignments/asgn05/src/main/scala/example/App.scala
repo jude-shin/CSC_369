@@ -86,7 +86,7 @@ object App {
         println(s"$name, $id, $gpa")
     })
   }
-  
+
   // Returns the average GPA from a list of letter grades
   // TODO: ask if it is okay for me to use the Array or not... 
   def getGpa(gs: Array[String]): Double = {
@@ -95,9 +95,11 @@ object App {
 
     // return gs.map(x => lToNGrade(x)).fold(0.0)({(x, y) => x+y}) / gs.length
     // (sum, count)
-    val result = gs.aggregate((0.0, 0.0))(
-      (x,y) => (x._1 + y, x._2 + 1), 
-      (x,y) => (x._1 + y._1, x._2 + y._2))
+    val result = gs
+      .map(x => lToNGrade(x))
+      .aggregate((0.0, 0.0))(
+        (x,y) => (x._1 + y, x._2 + 1), 
+        (x,y) => (x._1 + y._1, x._2 + y._2))
 
     return result._1/result._2
   }
