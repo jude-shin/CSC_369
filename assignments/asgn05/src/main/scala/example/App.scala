@@ -9,7 +9,6 @@ import org.apache.log4j.Level
 import scala.collection._
 
 object App {
-
   def q1(sc: SparkContext) = {
     // Line: int int int ...
     val integersRdd = sc.textFile("input/asgn05/q1_integers/")
@@ -94,12 +93,12 @@ object App {
     // number of strings that were given
 
     // return gs.map(x => lToNGrade(x)).fold(0.0)({(x, y) => x+y}) / gs.length
-    // (sum, count)
+
     val result = gs
       .map(x => lToNGrade(x))
       .aggregate((0.0, 0.0))(
-        (x,y) => (x._1 + y, x._2 + 1), 
-        (x,y) => (x._1 + y._1, x._2 + y._2))
+        (x,y) => (x._1 + y, x._2 + 1),        // At each node, get sum and count
+        (x,y) => (x._1 + y._1, x._2 + y._2))  // Collectively combine date from every node
 
     return result._1/result._2
   }
