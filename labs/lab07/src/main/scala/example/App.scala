@@ -78,7 +78,7 @@ object App {
     val storeTuple = stores
       .map({
         case Array(storeId, name, _, city, _, state, _) => (storeId, (name, city, state))
-        case badrow => ("", "")
+        case badrow => ("", ("", "", ""))
       })
       .filter(_._1 != "")
     val joined = job2Tuple.join(storeTuple)
