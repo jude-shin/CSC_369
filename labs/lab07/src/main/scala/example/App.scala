@@ -103,7 +103,7 @@ object App {
     // In each month, sum the total per store. 
     var monthTotals = months
       .reduceByKey({
-        ((name1, city, total), (name2, city2, total2)) => (name1, city, total+total2)
+        case ((name1, city, total), (name2, city2, total2)) => (name1, city, total+total2)
       })
 
     var result = monthTotals
