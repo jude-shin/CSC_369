@@ -87,12 +87,9 @@ object App {
   }
 
   // Returns the average GPA from a list of letter grades
-  // TODO: ask if it is okay for me to use the Array or not... 
   def getGpa(gs: Array[String]): Double = {
     // Maps all the letters to a numerical value, then sums, then divides by the 
     // number of strings that were given
-
-    // return gs.map(x => lToNGrade(x)).fold(0.0)({(x, y) => x+y}) / gs.length
 
     val result = gs
       .map(x => lToNGrade(x))
