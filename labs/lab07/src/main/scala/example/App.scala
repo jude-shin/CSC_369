@@ -83,7 +83,7 @@ object App {
       .filter(_._1 != "")
     val joined = job2Tuple.join(storeTuple)
       .map({
-        case (storeId, ((saleId, productId, quantity, price), state)) => 
+        case (storeId, ((saleId, productId, quantity, price), (name, city, state))) => 
           (storeId, saleId, productId, quantity, date, price, name, city, state)
       })
       .map({
@@ -98,10 +98,6 @@ object App {
     
 
     // =========================================================================k
-
-    // GROUP BY ID //
-    var months = joined.groupByKey()
-
     // SUM MONTH PER STORE //
     // For each month, there is a list of stores and their revenue for a date in that month
     // In each month, sum the total per store. 
