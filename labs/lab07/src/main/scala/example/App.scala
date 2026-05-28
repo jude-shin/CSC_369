@@ -115,7 +115,7 @@ object App {
     // Sort by the key ascending, and then secondary sort by the revenue
     var sorted = result 
       .sortByKey()  // acendding by defualt
-      .mapValues(_.sortBy(_._3).reverse.take(10))   // _._3 is the total revenue (decending)
+      .mapValues(_.toList.sortBy(_._3).reverse.take(10))   // _._3 is the total revenue (decending)
       .collect()
       .foreach(println)
   }
