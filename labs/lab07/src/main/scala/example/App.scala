@@ -109,8 +109,11 @@ object App {
     var result = monthTotals
       .map({
         case ((month, storeId), (name, city, total)) => (month, (name, city, total))
-      })
-      .groupByKey()
+      }).groupByKey()
+
+    var sorted = result
+      .sortByKey()
+      .mapValues(_.toList.sortBy(_._3).reverse)   // _._3 is the total revenue
       .collect()
       .foreach(println)
   }
