@@ -88,7 +88,7 @@ object App {
       })
       .map({
         case (storeId, saleId, productId, quantity, date, price, name, city, state) =>
-          val total = quantity.toInt * price.toDouble
+          val total: Double = quantity.toInt * price.toDouble
           val month = date.split("/")(1)
 
           // NOTE: we don't have to keep track of the id's (we only care abt
