@@ -88,7 +88,7 @@ object App {
       })
       .map({
         case (storeId, saleId, productId, quantity, date, price, name, city, state) =>
-          val total: Double = quantity.toInt * price.toDouble
+          val total = quantity.toInt * price.toDouble
           val month = date.split("/")(1)
 
           // NOTE: we don't have to keep track of the id's (we only care abt
@@ -101,7 +101,7 @@ object App {
     // SUM MONTH PER STORE //
     // For each month, there is a list of stores and their revenue for a date in that month
     // In each month, sum the total per store. 
-    var monthTotals = months
+    var monthTotals = joined 
       .reduceByKey({
         case ((name1, city1, total1), (name2, city2, total2)) => (name1, city1, total1+total2)
       })
