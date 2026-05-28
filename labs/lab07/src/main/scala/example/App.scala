@@ -105,15 +105,17 @@ object App {
       .reduceByKey({
         case ((name1, city1, total1), (name2, city2, total2)) => (name1, city1, total1+total2)
       })
-
+  
+    // Convert it to something that prints nicely
     var result = monthTotals
       .map({
         case ((month, storeId), (name, city, total)) => (month, (name, city, total))
       }).groupByKey()
-
-    var sorted = result
-      .sortByKey()
-      .mapValues(_.toList.sortBy(_._3).reverse)   // _._3 is the total revenue
+  
+    // Sort by the key ascending, and then secondary sort by the revenue
+    var sorted = result 
+      .sortByKey()  // acendding by defualt
+      .mapValues(_.toList.sortBy(_._3).reverse)   // _._3 is the total revenue (decending)
       .collect()
       .foreach(println)
   }
