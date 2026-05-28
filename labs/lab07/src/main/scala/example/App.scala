@@ -50,7 +50,7 @@ object App {
     val saleTuple = sales
       .map({
         case Array(saleId, date, _, storeId, _) => (saleId, (storeId, date))
-        case badrow => ("", "")
+        case badrow => ("", ("", ""))
       })
       .filter(_._1 != "")
     val job1Tuple = lineItemTuple.join(saleTuple)
