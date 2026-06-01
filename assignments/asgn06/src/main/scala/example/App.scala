@@ -11,17 +11,25 @@ import scala.collection._
 object App {
   def q1(sc: SparkContext) = {
     val studentsRdd = sc.textFile("input/asgn06/students/")
-      .flatMap(l => l.split(","))   // Space delimited
+      .flatMap(l => l.split(","))   // Comma delimited
       .map({                    // trim the result and turn into a tuple
-        case Array(s1, s2) => (s1.trim, s2.trim)
+        case Array(sid, sname, saddress, sphone) => (sid.trim, sname.trim, saddress.trim, sphone.trim)
         case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
       })
 
-    val studentsRdd = sc.textFile("input/asgn06/students/")
-      .flatMap(l => l.split(","))   // Space delimited
+    val studentsRdd = sc.textFile("input/asgn06/cousrses/")
+      .flatMap(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(cname, cdifficulty) => (cname.trim, cdifficulty.trim)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
 
-    val studentsRdd = sc.textFile("input/asgn06/students/")
-      .flatMap(l => l.split(","))   // Space delimited
+    val studentsRdd = sc.textFile("input/asgn06/taken/")
+      .flatMap(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(sid, cname, grade) => (sid.trim, cname.trim, grade)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
   }
 
   def q2(sc: SparkContext) = {
