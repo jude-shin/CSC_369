@@ -36,10 +36,9 @@ object App {
     val mostDifficultValue = coursesRdd
       .sortBy(t => (-t._2, t._1))   // Sort starting with the most difficult
       .take(1)  // Take the first element
-      .foreach(println)
-      // (0)    // From that (only) element, get the difficulty number
+      (0)    // From that (only) element, get the difficulty number
 
-    // println(mostDifficultValue)
+    println(mostDifficultValue)
 
     // // Find the course tuples with that highest difficulty
     // val difficultCourses = coursesRdd
