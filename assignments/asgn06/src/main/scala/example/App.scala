@@ -33,7 +33,7 @@ object App {
       })
    
     // Most difficult course value
-    val mostDifficultValue: Int = coursesRdd
+    val mostDifficultValue = coursesRdd
       .sortBy(t => (-t._2, t._1))   // Sort starting with the most difficult
       .take(1)  // Take the first element
       (0)._2    // From that (only) element, get the difficulty number
