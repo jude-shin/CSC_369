@@ -40,24 +40,24 @@ object App {
     val mostDifficultValue = mostDifficultArray(0)._2
     println(mostDifficultValue)
 
-    // // Find the course tuples with that highest difficulty
-    // val difficultCourses = coursesRdd
-    //   .filter(_._2 == mostDifficultValue)
+    // Find the course tuples with that highest difficulty
+    val difficultCourses = coursesRdd
+      .filter(_._2 == mostDifficultValue)
 
-    // // Get all student ids that have at least one of the most difficult courses
-    // // Join those against the students to get the names
-    // // Printing each of the names
-    // difficultCourses
-    //   .join(takenRdd)
-    //   .map({ 
-    //     case (cname, (difficulty, sid)) => (sid, ())
-    //   })
-    //   .distinct
-    //   .join(studentsRdd) //  (sid, ((), sname))
-    //   .collect()
-    //   .foreach({
-    //     case (sid, ((), sname)) => println(sname)
-    //   })
+    // Get all student ids that have at least one of the most difficult courses
+    // Join those against the students to get the names
+    // Printing each of the names
+    difficultCourses
+      .join(takenRdd)
+      .map({ 
+        case (cname, (difficulty, sid)) => (sid, ())
+      })
+      .distinct
+      .join(studentsRdd) //  (sid, ((), sname))
+      .collect()
+      .foreach({
+        case (sid, ((), sname)) => println(sname)
+      })
   }
 
   def q2(sc: SparkContext) = {
