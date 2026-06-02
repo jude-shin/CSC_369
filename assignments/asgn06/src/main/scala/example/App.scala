@@ -36,26 +36,28 @@ object App {
     val mostDifficultValue = coursesRdd
       .sortBy(t => (-t._2, t._1))   // Sort starting with the most difficult
       .take(1)  // Take the first element
-      (0)._2    // From that (only) element, get the difficulty number
+      (0)    // From that (only) element, get the difficulty number
 
-    // Find the course tuples with that highest difficulty
-    val difficultCourses = coursesRdd
-      .filter(_._2 == mostDifficultValue)
+    println(mostDifficultValue)
 
-    // Get all student ids that have at least one of the most difficult courses
-    // Join those against the students to get the names
-    // Printing each of the names
-    difficultCourses
-      .join(takenRdd)
-      .map({ 
-        case (cname, (difficulty, sid)) => (sid, ())
-      })
-      .distinct
-      .join(studentsRdd) //  (sid, ((), sname))
-      .collect()
-      .foreach({
-        case (sid, ((), sname)) => println(sname)
-      })
+    // // Find the course tuples with that highest difficulty
+    // val difficultCourses = coursesRdd
+    //   .filter(_._2 == mostDifficultValue)
+
+    // // Get all student ids that have at least one of the most difficult courses
+    // // Join those against the students to get the names
+    // // Printing each of the names
+    // difficultCourses
+    //   .join(takenRdd)
+    //   .map({ 
+    //     case (cname, (difficulty, sid)) => (sid, ())
+    //   })
+    //   .distinct
+    //   .join(studentsRdd) //  (sid, ((), sname))
+    //   .collect()
+    //   .foreach({
+    //     case (sid, ((), sname)) => println(sname)
+    //   })
   }
 
   def q2(sc: SparkContext) = {
@@ -82,7 +84,7 @@ object App {
       })
   
     // Join so the difficulty is included in the courses taken
-    val job1 = taken
+    val job1 = takenRdd
       .join(takenRdd)
       .map({
         case (cname, (cdifficulty, sid)) => (sid, cdifficulty)
@@ -90,7 +92,7 @@ object App {
   
     // Left join with students (ensures all students are covered)
     // TODO filter out all the Nulls to be 0 as the acverage difficulty
-    val allStudents = students
+    val allStudents = studentsRdd
       .leftOuterJoin(job1)
       .map
 
