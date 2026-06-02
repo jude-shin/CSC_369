@@ -62,40 +62,40 @@ object App {
   }
 
   def q2(sc: SparkContext) = {
-    // Parse the input files
-    val studentsRdd = sc.textFile("input/asgn06/students/")
-      .map(l => l.split(","))   // Comma delimited
-      .map({                    // trim the result and turn into a tuple
-        case Array(sid, sname, saddress, sphone) => (sid.trim.toInt, sname.trim)
-        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-      })
+    // // Parse the input files
+    // val studentsRdd = sc.textFile("input/asgn06/students/")
+    //   .map(l => l.split(","))   // Comma delimited
+    //   .map({                    // trim the result and turn into a tuple
+    //     case Array(sid, sname, saddress, sphone) => (sid.trim.toInt, sname.trim)
+    //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    //   })
 
-    val coursesRdd = sc.textFile("input/asgn06/courses/")
-      .map(l => l.split(","))   // Comma delimited
-      .map({                    // trim the result and turn into a tuple
-        case Array(cname, cdifficulty) => (cname.trim, cdifficulty.trim.toInt)
-        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-      })
+    // val coursesRdd = sc.textFile("input/asgn06/courses/")
+    //   .map(l => l.split(","))   // Comma delimited
+    //   .map({                    // trim the result and turn into a tuple
+    //     case Array(cname, cdifficulty) => (cname.trim, cdifficulty.trim.toInt)
+    //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    //   })
 
-    val takenRdd = sc.textFile("input/asgn06/taken/")
-      .map(l => l.split(","))   // Comma delimited
-      .map({                    // trim the result and turn into a tuple
-        case Array(sid, cname, grade) => (cname.trim, sid.trim.toInt)
-        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-      })
+    // val takenRdd = sc.textFile("input/asgn06/taken/")
+    //   .map(l => l.split(","))   // Comma delimited
+    //   .map({                    // trim the result and turn into a tuple
+    //     case Array(sid, cname, grade) => (cname.trim, sid.trim.toInt)
+    //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+    //   })
   
-    // Join so the difficulty is included in the courses taken
-    val job1 = takenRdd
-      .join(takenRdd)
-      .map({
-        case (cname, (cdifficulty, sid)) => (sid, cdifficulty)
-      })
+    // // Join so the difficulty is included in the courses taken
+    // val job1 = takenRdd
+    //   .join(takenRdd)
+    //   .map({
+    //     case (cname, (cdifficulty, sid)) => (sid, cdifficulty)
+    //   })
   
-    // Left join with students (ensures all students are covered)
-    // TODO filter out all the Nulls to be 0 as the acverage difficulty
-    val allStudents = studentsRdd
-      .leftOuterJoin(job1)
-      .map
+    // // Left join with students (ensures all students are covered)
+    // // TODO filter out all the Nulls to be 0 as the acverage difficulty
+    // val allStudents = studentsRdd
+    //   .leftOuterJoin(job1)
+    //   .map
 
 
 
