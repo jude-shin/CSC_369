@@ -123,7 +123,7 @@ object App {
       // Sort by difficulty descending
       // Take the first 5 from that list (highest difficulty)
       // Only print the name of the course
-      val top5 = coursesRdd
+      coursesRdd
         .sortBy(t => (-t._2, t._1))
         .take(5)
         .foreach({ case (cname, cdifficulty) => println(cname) })
@@ -167,17 +167,12 @@ object App {
   }
 
   def lToNGrade(l: String): Double = {
-    return l match {
+    return l.toUpperCase match {
       case "A" => 4
-      case "a" => 4
       case "B" => 3
-      case "b" => 3
       case "C" => 2
-      case "c" => 2
       case "D" => 1
-      case "d" => 1
       case "F" => 0
-      case "f" => 0
       case _ => Double.NaN
     }
   }
@@ -195,6 +190,6 @@ object App {
     // q1(sc)
     // q2(sc)
     // q3(sc)
-    q4(sc)
+    // q4(sc)
   }
 }
