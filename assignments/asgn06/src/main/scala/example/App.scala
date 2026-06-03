@@ -148,7 +148,7 @@ object App {
     val takenRdd = sc.textFile("input/asgn06/taken/")
       .map(l => l.split(","))   // Comma delimited
       .map({                    // trim the result and turn into a tuple
-        case Array(sid, cname, grade) => (sid.trim.toInt, (lToNGrade(grade), 1))
+        case Array(sid, cname, grade) => (sid.trim.toInt, (lToNGrade(grade), 1.0))
         case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
       })
     
