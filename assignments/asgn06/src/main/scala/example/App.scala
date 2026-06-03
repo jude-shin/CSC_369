@@ -86,7 +86,7 @@ object App {
     val job1 = takenRdd
       .join(coursesRdd)
       .map({
-        case (cname, (cdifficulty, sid)) => (sid, cdifficulty)
+        case (cname, (sid, cdifficulty)) => (sid, cdifficulty)
       })
   
     // Left join with students (ensures all students are covered)
@@ -95,15 +95,15 @@ object App {
       .leftOuterJoin(job1)
       .map({
         // check for the None from the partial join
-        case (sid, (sname, None)) => (sid, (0.0, 1))
+        case (sid, (sname, None)) => ((sid, sname), (0.0, 1))
         // convert the original Some() to just a double
-        case (sid, (sname, Some(difficulty))) => (sid, (difficulty.toDouble, 1))
+        case (sid, (sname, Some(difficulty))) => ((sid, sname), (difficulty.toDouble, 1))
       })
 
-    // Group students by their key (sid, sname) 
+    // Group students by their key sid
     // Get the average by aggregating against all elements
     val studentAverageDifficulties = allStudents
-      .reduceByKey((x, y) => (x._1+y._1, x._2,+y._2)) // keep track of sum and count
+      .reduceByKey((x, y) => (x._1+y._1, x._2+y._2)) // keep track of sum and count
       .mapValues({ case(x, y) => x*1.0/y})  // divide the sum and the count
 
 
