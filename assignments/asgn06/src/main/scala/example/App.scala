@@ -38,7 +38,6 @@ object App {
       .take(1)  // Take the first element
     
     val mostDifficultValue = mostDifficultArray(0)._2
-    println(mostDifficultValue)
 
     // Find the course tuples with that highest difficulty
     val difficultCourses = coursesRdd
@@ -61,47 +60,56 @@ object App {
   }
 
   def q2(sc: SparkContext) = {
-    // // Parse the input files
-    // val studentsRdd = sc.textFile("input/asgn06/students/")
-    //   .map(l => l.split(","))   // Comma delimited
-    //   .map({                    // trim the result and turn into a tuple
-    //     case Array(sid, sname, saddress, sphone) => (sid.trim.toInt, sname.trim)
-    //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    //   })
+    // Parse the input files
+    val studentsRdd = sc.textFile("input/asgn06/students/")
+      .map(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(sid, sname, saddress, sphone) => (sid.trim.toInt, sname.trim)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
 
-    // val coursesRdd = sc.textFile("input/asgn06/courses/")
-    //   .map(l => l.split(","))   // Comma delimited
-    //   .map({                    // trim the result and turn into a tuple
-    //     case Array(cname, cdifficulty) => (cname.trim, cdifficulty.trim.toInt)
-    //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    //   })
+    val coursesRdd = sc.textFile("input/asgn06/courses/")
+      .map(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(cname, cdifficulty) => (cname.trim, cdifficulty.trim.toInt)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
 
-    // val takenRdd = sc.textFile("input/asgn06/taken/")
-    //   .map(l => l.split(","))   // Comma delimited
-    //   .map({                    // trim the result and turn into a tuple
-    //     case Array(sid, cname, grade) => (cname.trim, sid.trim.toInt)
-    //     case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
-    //   })
+    val takenRdd = sc.textFile("input/asgn06/taken/")
+      .map(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(sid, cname, grade) => (cname.trim, sid.trim.toInt)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
   
-    // // Join so the difficulty is included in the courses taken
-    // val job1 = takenRdd
-    //   .join(takenRdd)
-    //   .map({
-    //     case (cname, (cdifficulty, sid)) => (sid, cdifficulty)
-    //   })
+    // Join so the difficulty is included in the courses taken
+    val job1 = takenRdd
+      .join(coursesRdd)
+      .map({
+        case (cname, (cdifficulty, sid)) => (sid, cdifficulty)
+      })
   
-    // // Left join with students (ensures all students are covered)
-    // // TODO filter out all the Nulls to be 0 as the acverage difficulty
-    // val allStudents = studentsRdd
-    //   .leftOuterJoin(job1)
-    //   .map
+    // Left join with students (ensures all students are covered)
+    // Filter out all the Nulls to be 0 as the average difficulty
+    val allStudents = studentsRdd
+      .leftOuterJoin(job1)
+      .map({
+        // check for the None from the partial join
+        case (sid, (sname, None)) => ((sid, sname), 0)
+        // convert the original Some() to just a double
+        case (sid, (sname, Some(difficulty))) => ((sid, sname), difficulty.toDouble)
+      })
+
+    // Group students by their key (sid, sname) 
+    // Get the average by aggregating against all elements
+    val studentAverageDifficulties = allStudents
+      .groupByKey()
+      .mapValues(v => (v, 1)) // (sum, count)
+      .reduceByKey((x, y) => (x._1+y._1, x._2,+y._2)) // keep track of sum and count
+      .mapValues({ case(x, y) => x*1.0/y})  // divide the sum and the count
 
 
-
-
-    // // Group the courses taken by the student
-    // val studentGrades = takenRdd.groupByKey()
-
+    studentAverageDifficulties.collect().foreach(println)
   }
 
   def q3(sc: SparkContext) = {
@@ -120,8 +128,8 @@ object App {
     val sc = new SparkContext(conf)
     
     // =========================================================================
-    q1(sc)
-    // q2(sc)
+    // q1(sc)
+    q2(sc)
     // q3(sc)
     // q4(sc)
   }
