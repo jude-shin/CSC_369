@@ -147,7 +147,7 @@ object App {
     
     // Get average gpa for students who have taken courses
     val averageGrade = takenRdd
-      .reduceByKey((gr, ct) => (gr._1+gr._2, ct._1+ct._2))
+      .reduceByKey((x, y) => (x._1+y._1, x._2+y._2))
       .mapValues({ case (gr, ct) => gr/ct})
 
     // Left join, turning None into 0.0 average gpa
