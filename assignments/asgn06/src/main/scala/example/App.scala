@@ -167,7 +167,7 @@ object App {
 
     // Sort by the gpa descending, then sname ascending
     val sortedGpas = allGpas
-      .sortBy((sname, average) => (-average, sname))
+      .sortBy({ case (sname, average) => (-average, sname) })
 
     // Print everything
     sortedGpas.collect().foreach(println)
