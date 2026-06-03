@@ -130,6 +130,63 @@ object App {
   }
 
   def q4(sc: SparkContext) = {
+    // Parse the input files
+    val studentsRdd = sc.textFile("input/asgn06/students/")
+      .map(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(sid, sname, saddress, sphone) => (sid.trim.toInt, sname.trim)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
+
+    val coursesRdd = sc.textFile("input/asgn06/courses/")
+      .map(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(cname, cdifficulty) => (cname.trim, cdifficulty.trim.toInt)
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
+
+    val takenRdd = sc.textFile("input/asgn06/taken/")
+      .map(l => l.split(","))   // Comma delimited
+      .map({                    // trim the result and turn into a tuple
+        case Array(sid, cname, grade) => (sid.trim.toInt, (lToNGrade(grade), 1))
+        case _ => throw new IllegalArgumentException("You are the problem... You should never be here!")
+      })
+    
+    // Get average gpa for students who have taken courses
+    val averageGrade = takenRdd
+      .reduceByKey((gr, ct) => (gr._1+gr._2, ct._1+ct._2))
+      .mapValues({ case (gr, ct) = gr/ct})
+
+    // Left join, turning None into 0.0 average gpa
+    val allGpas = studentsRdd 
+      .leftOuterJoin(averageGrade)
+      .map({
+        case (sid, (sname, None)) => (sname, 0.0)
+        case (sid, (sname, Some(average))) => (sname, average.toDouble)
+      })
+
+    // Sort by the gpa descending, then sname ascending
+    val sortedGpas = allGpas
+      .sortBy((sname, average) => (-average, sname))
+
+    // Print everything
+    sortedGpas.collect().foreach(println)
+  }
+
+  def lToNGrade(l: String): Double = {
+    return l match {
+      case "A" => 4
+      case "a" => 4
+      case "B" => 3
+      case "b" => 3
+      case "C" => 2
+      case "c" => 2
+      case "D" => 1
+      case "d" => 1
+      case "F" => 0
+      case "f" => 0
+      case _ => Double.NaN
+    }
   }
 
   def main(args: Array[String]) {
@@ -144,7 +201,7 @@ object App {
     // =========================================================================
     // q1(sc)
     // q2(sc)
-    q3(sc)
-    // q4(sc)
+    // q3(sc)
+    q4(sc)
   }
 }
