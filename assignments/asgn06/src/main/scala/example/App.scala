@@ -103,8 +103,8 @@ object App {
     // Group students by their key (sid, sname) 
     // Get the average by aggregating against all elements
     val studentAverageDifficulties = allStudents
-      .groupByKey()
       .mapValues(v => (v, 1)) // (sum, count)
+      // .groupByKey()           // ((sid, sname), Array[(difficulty), (difficulty), (difficulty), ...])
       .reduceByKey((x, y) => (x._1+y._1, x._2,+y._2)) // keep track of sum and count
       .mapValues({ case(x, y) => x*1.0/y})  // divide the sum and the count
 
